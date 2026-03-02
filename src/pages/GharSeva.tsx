@@ -61,13 +61,10 @@ const GharSeva = () => {
 
   return (
     <main className="pt-16" style={{ background: C.cream, color: C.charcoal }}>
-      {/* P0: Hero with background image */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={gharsevaFamily} alt="GharSeva family" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(255,248,240,0.3) 0%, rgba(255,248,240,0.55) 100%)" }} />
-        </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      {/* P0: Hero */}
+      <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0" style={{ background: C.cream }}>
+        {/* Text content on top */}
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mb-8">
           <motion.p
             className="text-sm tracking-widest uppercase mb-4"
             style={{ color: C.charcoal }}
@@ -88,18 +85,24 @@ const GharSeva = () => {
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <span style={{ color: C.orange }}>Ghar</span>
-              <span style={{ color: C.green }}>Seva</span>
+              <span style={{ color: "#F5A623" }}>Ghar</span>
+              <span style={{ color: "#4CAF50" }}>Seva</span>
             </motion.span>
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl mb-3"
-            style={{ color: C.charcoal }}
+            className="text-xl md:text-2xl mb-3 font-semibold"
+            style={{ color: "#1A3C34" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Connecting India's Households with the Help they Need
+            <motion.span
+              className="inline-block"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            >
+              Connecting India's Households with the Help they Need
+            </motion.span>
           </motion.p>
           <motion.p
             className="text-sm max-w-xl mx-auto"
@@ -110,6 +113,17 @@ const GharSeva = () => {
           >
             A Trust + Support Platform for India's Domestic Help Market.
           </motion.p>
+        </div>
+        {/* Image below */}
+        <div className="w-full max-w-5xl mx-auto px-6">
+          <motion.img
+            src={gharsevaFamily}
+            alt="GharSeva family"
+            className="w-full h-auto object-contain rounded-t-2xl"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          />
         </div>
       </section>
 
