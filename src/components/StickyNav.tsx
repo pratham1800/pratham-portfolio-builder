@@ -30,12 +30,12 @@ const StickyNav = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/70 backdrop-blur-xl border-b border-border shadow-sm"
+          ? "bg-background/60 backdrop-blur-2xl border-b border-border/50 shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="w-full px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="font-bold text-xl tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link to="/" className="font-extrabold text-xl tracking-tight font-display">
           PM
         </Link>
 
@@ -49,7 +49,7 @@ const StickyNav = () => {
           {!isCaseStudy && (
             <a
               href="mailto:pratham@example.com"
-              className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+              className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg hover:bg-primary/90 transition-all glow-primary"
             >
               Let's Talk
             </a>
@@ -69,7 +69,7 @@ const StickyNav = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
+            className="md:hidden bg-background/95 backdrop-blur-2xl border-b border-border overflow-hidden"
           >
             <nav className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
@@ -80,7 +80,7 @@ const StickyNav = () => {
               {!isCaseStudy && (
                 <a
                   href="mailto:pratham@example.com"
-                  className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg text-center"
+                  className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg text-center"
                 >
                   Let's Talk
                 </a>
