@@ -73,7 +73,7 @@ const StickyNav = () => {
           >
             <nav className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
-                <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-3 min-h-[44px] flex items-center">
                   {l.label}
                 </Link>
               ))}
