@@ -11,7 +11,7 @@ const Footer = () => (
       </p>
       <a
         href="mailto:pratham@example.com"
-        className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors mb-10"
+        className="inline-block w-full sm:w-auto bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors mb-10"
       >
         pratham@example.com
       </a>
