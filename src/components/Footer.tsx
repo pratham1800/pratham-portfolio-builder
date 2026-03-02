@@ -1,35 +1,43 @@
-import { Linkedin, Github, Mail } from "lucide-react";
+import { Linkedin, Github, Mail, ArrowUpRight } from "lucide-react";
 
 const Footer = () => (
-  <footer className="relative section-dark py-16 px-6">
-    {/* Top gradient border */}
-    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(168_80%_50%)] to-transparent" />
-    
-    <div className="max-w-6xl mx-auto text-center">
-      <h2 className="text-3xl font-extrabold mb-4 text-white">
-        Let's Talk
-      </h2>
-      <p className="text-[hsl(220_10%_55%)] mb-8">
-        Got a product problem worth solving? I'd love to hear about it.
-      </p>
-      <a
-        href="mailto:pratham@example.com"
-        className="inline-block w-full sm:w-auto gradient-btn px-8 py-3 rounded-xl font-semibold mb-10"
-      >
-        pratham@example.com
-      </a>
-      <div className="flex items-center justify-center gap-6 mb-8">
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[hsl(220_10%_40%)] hover:text-[hsl(168_80%_50%)] hover:bg-[hsl(168_80%_50%/0.1)] transition-all p-2.5 rounded-xl" aria-label="LinkedIn">
-          <Linkedin size={20} />
-        </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-[hsl(220_10%_40%)] hover:text-[hsl(168_80%_50%)] hover:bg-[hsl(168_80%_50%/0.1)] transition-all p-2.5 rounded-xl" aria-label="GitHub">
-          <Github size={20} />
-        </a>
-        <a href="mailto:pratham@example.com" className="text-[hsl(220_10%_40%)] hover:text-[hsl(168_80%_50%)] hover:bg-[hsl(168_80%_50%/0.1)] transition-all p-2.5 rounded-xl" aria-label="Email">
-          <Mail size={20} />
-        </a>
+  <footer className="bg-noir py-20 px-6">
+    <div className="max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12 items-end mb-16">
+        <div>
+          <p className="text-cream-muted text-sm font-body uppercase tracking-widest mb-4">Get in touch</p>
+          <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight">
+            Let's build<br />
+            something <span className="text-primary italic">great.</span>
+          </h2>
+        </div>
+        <div className="md:text-right">
+          <a
+            href="mailto:pratham@example.com"
+            className="inline-flex items-center gap-2 text-cream hover:text-primary transition-colors font-body text-lg group"
+          >
+            pratham@example.com
+            <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
       </div>
-      <p className="text-xs text-[hsl(220_10%_30%)]">Built with React + Tailwind CSS</p>
+
+      <div className="h-px bg-gradient-to-r from-transparent via-[hsl(20_8%_25%)] to-transparent mb-8" />
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-5">
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-cream-muted hover:text-primary transition-colors" aria-label="LinkedIn">
+            <Linkedin size={18} />
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-cream-muted hover:text-primary transition-colors" aria-label="GitHub">
+            <Github size={18} />
+          </a>
+          <a href="mailto:pratham@example.com" className="text-cream-muted hover:text-primary transition-colors" aria-label="Email">
+            <Mail size={18} />
+          </a>
+        </div>
+        <p className="text-xs text-cream-muted font-body">© 2024 Pratham Maheshwari</p>
+      </div>
     </div>
   </footer>
 );
