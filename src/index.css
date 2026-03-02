@@ -4,69 +4,63 @@
 
 @layer base {
   :root {
-    --background: 0 0% 2%;
-    --foreground: 0 0% 93%;
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 93%;
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 93%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 2%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 80%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 85%;
-    --accent-foreground: 0 0% 2%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 100%;
-    --radius: 0.75rem;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 239 84% 67%;
+    --radius: 0.625rem;
 
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 0 0% 2%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 12%;
-    --sidebar-ring: 0 0% 100%;
-
-    --glow-primary: 0 0% 100%;
-    --glow-accent: 0 0% 60%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 0 0% 2%;
-    --foreground: 0 0% 93%;
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 93%;
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 93%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 2%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 80%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 85%;
-    --accent-foreground: 0 0% 2%;
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 18%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 93%;
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 224 76% 48%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-  }
-  html {
-    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -81,49 +75,4 @@
   .font-mono-metric {
     font-family: 'JetBrains Mono', monospace;
   }
-}
-
-/* Ambient mesh orb */
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -40px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  animation: float 15s ease-in-out infinite, pulse-glow 8s ease-in-out infinite;
-}
-
-.orb-primary {
-  background: hsl(var(--primary) / 0.25);
-}
-
-.orb-accent {
-  background: hsl(var(--accent) / 0.2);
-}
-
-/* Grid pattern overlay */
-.grid-pattern {
-  background-image:
-    linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* Cursor blink */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-.cursor-blink {
-  animation: blink 1s step-end infinite;
 }
