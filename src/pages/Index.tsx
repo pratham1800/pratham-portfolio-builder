@@ -4,6 +4,8 @@ import ScrollFadeIn from "@/components/ScrollFadeIn";
 import CountUpStat from "@/components/CountUpStat";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import gharsevaPreview from "@/assets/gharseva-preview.png";
+import zeptoPreview from "@/assets/zepto-preview.png";
 
 const projects = [
   {
@@ -13,6 +15,7 @@ const projects = [
     tags: ["Marketplace", "Trust Infrastructure", "B2C"],
     to: "/gharseva",
     imageFirst: true,
+    preview: gharsevaPreview,
   },
   {
     title: "Zepto: Perishable Goods UX",
@@ -21,6 +24,7 @@ const projects = [
     tags: ["UX Research", "Quick-Commerce", "Trust Systems"],
     to: "/zepto",
     imageFirst: false,
+    preview: zeptoPreview,
   },
 ];
 
@@ -91,8 +95,8 @@ const Index = () => (
                   className={`group grid grid-cols-1 md:grid-cols-2 gap-8 rounded-xl border border-border bg-card p-6 md:p-8 transition-shadow hover:shadow-lg cursor-pointer`}
                 >
                   {/* Image */}
-                  <div className={`w-full h-56 md:h-72 bg-muted rounded-lg flex items-center justify-center ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
-                    <span className="text-muted-foreground text-sm">Project Preview</span>
+                  <div className={`w-full h-56 md:h-72 bg-muted rounded-lg overflow-hidden flex items-center justify-center ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
+                    <img src={p.preview} alt={p.title} className="w-full h-full object-cover" />
                   </div>
                   {/* Content */}
                   <div className={`flex flex-col justify-center ${p.imageFirst ? "md:order-2" : "md:order-1"}`}>
