@@ -63,10 +63,10 @@ const GharSeva = () => {
     <main className="pt-16" style={{ background: C.cream, color: C.charcoal }}>
       {/* P0: Hero */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0" style={{ background: C.cream }}>
-        {/* Text content on top */}
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mb-8">
+        {/* Case Study label */}
+        <div className="relative z-10 text-center px-6 mb-4">
           <motion.p
-            className="text-sm tracking-widest uppercase mb-4"
+            className="text-sm tracking-widest uppercase"
             style={{ color: C.charcoal }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,21 +74,51 @@ const GharSeva = () => {
           >
             Case Study
           </motion.p>
+        </div>
+
+        {/* Image with GharSeva title overlaid on the wall */}
+        <div className="relative w-full max-w-5xl mx-auto px-6">
+          {/* GharSeva title positioned on the wall area above the family */}
           <motion.h1
-            className="text-5xl md:text-8xl font-bold mb-6"
+            className="absolute top-[8%] left-1/2 -translate-x-1/2 z-10 text-6xl md:text-9xl font-extrabold text-center pointer-events-none select-none"
+            style={{ opacity: 0.15, color: C.charcoal }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 0.15, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span style={{ color: "#F5A623" }}>Ghar</span>
+            <span style={{ color: "#4CAF50" }}>Seva</span>
+          </motion.h1>
+
+          {/* Foreground floating branded title */}
+          <motion.div
+            className="absolute top-[12%] left-1/2 -translate-x-1/2 z-20 text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.span
-              className="inline-block"
+              className="inline-block text-5xl md:text-8xl font-bold"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
               <span style={{ color: "#F5A623" }}>Ghar</span>
               <span style={{ color: "#4CAF50" }}>Seva</span>
             </motion.span>
-          </motion.h1>
+          </motion.div>
+
+          <motion.img
+            src={gharsevaFamily}
+            alt="GharSeva family"
+            className="w-full h-auto object-contain rounded-t-2xl"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          />
+        </div>
+
+        {/* Tagline below image */}
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto py-8">
           <motion.p
             className="text-xl md:text-2xl mb-3 font-semibold"
             style={{ color: "#1A3C34" }}
@@ -113,17 +143,6 @@ const GharSeva = () => {
           >
             A Trust + Support Platform for India's Domestic Help Market.
           </motion.p>
-        </div>
-        {/* Image below */}
-        <div className="w-full max-w-5xl mx-auto px-6">
-          <motion.img
-            src={gharsevaFamily}
-            alt="GharSeva family"
-            className="w-full h-auto object-contain rounded-t-2xl"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          />
         </div>
       </section>
 
