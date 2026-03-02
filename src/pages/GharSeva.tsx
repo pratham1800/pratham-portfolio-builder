@@ -80,7 +80,7 @@ const GharSeva = () => {
         <div className="relative w-full max-w-5xl mx-auto px-6">
           {/* GharSeva title centered on image */}
           <motion.div
-            className="absolute top-4 md:top-8 left-1/2 -translate-x-1/2 z-20 text-center"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
