@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import gharsevaFamily from "@/assets/gharseva-family.png";
+import AmbientCrystals from "@/components/AmbientCrystals";
 
 /* ── GharSeva accent colors (kept for brand identity on dark theme) ── */
 const C = {
@@ -53,7 +54,8 @@ const GharSeva = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <main className="pt-16 bg-background text-foreground">
+    <main className="pt-16 bg-background text-foreground relative">
+      <AmbientCrystals accentColor="#6366f1" intensity="moderate" />
       {/* P0: Hero */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0 bg-background">
         <div className="relative z-10 text-center px-6 mb-2">

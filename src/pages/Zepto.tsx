@@ -6,6 +6,7 @@ import zeptoLogo from "@/assets/zepto-logo.png";
 import screenFreshness from "@/assets/zepto-screen-freshness.png";
 import screenThermal from "@/assets/zepto-screen-thermal.png";
 import screenFrozen from "@/assets/zepto-screen-frozen.png";
+import AmbientCrystals from "@/components/AmbientCrystals";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
@@ -151,7 +152,8 @@ const Zepto = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <main className="pt-16" style={{ background: Z.offWhite, color: Z.charcoal }}>
+    <main className="pt-16 relative" style={{ background: Z.offWhite, color: Z.charcoal }}>
+      <AmbientCrystals accentColor="#7B2FF2" intensity="subtle" />
       {/* Hero */}
       <section className="px-6 py-20 md:py-28" style={{ background: `linear-gradient(180deg, ${Z.lavender} 0%, ${Z.offWhite} 100%)` }}>
         <div className="max-w-6xl mx-auto text-center">
