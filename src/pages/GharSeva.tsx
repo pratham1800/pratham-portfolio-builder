@@ -238,11 +238,11 @@ const GharSeva = () => {
               <ScrollFadeIn key={phase.title} delay={idx * 0.15}>
                 <motion.div
                   className="rounded-xl p-6 shadow-sm cursor-default h-full"
-                  style={{ background: C.cardBg, border: `2px solid ${phase.color}40` }}
+                  style={{ background: C.cardBg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
                   initial={{ rotateY: 90, opacity: 0 }}
                   whileInView={{ rotateY: 0, opacity: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.7, delay: idx * 0.2 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${phase.color}25` }}
                 >
                   <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
@@ -599,11 +599,11 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
   return (
     <motion.div
       className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
-      style={{ background: C.cardBg, border: `2px solid ${pillar.color}30`, minHeight: "220px" }}
+      style={{ background: C.cardBg, border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      whileHover={{ scale: 1.05, borderColor: pillar.color, boxShadow: `0 15px 40px ${pillar.color}20` }}
-      transition={{ type: "spring", stiffness: 300 }}
+      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${pillar.color}25` }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <motion.div animate={{ opacity: hovered ? 0.3 : 1, scale: hovered ? 0.8 : 1 }} transition={{ duration: 0.3 }}>
         <p className="font-mono-metric text-xs mb-3" style={{ color: pillar.color }}>{pillar.num}</p>
