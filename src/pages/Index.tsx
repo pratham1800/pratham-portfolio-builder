@@ -9,23 +9,18 @@ const projects = [
   {
     title: "GharSeva",
     subtitle: "A managed marketplace for India's domestic help market.",
+    description: "GharSeva connects urban Indian households with verified domestic workers through a subscription-based model built for long-term reliability. It tackles the trust deficit in India's ₹1.5L Cr unorganised domestic help market with background verification, AI-powered matching, and ongoing platform management.",
     tags: ["Marketplace", "Trust Infrastructure", "B2C"],
     to: "/gharseva",
-    span: "md:col-span-2",
+    imageFirst: true,
   },
   {
     title: "Zepto: Perishable Goods UX",
-    subtitle: "Improving transparency and trust for high-churn grocery categories.",
-    tags: ["UX Research", "Quick-Commerce"],
+    subtitle: "Building trust infrastructure beyond the 10-minute promise.",
+    description: "A deep-dive into how hidden product metadata and last-mile thermal failures drive users back to kirana stores. This case study proposes a 'Quality-First' architecture — freshness visibility, verified cold-chain, and AI-powered refunds — to protect ₹611 Cr in annual revenue at risk.",
+    tags: ["UX Research", "Quick-Commerce", "Trust Systems"],
     to: "/zepto",
-    span: "md:col-span-1",
-  },
-  {
-    title: "Livlong & Healthcare",
-    subtitle: "Migrating wallet systems to microservices for scale.",
-    tags: ["FinTech", "System Design"],
-    to: null,
-    span: "md:col-span-1",
+    imageFirst: false,
   },
 ];
 
@@ -87,42 +82,38 @@ const Index = () => (
           <h2 className="text-3xl md:text-4xl font-bold mb-12">Projects</h2>
         </ScrollFadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {projects.map((p, i) => {
-            const inner = (
-              <motion.div
-                whileHover={p.to ? { y: -4 } : {}}
-                className={`group relative rounded-xl border border-border bg-card p-8 transition-shadow ${
-                  p.to ? "hover:shadow-lg cursor-pointer" : ""
-                } ${p.span}`}
-              >
-                {/* Placeholder image area */}
-                <div className="w-full h-40 bg-muted rounded-lg mb-6 flex items-center justify-center">
-                  <span className="text-muted-foreground text-sm">Project Preview</span>
-                </div>
-                <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">{p.subtitle}</p>
-                <div className="flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span key={t} className="text-xs font-medium bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                {p.to && (
-                  <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity text-primary">
-                    <ArrowRight size={20} />
+        <div className="flex flex-col gap-12">
+          {projects.map((p, i) => (
+            <ScrollFadeIn key={p.title} delay={i * 0.1}>
+              <Link to={p.to}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className={`group grid grid-cols-1 md:grid-cols-2 gap-8 rounded-xl border border-border bg-card p-6 md:p-8 transition-shadow hover:shadow-lg cursor-pointer`}
+                >
+                  {/* Image */}
+                  <div className={`w-full h-56 md:h-72 bg-muted rounded-lg flex items-center justify-center ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
+                    <span className="text-muted-foreground text-sm">Project Preview</span>
                   </div>
-                )}
-              </motion.div>
-            );
-
-            return (
-              <ScrollFadeIn key={p.title} delay={i * 0.1}>
-                {p.to ? <Link to={p.to}>{inner}</Link> : inner}
-              </ScrollFadeIn>
-            );
-          })}
+                  {/* Content */}
+                  <div className={`flex flex-col justify-center ${p.imageFirst ? "md:order-2" : "md:order-1"}`}>
+                    <h3 className="text-2xl font-bold mb-2">{p.title}</h3>
+                    <p className="text-muted-foreground font-medium mb-3">{p.subtitle}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {p.tags.map((t) => (
+                        <span key={t} className="text-xs font-medium bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-2 text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                      View Case Study <ArrowRight size={16} />
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            </ScrollFadeIn>
+          ))}
         </div>
       </div>
     </section>
