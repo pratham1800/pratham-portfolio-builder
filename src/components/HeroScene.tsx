@@ -1,5 +1,5 @@
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useRef, useMemo, useState, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
 
 /* ── Mouse tracker ── */
@@ -16,82 +16,100 @@ const useMousePosition = () => {
   return mouse;
 };
 
-/* ── Central Crystal Prism ── */
-const CrystalPrism = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number }> }) => {
+/* ── Floating translucent panel (represents a code block) ── */
+const CodePanel = ({
+  position,
+  size,
+  speed,
+  rotOffset,
+  color,
+  mouse,
+}: {
+  position: [number, number, number];
+  size: [number, number];
+  speed: number;
+  rotOffset: number;
+  color: string;
+  mouse: React.MutableRefObject<{ x: number; y: number }>;
+}) => {
   const groupRef = useRef<THREE.Group>(null);
-  const innerRef = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
     if (!groupRef.current) return;
     const t = clock.getElapsedTime();
-    groupRef.current.rotation.y = t * 0.15 + mouse.current.x * 0.5;
-    groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.2 + mouse.current.y * 0.3;
-    groupRef.current.rotation.z = Math.sin(t * 0.08) * 0.1;
-    groupRef.current.position.y = Math.sin(t * 0.3) * 0.15;
-
-    if (innerRef.current) {
-      innerRef.current.rotation.y = -t * 0.3;
-      innerRef.current.rotation.x = t * 0.2;
-    }
+    groupRef.current.position.y = position[1] + Math.sin(t * speed * 0.4 + rotOffset) * 0.5;
+    groupRef.current.position.x = position[0] + Math.sin(t * speed * 0.2 + rotOffset * 1.5) * 0.3;
+    groupRef.current.rotation.y = Math.sin(t * speed * 0.1) * 0.15 + mouse.current.x * 0.1;
+    groupRef.current.rotation.x = Math.sin(t * speed * 0.08) * 0.08 + mouse.current.y * 0.05;
   });
 
+  const lineCount = Math.floor(size[1] / 0.18);
+
   return (
-    <group ref={groupRef}>
-      {/* Outer crystal shell */}
-      <mesh>
-        <octahedronGeometry args={[1.8, 0]} />
-        <meshPhysicalMaterial
-          color="#6366f1"
-          metalness={0.1}
-          roughness={0.05}
-          transmission={0.85}
-          thickness={1.5}
-          transparent
-          opacity={0.35}
-          envMapIntensity={1}
-          clearcoat={1}
-          clearcoatRoughness={0}
-          ior={2.4}
-        />
+    <group ref={groupRef} position={position}>
+      {/* Background panel */}
+      <mesh position={[0, 0, -0.01]}>
+        <planeGeometry args={size} />
+        <meshBasicMaterial color="#1e1b4b" transparent opacity={0.3} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Inner rotating crystal */}
-      <mesh ref={innerRef} scale={0.5}>
-        <icosahedronGeometry args={[1, 0]} />
-        <meshPhysicalMaterial
-          color="#818cf8"
-          emissive="#6366f1"
-          emissiveIntensity={0.8}
-          metalness={0.3}
-          roughness={0}
-          transmission={0.6}
-          thickness={0.8}
-          transparent
-          opacity={0.6}
-          clearcoat={1}
-          ior={2.2}
-        />
+      {/* Border glow */}
+      <mesh position={[0, 0, -0.02]}>
+        <planeGeometry args={[size[0] + 0.06, size[1] + 0.06]} />
+        <meshBasicMaterial color={color} transparent opacity={0.06} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Core glow sphere */}
-      <mesh scale={0.25}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial
-          color="#a5b4fc"
-          emissive="#6366f1"
-          emissiveIntensity={2}
-          transparent
-          opacity={0.9}
-        />
-      </mesh>
+      {/* Simulated code lines */}
+      {Array.from({ length: lineCount }, (_, i) => {
+        const lineWidth = 0.3 + Math.random() * (size[0] * 0.6);
+        const indent = i % 3 === 0 ? 0 : i % 2 === 0 ? 0.15 : 0.3;
+        return (
+          <mesh
+            key={i}
+            position={[
+              -size[0] / 2 + indent + lineWidth / 2 + 0.12,
+              size[1] / 2 - 0.12 - i * 0.18,
+              0,
+            ]}
+          >
+            <planeGeometry args={[lineWidth, 0.06]} />
+            <meshBasicMaterial
+              color={color}
+              transparent
+              opacity={0.15 + Math.random() * 0.25}
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+        );
+      })}
+
+      {/* Dot decorators (like syntax highlighting) */}
+      {Array.from({ length: Math.floor(lineCount / 2) }, (_, i) => (
+        <mesh
+          key={`dot-${i}`}
+          position={[
+            -size[0] / 2 + 0.08,
+            size[1] / 2 - 0.12 - i * 2 * 0.18,
+            0.01,
+          ]}
+        >
+          <circleGeometry args={[0.025, 8]} />
+          <meshBasicMaterial color={i % 2 === 0 ? "#818cf8" : "#a5b4fc"} transparent opacity={0.5} />
+        </mesh>
+      ))}
     </group>
   );
 };
 
-/* ── Floating smaller crystals ── */
-const FloatingCrystal = ({ position, scale, speed, rotOffset }: {
+/* ── Bracket / symbol shapes floating around ── */
+const FloatingSymbol = ({
+  position,
+  shape,
+  speed,
+  rotOffset,
+}: {
   position: [number, number, number];
-  scale: number;
+  shape: "bracket" | "angle" | "curly";
   speed: number;
   rotOffset: number;
 }) => {
@@ -100,110 +118,61 @@ const FloatingCrystal = ({ position, scale, speed, rotOffset }: {
   useFrame(({ clock }) => {
     if (!ref.current) return;
     const t = clock.getElapsedTime();
-    ref.current.rotation.x = t * speed + rotOffset;
-    ref.current.rotation.y = t * speed * 0.7 + rotOffset;
-    ref.current.position.y = position[1] + Math.sin(t * speed * 0.5 + rotOffset) * 0.4;
-    ref.current.position.x = position[0] + Math.sin(t * speed * 0.3 + rotOffset * 2) * 0.2;
+    ref.current.position.y = position[1] + Math.sin(t * speed * 0.3 + rotOffset) * 0.6;
+    ref.current.rotation.z = Math.sin(t * speed * 0.15) * 0.3 + rotOffset;
   });
 
+  // Create bracket-like shapes using torus segments
+  const getGeometry = () => {
+    switch (shape) {
+      case "bracket":
+        return <torusGeometry args={[0.15, 0.015, 8, 16, Math.PI]} />;
+      case "angle":
+        return <coneGeometry args={[0.12, 0.2, 3]} />;
+      case "curly":
+        return <torusKnotGeometry args={[0.08, 0.015, 32, 4, 2, 3]} />;
+    }
+  };
+
   return (
-    <mesh ref={ref} position={position} scale={scale}>
-      <octahedronGeometry args={[1, 0]} />
-      <meshPhysicalMaterial
-        color="#6366f1"
-        emissive="#4f46e5"
-        emissiveIntensity={0.4}
-        metalness={0.2}
-        roughness={0.1}
-        transmission={0.7}
-        thickness={0.5}
-        transparent
-        opacity={0.3}
-        clearcoat={1}
-        ior={2.0}
-      />
+    <mesh ref={ref} position={position}>
+      {getGeometry()}
+      <meshBasicMaterial color="#6366f1" transparent opacity={0.15} wireframe />
     </mesh>
   );
 };
 
-/* ── Light rays / refractive beams ── */
-const LightRays = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number }> }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const rays = useMemo(() => {
-    return Array.from({ length: 6 }, (_, i) => ({
-      angle: (i / 6) * Math.PI * 2,
-      length: 3 + Math.random() * 2,
-      width: 0.01 + Math.random() * 0.015,
-      speed: 0.2 + Math.random() * 0.3,
-      opacity: 0.08 + Math.random() * 0.12,
-    }));
-  }, []);
-
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return;
-    const t = clock.getElapsedTime();
-    groupRef.current.rotation.z = t * 0.05 + mouse.current.x * 0.2;
-  });
-
-  return (
-    <group ref={groupRef}>
-      {rays.map((ray, i) => (
-        <mesh
-          key={i}
-          position={[
-            Math.cos(ray.angle) * ray.length * 0.5,
-            Math.sin(ray.angle) * ray.length * 0.5,
-            -0.5,
-          ]}
-          rotation={[0, 0, ray.angle]}
-        >
-          <planeGeometry args={[ray.length, ray.width]} />
-          <meshBasicMaterial
-            color="#818cf8"
-            transparent
-            opacity={ray.opacity}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-/* ── Crystal dust particles ── */
-const CrystalDust = () => {
+/* ── Code dust particles ── */
+const CodeDust = () => {
   const ref = useRef<THREE.Points>(null);
-  const count = 800;
+  const count = 600;
 
-  const [positions, velocities, sizes] = useMemo(() => {
+  const [positions, velocities] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
-    const s = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 16;
+      pos[i * 3] = (Math.random() - 0.5) * 18;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
       vel[i * 3] = (Math.random() - 0.5) * 0.002;
       vel[i * 3 + 1] = (Math.random() - 0.5) * 0.002;
       vel[i * 3 + 2] = (Math.random() - 0.5) * 0.001;
-      s[i] = 0.02 + Math.random() * 0.04;
     }
-    return [pos, vel, s];
+    return [pos, vel];
   }, []);
 
   useFrame(() => {
     if (!ref.current) return;
-    const posAttr = ref.current.geometry.attributes.position;
-    const arr = posAttr.array as Float32Array;
+    const arr = ref.current.geometry.attributes.position.array as Float32Array;
     for (let i = 0; i < count; i++) {
       arr[i * 3] += velocities[i * 3];
       arr[i * 3 + 1] += velocities[i * 3 + 1];
       arr[i * 3 + 2] += velocities[i * 3 + 2];
-      if (Math.abs(arr[i * 3]) > 8) velocities[i * 3] *= -1;
+      if (Math.abs(arr[i * 3]) > 9) velocities[i * 3] *= -1;
       if (Math.abs(arr[i * 3 + 1]) > 5) velocities[i * 3 + 1] *= -1;
       if (Math.abs(arr[i * 3 + 2]) > 4) velocities[i * 3 + 2] *= -1;
     }
-    posAttr.needsUpdate = true;
+    ref.current.geometry.attributes.position.needsUpdate = true;
   });
 
   return (
@@ -211,14 +180,80 @@ const CrystalDust = () => {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.025} color="#a5b4fc" transparent opacity={0.4} sizeAttenuation />
+      <pointsMaterial size={0.02} color="#6366f1" transparent opacity={0.3} sizeAttenuation />
     </points>
+  );
+};
+
+/* ── Connection lines ── */
+const ConnectionLines = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number }> }) => {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const lineObjects = useMemo(() => {
+    return Array.from({ length: 6 }, () => {
+      const start = new THREE.Vector3(
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 8,
+        -3 - Math.random() * 2
+      );
+      const end = new THREE.Vector3(
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 8,
+        -3 - Math.random() * 2
+      );
+      const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+      const material = new THREE.LineBasicMaterial({
+        color: "#6366f1",
+        transparent: true,
+        opacity: 0.04 + Math.random() * 0.06,
+      });
+      return new THREE.Line(geometry, material);
+    });
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.z =
+      Math.sin(clock.getElapsedTime() * 0.05) * 0.03 + mouse.current.x * 0.05;
+  });
+
+  return (
+    <group ref={groupRef}>
+      {lineObjects.map((obj, i) => (
+        <primitive key={i} object={obj} />
+      ))}
+    </group>
   );
 };
 
 /* ── Main Scene ── */
 const HeroScene = () => {
   const mouse = useMousePosition();
+
+  const panels = useMemo(
+    () => [
+      { position: [-4.5, 2, -2] as [number, number, number], size: [2.2, 1.2] as [number, number], speed: 0.35, rotOffset: 0, color: "#818cf8" },
+      { position: [3, 2.5, -3] as [number, number, number], size: [2, 1.5] as [number, number], speed: 0.28, rotOffset: 2, color: "#6366f1" },
+      { position: [-3, -1.5, -1.5] as [number, number, number], size: [1.6, 0.8] as [number, number], speed: 0.4, rotOffset: 4, color: "#a5b4fc" },
+      { position: [4.5, -1.5, -2.5] as [number, number, number], size: [1.8, 1.4] as [number, number], speed: 0.32, rotOffset: 1, color: "#c7d2fe" },
+      { position: [-1.5, 3.5, -4] as [number, number, number], size: [2.4, 1] as [number, number], speed: 0.25, rotOffset: 3, color: "#818cf8" },
+      { position: [1.5, -3, -2] as [number, number, number], size: [1.4, 1] as [number, number], speed: 0.38, rotOffset: 5, color: "#6366f1" },
+      { position: [-5, -3, -3.5] as [number, number, number], size: [1.8, 0.9] as [number, number], speed: 0.3, rotOffset: 1.5, color: "#a5b4fc" },
+      { position: [5.5, 0.5, -4] as [number, number, number], size: [2, 1.2] as [number, number], speed: 0.22, rotOffset: 3.5, color: "#c7d2fe" },
+    ],
+    []
+  );
+
+  const symbols = useMemo(
+    () => [
+      { position: [-2, 1, -1] as [number, number, number], shape: "bracket" as const, speed: 0.4, rotOffset: 0 },
+      { position: [2, -2, -2] as [number, number, number], shape: "angle" as const, speed: 0.35, rotOffset: 2 },
+      { position: [-4, -2.5, -3] as [number, number, number], shape: "curly" as const, speed: 0.3, rotOffset: 4 },
+      { position: [4, 3, -3.5] as [number, number, number], shape: "bracket" as const, speed: 0.45, rotOffset: 1 },
+      { position: [0, -4, -2] as [number, number, number], shape: "angle" as const, speed: 0.38, rotOffset: 3 },
+    ],
+    []
+  );
 
   return (
     <div className="absolute inset-0 -z-10">
@@ -228,31 +263,20 @@ const HeroScene = () => {
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.2} />
-        <pointLight position={[5, 3, 5]} intensity={0.8} color="#6366f1" />
-        <pointLight position={[-4, -2, 3]} intensity={0.4} color="#818cf8" />
-        <pointLight position={[0, 5, -3]} intensity={0.3} color="#a5b4fc" />
-        <spotLight
-          position={[0, 8, 4]}
-          angle={0.3}
-          penumbra={1}
-          intensity={0.6}
-          color="#6366f1"
-        />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[5, 3, 5]} intensity={0.5} color="#6366f1" />
+        <pointLight position={[-4, -2, 3]} intensity={0.3} color="#818cf8" />
 
-        <CrystalPrism mouse={mouse} />
-        <LightRays mouse={mouse} />
-        <CrystalDust />
+        {panels.map((p, i) => (
+          <CodePanel key={i} {...p} mouse={mouse} />
+        ))}
 
-        {/* Orbiting smaller crystals */}
-        <FloatingCrystal position={[-3.5, 1.5, -2]} scale={0.25} speed={0.5} rotOffset={0} />
-        <FloatingCrystal position={[4, -1, -3]} scale={0.35} speed={0.35} rotOffset={2} />
-        <FloatingCrystal position={[-2, -2.5, -1]} scale={0.2} speed={0.6} rotOffset={4} />
-        <FloatingCrystal position={[3, 2.5, -2.5]} scale={0.18} speed={0.45} rotOffset={1} />
-        <FloatingCrystal position={[-4.5, -0.5, -3.5]} scale={0.28} speed={0.3} rotOffset={3} />
-        <FloatingCrystal position={[2, -3, -1.5]} scale={0.15} speed={0.55} rotOffset={5} />
-        <FloatingCrystal position={[-1, 3.5, -4]} scale={0.22} speed={0.4} rotOffset={1.5} />
-        <FloatingCrystal position={[5, 0.5, -4]} scale={0.3} speed={0.25} rotOffset={3.5} />
+        {symbols.map((s, i) => (
+          <FloatingSymbol key={i} {...s} />
+        ))}
+
+        <CodeDust />
+        <ConnectionLines mouse={mouse} />
       </Canvas>
     </div>
   );
