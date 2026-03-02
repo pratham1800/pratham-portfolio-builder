@@ -44,9 +44,9 @@ const timeline = [
 const Index = () =>
 <main className="pt-16">
     {/* Hero */}
-    <section className="min-h-[85vh] flex items-center px-6 relative overflow-hidden">
+    <section className="min-h-[85vh] flex items-center justify-center px-6 relative overflow-hidden">
       <HeroScene />
-      <div className="w-full relative z-10">
+      <div className="w-full relative z-10 text-center flex flex-col items-center">
         <ScrollFadeIn>
           <p className="text-primary font-medium mb-4 text-sm tracking-wide uppercase">Product Manager</p>
           <motion.h1
@@ -55,16 +55,22 @@ const Index = () =>
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            Hi, I'm Pratham Maheshwari.
+            <motion.span
+              className="inline-block"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              Hi, I'm Pratham Maheshwari.
+            </motion.span>
           </motion.h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-4 leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
             I build products that bridge the gap between human needs and digital solutions.
           </p>
-          <p className="text-base text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
             Software Engineer turned Product Manager. Currently obsessed with organized marketplaces 
             and trust-infrastructure in Tier 2 India.
           </p>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
               <Linkedin size={22} />
             </a>
