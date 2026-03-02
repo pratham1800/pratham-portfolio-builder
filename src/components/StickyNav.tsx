@@ -34,7 +34,7 @@ const StickyNav = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="w-full px-6 h-16 flex items-center justify-between">
         <Link to="/" className="font-bold text-xl tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
           PM
         </Link>

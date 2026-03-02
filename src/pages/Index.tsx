@@ -44,7 +44,7 @@ const Index = () =>
 <main className="pt-16">
     {/* Hero */}
     <section className="min-h-[85vh] flex items-center px-6">
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="w-full">
         <ScrollFadeIn>
           <p className="text-primary font-medium mb-4 text-sm tracking-wide uppercase">Product Manager</p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-4xl mb-6">
@@ -80,7 +80,7 @@ const Index = () =>
 
     {/* Work / Bento Grid */}
     <section id="work" className="px-6 py-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <ScrollFadeIn>
           <p className="text-primary font-medium text-sm tracking-wide uppercase mb-2">Selected Work</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-12">Projects</h2>
@@ -124,7 +124,7 @@ const Index = () =>
 
     {/* How I Think */}
     <section id="about" className="px-6 py-20 bg-secondary/50">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <ScrollFadeIn>
           <p className="text-primary font-medium text-sm tracking-wide uppercase mb-2">Approach</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-12">How I Think</h2>
@@ -146,7 +146,7 @@ const Index = () =>
 
     {/* Metrics */}
     <section className="px-6 py-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <ScrollFadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <CountUpStat end={45} suffix="%" label="Faster Fault Detection" />
@@ -160,7 +160,7 @@ const Index = () =>
 
     {/* Experience Timeline */}
     <section className="px-6 py-20 bg-secondary/50">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <ScrollFadeIn>
           <p className="text-primary font-medium text-sm tracking-wide uppercase mb-2">Background</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-12">Experience</h2>
