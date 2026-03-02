@@ -238,7 +238,7 @@ const GharSeva = () => {
               <ScrollFadeIn key={phase.title} delay={idx * 0.15}>
                 <motion.div
                   className="rounded-xl p-6 shadow-sm cursor-default h-full"
-                  style={{ background: C.cardBg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
+                  style={{ background: phase.bg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
                   initial={{ rotateY: 90, opacity: 0 }}
                   whileInView={{ rotateY: 0, opacity: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -331,7 +331,7 @@ const GharSeva = () => {
               <ScrollFadeIn key={persona.name} delay={idx * 0.15}>
                 <motion.div
                   className="rounded-xl border-2 p-6 cursor-default h-full"
-                  style={{ borderColor: persona.color, background: C.cardBg, borderTop: `4px solid ${persona.color}` }}
+                  style={{ borderColor: persona.color, background: persona.bgLight, borderTop: `4px solid ${persona.color}` }}
                   whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${persona.color}25` }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
@@ -419,7 +419,7 @@ const GharSeva = () => {
             <ScrollFadeIn>
               <motion.div
                 className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.orange}` }}
+                style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
                 whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
@@ -434,7 +434,7 @@ const GharSeva = () => {
             <ScrollFadeIn delay={0.1}>
               <motion.div
                 className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.green}` }}
+                style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
                 whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
@@ -482,7 +482,7 @@ const GharSeva = () => {
                   <div className={`text-right ${i % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
                     <motion.div
                       className="inline-block rounded-xl p-4 text-left md:text-inherit shadow-sm"
-                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.orange}` }}
+                      style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
                       whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
@@ -503,7 +503,7 @@ const GharSeva = () => {
                   <div className={i % 2 === 0 ? "" : "md:order-1 md:text-right"}>
                     <motion.div
                       className="inline-block rounded-xl p-4 shadow-sm"
-                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.green}` }}
+                      style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
                       whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
@@ -599,7 +599,7 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
   return (
     <motion.div
       className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
-      style={{ background: C.cardBg, border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
+      style={{ background: pillar.color === C.orange ? C.orangeLight : pillar.color === C.green ? C.greenLight : "rgba(44,44,44,0.08)", border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${pillar.color}25` }}
