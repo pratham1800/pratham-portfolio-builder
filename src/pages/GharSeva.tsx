@@ -14,21 +14,14 @@ import {
 } from "@/components/ui/table";
 import gharsevaFamily from "@/assets/gharseva-family.png";
 
-/* ── GharSeva palette ── */
+/* ── GharSeva accent colors (kept for brand identity on dark theme) ── */
 const C = {
-  cream: "#FFF8F0",
-  creamDark: "#FFF1E0",
   orange: "#E8890C",
-  orangeLight: "rgba(232,137,12,0.12)",
-  orangeBorder: "rgba(232,137,12,0.3)",
+  orangeLight: "rgba(232,137,12,0.10)",
+  orangeBorder: "rgba(232,137,12,0.25)",
   green: "#2D6A4F",
   greenLight: "rgba(45,106,79,0.10)",
-  greenBorder: "rgba(45,106,79,0.25)",
-  charcoal: "#2C2C2C",
-  charcoalLight: "#4A4A4A",
-  muted: "#7A7A7A",
-  cardBg: "#FFFFFF",
-  cardBorder: "#F0E6D9",
+  greenBorder: "rgba(45,106,79,0.20)",
 };
 
 const researchTable = [
@@ -60,14 +53,12 @@ const GharSeva = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <main className="pt-16" style={{ background: C.cream, color: C.charcoal }}>
+    <main className="pt-16 bg-background text-foreground">
       {/* P0: Hero */}
-      <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0" style={{ background: C.cream }}>
-        {/* Case Study label */}
+      <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0 bg-background">
         <div className="relative z-10 text-center px-6 mb-2">
           <motion.h1
-            className="text-5xl md:text-8xl font-bold mb-4"
-            style={{ color: "#000000" }}
+            className="text-5xl md:text-8xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -75,8 +66,7 @@ const GharSeva = () => {
             GharSeva
           </motion.h1>
           <motion.p
-            className="text-sm tracking-widest uppercase"
-            style={{ color: C.charcoal }}
+            className="text-sm tracking-widest uppercase text-muted-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -85,9 +75,7 @@ const GharSeva = () => {
           </motion.p>
         </div>
 
-        {/* Image */}
         <div className="relative w-full max-w-5xl mx-auto px-6">
-
           <motion.img
             src={gharsevaFamily}
             alt="GharSeva family"
@@ -98,11 +86,9 @@ const GharSeva = () => {
           />
         </div>
 
-        {/* Tagline below image */}
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto py-8">
           <motion.p
-            className="text-xl md:text-2xl mb-3 font-semibold"
-            style={{ color: "#1A3C34" }}
+            className="text-xl md:text-2xl mb-3 font-semibold text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -116,8 +102,7 @@ const GharSeva = () => {
             </motion.span>
           </motion.p>
           <motion.p
-            className="text-sm max-w-xl mx-auto"
-            style={{ color: C.charcoalLight }}
+            className="text-sm max-w-xl mx-auto text-muted-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -127,8 +112,8 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* Mission & Vision — separate section */}
-      <section className="px-6 py-20" style={{ background: C.cream }}>
+      {/* Mission & Vision */}
+      <section className="px-6 py-20 bg-background">
         <div className="max-w-3xl mx-auto">
           <ScrollFadeIn>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,7 +125,7 @@ const GharSeva = () => {
               >
                 <p className="text-2xl mb-2">🎯</p>
                 <h3 className="font-bold mb-2" style={{ color: C.orange }}>Mission</h3>
-                <p className="text-sm leading-relaxed" style={{ color: C.charcoalLight }}>
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   Eliminate the chaos of finding and retaining domestic help by building a managed platform — where families get verified, reliable workers and workers get fair pay, financial security, and dignity.
                 </p>
               </motion.div>
@@ -152,7 +137,7 @@ const GharSeva = () => {
               >
                 <p className="text-2xl mb-2">🌍</p>
                 <h3 className="font-bold mb-2" style={{ color: C.green }}>Vision</h3>
-                <p className="text-sm leading-relaxed" style={{ color: C.charcoalLight }}>
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   Become India's trust infrastructure for domestic help — a world where no family spends weeks searching, and no worker is exploited because there was no system to protect them.
                 </p>
               </motion.div>
@@ -161,19 +146,18 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* Problem — bigger heading */}
-      <section className="px-6 py-20" style={{ background: C.cardBg }}>
+      {/* Problem */}
+      <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.orange }}>The Problem</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.charcoal }}>Broken System</h2>
-            <p className="text-sm mb-2" style={{ color: C.muted }}>A 21st-century problem stuck in a 19th-century solution</p>
-            <p className="max-w-3xl leading-relaxed mb-12" style={{ color: C.charcoalLight }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Broken System</h2>
+            <p className="text-sm mb-2 text-muted-foreground">A 21st-century problem stuck in a 19th-century solution</p>
+            <p className="max-w-3xl leading-relaxed mb-12 text-muted-foreground">
               Every day in India, millions of families and domestic workers desperately search for each other — often in the same locality — yet never connect. The system runs on informal trust, word-of-mouth, and hope.
             </p>
           </ScrollFadeIn>
 
-          {/* 2. Animated problem cards with hover zoom */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {[
               { title: "For Families", color: C.orange, bg: C.orangeLight, items: ["No verification means constant safety anxiety", "No replacement guarantee disrupts weeks of life", "No substitute during leaves — household bears all burden"] },
@@ -190,7 +174,7 @@ const GharSeva = () => {
                   <h3 className="font-bold mb-4 text-lg" style={{ color: c.color }}>{c.title}</h3>
                   <ul className="space-y-3">
                     {c.items.map((item) => (
-                      <li key={item} className="text-sm flex items-start gap-2" style={{ color: C.charcoalLight }}>
+                      <li key={item} className="text-sm flex items-start gap-2 text-muted-foreground">
                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c.color }} />
                         {item}
                       </li>
@@ -201,9 +185,8 @@ const GharSeva = () => {
             ))}
           </div>
 
-          {/* 3. Animated count-up stats */}
           <ScrollFadeIn>
-            <div className="rounded-2xl p-8 md:p-12" style={{ background: C.charcoal }}>
+            <div className="rounded-2xl p-8 md:p-12 bg-secondary">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
                   { end: 35, suffix: "M+", label: "Urban households stuck in chaos" },
@@ -219,13 +202,13 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* Research — 4. Flip animations on Phase cards */}
-      <section className="px-6 py-20" style={{ background: C.cream }}>
+      {/* Research */}
+      <section className="px-6 py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>Research & Discovery</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.charcoal }}>I Didn't Assume. I Went and Found Out.</h2>
-            <p className="max-w-3xl mb-12 leading-relaxed" style={{ color: C.charcoalLight }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
+            <p className="max-w-3xl mb-12 leading-relaxed text-muted-foreground">
               The domestic help market operates through informal networks, cash transactions, and unspoken social dynamics. Understanding it required getting off the desk.
             </p>
           </ScrollFadeIn>
@@ -260,7 +243,7 @@ const GharSeva = () => {
                   whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${phase.color}25` }}
                 >
                   <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
-                  <ul className="space-y-3 text-sm" style={{ color: C.charcoalLight }}>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
                     {phase.items.map((item) => <li key={item}>• {item}</li>)}
                   </ul>
                   <motion.div
@@ -268,19 +251,17 @@ const GharSeva = () => {
                     style={{ background: phase.bg }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <p className="text-xs font-medium" style={{ color: C.charcoal }}>{phase.keyTitle}</p>
-                    <p className="text-xs" style={{ color: C.charcoalLight }}>{phase.keyText}</p>
+                    <p className="text-xs font-medium text-foreground">{phase.keyTitle}</p>
+                    <p className="text-xs text-muted-foreground">{phase.keyText}</p>
                   </motion.div>
                 </motion.div>
               </ScrollFadeIn>
             ))}
           </div>
 
-          {/* 5. Interactive Insight to Decision Table */}
           <ScrollFadeIn>
             <motion.h3
-              className="text-2xl font-bold mb-6"
-              style={{ color: C.charcoal }}
+              className="text-2xl font-bold mb-6 text-foreground"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -288,28 +269,28 @@ const GharSeva = () => {
             >
               From Insights to Decisions
             </motion.h3>
-            <div className="rounded-xl overflow-hidden shadow-lg" style={{ border: `2px solid ${C.orange}30` }}>
+            <div className="rounded-xl overflow-hidden shadow-lg border border-border">
               <Table>
                 <TableHeader>
                   <TableRow style={{ background: C.orange }}>
-                    <TableHead className="font-bold text-white" style={{ color: "#FFFFFF" }}>Research Finding</TableHead>
-                    <TableHead className="font-bold text-white" style={{ color: "#FFFFFF" }}>Product Decision</TableHead>
+                    <TableHead className="font-bold" style={{ color: "#FFFFFF" }}>Research Finding</TableHead>
+                    <TableHead className="font-bold" style={{ color: "#FFFFFF" }}>Product Decision</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {researchTable.map((r, i) => (
                     <motion.tr
                       key={i}
-                      className="border-b transition-colors"
-                      style={{ background: i % 2 === 0 ? C.cardBg : C.cream }}
+                      className="border-b border-border transition-colors"
+                      style={{ background: i % 2 === 0 ? 'hsl(var(--card))' : 'hsl(var(--secondary))' }}
                       initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
                       whileHover={{ background: C.orangeLight, scale: 1.01 }}
                     >
-                      <TableCell className="text-sm" style={{ color: C.charcoalLight }}>{r.finding}</TableCell>
-                      <TableCell className="text-sm font-semibold" style={{ color: C.charcoal }}>→ {r.decision}</TableCell>
+                      <TableCell className="text-sm text-muted-foreground">{r.finding}</TableCell>
+                      <TableCell className="text-sm font-semibold text-foreground">→ {r.decision}</TableCell>
                     </motion.tr>
                   ))}
                 </TableBody>
@@ -319,12 +300,12 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* 6. Personas — highlighted & interactive */}
-      <section className="px-6 py-20" style={{ background: C.cardBg }}>
+      {/* Personas */}
+      <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>User Personas</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: C.charcoal }}>Who We're Building For</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">Who We're Building For</h2>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -363,18 +344,17 @@ const GharSeva = () => {
                       {persona.emoji}
                     </motion.div>
                     <div>
-                      <h3 className="font-bold text-lg" style={{ color: C.charcoal }}>{persona.name}</h3>
-                      <p className="text-xs" style={{ color: C.muted }}>{persona.meta}</p>
+                      <h3 className="font-bold text-lg text-foreground">{persona.name}</h3>
+                      <p className="text-xs text-muted-foreground">{persona.meta}</p>
                     </div>
                   </motion.div>
-                  <p className="text-sm mb-4" style={{ color: C.charcoalLight }}>{persona.bio}</p>
+                  <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
                   <ul className="space-y-2 mb-4">
                     {persona.pains.map((p, pi) => (
                       <motion.li
                         key={p}
-                        className="text-sm flex items-start gap-2"
-                        style={{ color: C.charcoalLight }}
+                        className="text-sm flex items-start gap-2 text-muted-foreground"
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -389,8 +369,7 @@ const GharSeva = () => {
                     {persona.needs.map((n, ni) => (
                       <motion.li
                         key={n}
-                        className="text-sm flex items-start gap-2"
-                        style={{ color: C.charcoalLight }}
+                        className="text-sm flex items-start gap-2 text-muted-foreground"
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -407,20 +386,20 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* 7. Solution — hover-reveal cards */}
-      <section className="px-6 py-20" style={{ background: C.cream }}>
+      {/* Solution */}
+      <section className="px-6 py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>The Solution</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.charcoal }}>Not Just Matching. A Complete Ecosystem.</h2>
-            <p className="mb-12" style={{ color: C.muted }}>The 3-Pillar Approach</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
+            <p className="mb-12 text-muted-foreground">The 3-Pillar Approach</p>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {[
               { num: "01", title: "Verify", icon: Shield, desc: "Multi-level background checks covering ID, police verification, and references. Peace of mind for families, credibility for workers.", color: C.orange },
               { num: "02", title: "Match & Trial", icon: Users, desc: "AI-powered matching + 3-day trial period. Both sides evaluate fit before committing — removing risk from both ends.", color: C.green },
-              { num: "03", title: "Manage", icon: Settings, desc: "Salary handling, replacements, substitutes, attendance tracking. The platform stays involved after the match.", color: C.charcoal },
+              { num: "03", title: "Manage", icon: Settings, desc: "Salary handling, replacements, substitutes, attendance tracking. The platform stays involved after the match.", color: "hsl(var(--primary))" },
             ].map((p, i) => (
               <ScrollFadeIn key={p.num} delay={i * 0.1}>
                 <SolutionCard pillar={p} />
@@ -438,7 +417,7 @@ const GharSeva = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <h3 className="font-bold mb-4" style={{ color: C.orange }}>For Families</h3>
-                <ul className="space-y-2 text-sm" style={{ color: C.charcoalLight }}>
+                <ul className="space-y-2 text-sm text-muted-foreground">
                   {["Verified workers matched within 48 hours", "Replacement within 2 days", "Instant substitute during unplanned leaves", "Low monthly subscription — no heavy upfront fees"].map(b => (
                     <li key={b} className="flex items-start gap-2"><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{b}</li>
                   ))}
@@ -453,7 +432,7 @@ const GharSeva = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <h3 className="font-bold mb-4" style={{ color: C.green }}>For Workers</h3>
-                <ul className="space-y-2 text-sm" style={{ color: C.charcoalLight }}>
+                <ul className="space-y-2 text-sm text-muted-foreground">
                   {["Fast job matching without door-to-door searching", "Salary advances and emergency funds", "Government scheme facilitation", "Performance bonuses tied to retention"].map(b => (
                     <li key={b} className="flex items-start gap-2"><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{b}</li>
                   ))}
@@ -471,7 +450,7 @@ const GharSeva = () => {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <h3 className="font-bold mb-4" style={{ color: C.green }}>The Virtuous Cycle</h3>
-              <p className="text-sm max-w-2xl mx-auto leading-relaxed" style={{ color: C.charcoalLight }}>
+              <p className="text-sm max-w-2xl mx-auto leading-relaxed text-muted-foreground">
                 More workers in a cluster → more families served → higher worker bonuses → stronger worker loyalty → better service → more referrals → lower acquisition cost → higher margins
               </p>
             </motion.div>
@@ -480,16 +459,15 @@ const GharSeva = () => {
       </section>
 
       {/* Product Walkthrough */}
-      <section className="px-6 py-20" style={{ background: C.cardBg }}>
+      <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>Product Walkthrough</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: C.charcoal }}>The Dual-Sided User Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">The Dual-Sided User Journey</h2>
           </ScrollFadeIn>
 
-          {/* Vertical Timeline */}
           <div className="relative">
-            <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block" style={{ background: C.cardBorder }} />
+            <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block bg-border" />
             {journeySteps.map((step, i) => (
               <ScrollFadeIn key={i} delay={i * 0.08}>
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
@@ -501,7 +479,7 @@ const GharSeva = () => {
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
-                      <p className="text-sm font-medium" style={{ color: C.charcoal }}>{step.employer}</p>
+                      <p className="text-sm font-medium text-foreground">{step.employer}</p>
                     </motion.div>
                   </div>
                   <div className="hidden md:flex flex-col items-center">
@@ -512,7 +490,7 @@ const GharSeva = () => {
                     >
                       {i + 1}
                     </motion.div>
-                    <p className="text-xs mt-1 text-center max-w-[100px]" style={{ color: C.muted }}>{step.system}</p>
+                    <p className="text-xs mt-1 text-center max-w-[100px] text-muted-foreground">{step.system}</p>
                   </div>
                   <div className={i % 2 === 0 ? "" : "md:order-1 md:text-right"}>
                     <motion.div
@@ -522,7 +500,7 @@ const GharSeva = () => {
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
-                      <p className="text-sm font-medium" style={{ color: C.charcoal }}>{step.worker}</p>
+                      <p className="text-sm font-medium text-foreground">{step.worker}</p>
                     </motion.div>
                   </div>
                 </div>
@@ -530,7 +508,6 @@ const GharSeva = () => {
             ))}
           </div>
 
-          {/* 8. Website link instead of Key Screens */}
           <ScrollFadeIn>
             <motion.a
               href="https://gharseva-househelp.lovable.app"
@@ -549,14 +526,13 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* 9. Footer without line partition — continuous look */}
-      <section style={{ background: C.cream }}>
+      {/* Footer */}
+      <section className="bg-background">
         <div className="py-16 px-6">
           <div className="max-w-6xl mx-auto text-center">
             <ScrollFadeIn>
               <motion.h2
-                className="text-3xl md:text-4xl font-bold mb-4"
-                style={{ color: C.charcoal, fontFamily: "'Outfit', sans-serif" }}
+                className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -564,8 +540,7 @@ const GharSeva = () => {
                 Let's Talk
               </motion.h2>
               <motion.p
-                className="mb-8 text-sm"
-                style={{ color: C.muted }}
+                className="mb-8 text-sm text-muted-foreground"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -575,9 +550,8 @@ const GharSeva = () => {
               </motion.p>
               <motion.a
                 href="mailto:pratham@example.com"
-                className="inline-block px-8 py-3 rounded-lg font-medium text-white no-underline"
-                style={{ background: C.orange }}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(232,137,12,0.3)" }}
+                className="inline-block px-8 py-3 rounded-lg font-medium no-underline bg-primary text-primary-foreground"
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 30px hsl(var(--primary) / 0.3)" }}
                 whileTap={{ scale: 0.97 }}
               >
                 pratham@example.com
@@ -591,12 +565,11 @@ const GharSeva = () => {
       {showTop && (
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40"
-          style={{ background: C.orange, color: "#FFFFFF" }}
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40 bg-primary text-primary-foreground"
           aria-label="Back to top"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ y: -4, boxShadow: "0 10px 30px rgba(232,137,12,0.4)" }}
+          whileHover={{ y: -4, boxShadow: "0 10px 30px hsl(var(--primary) / 0.4)" }}
         >
           <ArrowUp size={20} />
         </motion.button>
@@ -613,7 +586,7 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
   return (
     <motion.div
       className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
-      style={{ background: pillar.color === C.orange ? C.orangeLight : pillar.color === C.green ? C.greenLight : "rgba(44,44,44,0.08)", border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
+      style={{ background: pillar.color === C.orange ? C.orangeLight : pillar.color === C.green ? C.greenLight : "rgba(99,102,241,0.08)", border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${pillar.color}25` }}
@@ -622,7 +595,7 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
       <motion.div animate={{ opacity: hovered ? 0.3 : 1, scale: hovered ? 0.8 : 1 }} transition={{ duration: 0.3 }}>
         <p className="font-mono-metric text-xs mb-3" style={{ color: pillar.color }}>{pillar.num}</p>
         <Icon size={36} className="mb-3 mx-auto" style={{ color: pillar.color }} />
-        <h3 className="text-xl font-bold" style={{ color: C.charcoal }}>{pillar.title}</h3>
+        <h3 className="text-xl font-bold text-foreground">{pillar.title}</h3>
       </motion.div>
 
       <motion.div
@@ -631,7 +604,7 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
         animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
         transition={{ duration: 0.3 }}
       >
-        <p className="text-sm leading-relaxed" style={{ color: C.charcoalLight }}>{pillar.desc}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">{pillar.desc}</p>
       </motion.div>
     </motion.div>
   );
