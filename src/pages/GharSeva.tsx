@@ -78,20 +78,14 @@ const GharSeva = () => {
 
         {/* Image with GharSeva title centered on top */}
         <div className="relative w-full max-w-5xl mx-auto px-6">
-          {/* GharSeva title centered over image */}
+          {/* GharSeva title centered on image */}
           <motion.div
-            className="absolute top-[15%] left-1/2 -translate-x-1/2 z-20 text-center"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
-            <motion.span
-              className="inline-block text-5xl md:text-8xl font-bold"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <span style={{ color: "#C17817" }}>GharSeva</span>
-            </motion.span>
+            <span className="text-5xl md:text-8xl font-bold" style={{ color: "#000000" }}>GharSeva</span>
           </motion.div>
 
           <motion.img
