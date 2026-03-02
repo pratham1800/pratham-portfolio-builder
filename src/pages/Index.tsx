@@ -96,7 +96,7 @@ const Index = () =>
               
                   {/* Image */}
                   <div className={`w-full h-56 md:h-72 bg-muted rounded-lg overflow-hidden flex items-center justify-center ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
-                    
+                    <img src={p.preview} alt={`${p.title} preview`} className="w-full h-full object-cover" />
                   </div>
                   {/* Content */}
                   <div className={`flex flex-col justify-center ${p.imageFirst ? "md:order-2" : "md:order-1"}`}>
