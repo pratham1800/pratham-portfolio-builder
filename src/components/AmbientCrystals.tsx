@@ -2,62 +2,71 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef, useMemo } from "react";
 import * as THREE from "three";
 
-/* ── Small floating code panel ── */
-const AmbientPanel = ({
-  position,
-  size,
+/* ── Subtle ambient wave mesh ── */
+const AmbientWave = ({
+  offset,
+  amplitude,
   speed,
-  rotOffset,
   color,
+  yBase,
+  zBase,
+  opacity,
 }: {
-  position: [number, number, number];
-  size: [number, number];
+  offset: number;
+  amplitude: number;
   speed: number;
-  rotOffset: number;
   color: string;
+  yBase: number;
+  zBase: number;
+  opacity: number;
 }) => {
-  const ref = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const segmentsX = 60;
+  const segmentsY = 10;
+
+  const geometry = useMemo(() => {
+    return new THREE.PlaneGeometry(18, 2, segmentsX, segmentsY);
+  }, []);
 
   useFrame(({ clock }) => {
-    if (!ref.current) return;
-    const t = clock.getElapsedTime();
-    ref.current.position.y = position[1] + Math.sin(t * speed * 0.3 + rotOffset) * 0.5;
-    ref.current.position.x = position[0] + Math.sin(t * speed * 0.2 + rotOffset * 1.5) * 0.3;
-    ref.current.rotation.y = Math.sin(t * speed * 0.1) * 0.1;
+    if (!meshRef.current) return;
+    const t = clock.getElapsedTime() * speed;
+    const pos = meshRef.current.geometry.attributes.position;
+    const arr = pos.array as Float32Array;
+    const cols = segmentsX + 1;
+    const rows = segmentsY + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const idx = (iy * cols + ix) * 3;
+        const normalizedX = ix / cols;
+        const normalizedY = iy / rows;
+        arr[idx + 2] =
+          Math.sin(normalizedX * 4 + t + offset) * amplitude * 0.5 +
+          Math.cos(normalizedY * 3 + t * 0.6 + offset) * amplitude * 0.3;
+      }
+    }
+    pos.needsUpdate = true;
   });
 
-  const lineCount = Math.floor(size[1] / 0.2);
-
   return (
-    <group ref={ref} position={position}>
-      <mesh>
-        <planeGeometry args={size} />
-        <meshBasicMaterial color="#1e1b4b" transparent opacity={0.15} side={THREE.DoubleSide} />
-      </mesh>
-      {Array.from({ length: lineCount }, (_, i) => {
-        const lineWidth = 0.2 + Math.random() * (size[0] * 0.5);
-        return (
-          <mesh
-            key={i}
-            position={[
-              -size[0] / 2 + lineWidth / 2 + 0.1,
-              size[1] / 2 - 0.1 - i * 0.2,
-              0.01,
-            ]}
-          >
-            <planeGeometry args={[lineWidth, 0.04]} />
-            <meshBasicMaterial color={color} transparent opacity={0.1 + Math.random() * 0.15} side={THREE.DoubleSide} />
-          </mesh>
-        );
-      })}
-    </group>
+    <mesh ref={meshRef} position={[0, yBase, zBase]} rotation={[-0.3, 0, 0]}>
+      <primitive attach="geometry" object={geometry} />
+      <meshBasicMaterial
+        color={color}
+        transparent
+        opacity={opacity}
+        side={THREE.DoubleSide}
+        wireframe
+      />
+    </mesh>
   );
 };
 
 /* ── Subtle dust particles ── */
 const AmbientDust = ({ color }: { color: string }) => {
   const ref = useRef<THREE.Points>(null);
-  const count = 200;
+  const count = 150;
 
   const [positions, velocities] = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -66,9 +75,9 @@ const AmbientDust = ({ color }: { color: string }) => {
       pos[i * 3] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 12;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 6;
-      vel[i * 3] = (Math.random() - 0.5) * 0.001;
-      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.001;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.0005;
+      vel[i * 3] = (Math.random() - 0.5) * 0.0008;
+      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.0008;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.0004;
     }
     return [pos, vel];
   }, []);
@@ -92,7 +101,7 @@ const AmbientDust = ({ color }: { color: string }) => {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.015} color={color} transparent opacity={0.2} sizeAttenuation />
+      <pointsMaterial size={0.015} color={color} transparent opacity={0.15} sizeAttenuation />
     </points>
   );
 };
@@ -103,20 +112,18 @@ interface AmbientCrystalsProps {
 }
 
 const AmbientCrystals = ({ accentColor = "#6366f1", intensity = "subtle" }: AmbientCrystalsProps) => {
-  const panelCount = intensity === "moderate" ? 5 : 3;
+  const waveCount = intensity === "moderate" ? 3 : 2;
 
-  const panels = useMemo(() => {
-    return Array.from({ length: panelCount }, (_, i) => ({
-      position: [
-        (Math.random() - 0.5) * 14,
-        (Math.random() - 0.5) * 8,
-        -2 - Math.random() * 3,
-      ] as [number, number, number],
-      size: [0.8 + Math.random() * 1, 0.5 + Math.random() * 0.6] as [number, number],
-      speed: 0.15 + Math.random() * 0.2,
-      rotOffset: Math.random() * Math.PI * 2,
+  const waves = useMemo(() => {
+    return Array.from({ length: waveCount }, (_, i) => ({
+      offset: i * 2.5,
+      amplitude: 0.3 + i * 0.15,
+      speed: 0.15 + i * 0.05,
+      yBase: -1 + i * 1.5,
+      zBase: -3 - i * 0.5,
+      opacity: 0.03 + i * 0.01,
     }));
-  }, [panelCount]);
+  }, [waveCount]);
 
   return (
     <div className="fixed inset-0 pointer-events-none -z-10">
@@ -126,11 +133,10 @@ const AmbientCrystals = ({ accentColor = "#6366f1", intensity = "subtle" }: Ambi
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.15} />
-
+        <ambientLight intensity={0.1} />
         <AmbientDust color={accentColor} />
-        {panels.map((p, i) => (
-          <AmbientPanel key={i} {...p} color={accentColor} />
+        {waves.map((w, i) => (
+          <AmbientWave key={i} {...w} color={accentColor} />
         ))}
       </Canvas>
     </div>
