@@ -56,6 +56,7 @@ const Index = () => (
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Product Manager
           </div>
+          <p className="text-lg md:text-xl text-muted-foreground mb-2">Hi, I'm</p>
           <motion.h1
             className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
             initial={{ opacity: 0, y: 20 }}
@@ -67,10 +68,10 @@ const Index = () => (
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              I build products
+              Pratham Maheshwari.
             </motion.span>
             <br />
-            <span className="text-primary">that drive growth.</span>
+            <span className="text-primary">I build products that drive growth.</span>
           </motion.h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
             Software Engineer turned Product Manager. Bridging human needs with digital solutions — obsessed with marketplaces and trust-infrastructure.
