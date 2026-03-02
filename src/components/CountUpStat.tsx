@@ -6,9 +6,10 @@ interface CountUpStatProps {
   prefix?: string;
   label: string;
   duration?: number;
+  dark?: boolean;
 }
 
-const CountUpStat = ({ end, suffix = "", prefix = "", label, duration = 2000 }: CountUpStatProps) => {
+const CountUpStat = ({ end, suffix = "", prefix = "", label, duration = 2000, dark = false }: CountUpStatProps) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
@@ -37,10 +38,10 @@ const CountUpStat = ({ end, suffix = "", prefix = "", label, duration = 2000 }: 
 
   return (
     <div ref={ref} className="text-center">
-      <div className="font-mono-metric text-3xl md:text-4xl font-bold text-primary">
+      <div className={`font-mono-metric text-3xl md:text-4xl font-bold ${dark ? "gradient-text" : "text-primary"}`}>
         {prefix}{count}{suffix}
       </div>
-      <p className="mt-2 text-sm text-muted-foreground">{label}</p>
+      <p className={`mt-2 text-sm ${dark ? "text-slate-400" : "text-muted-foreground"}`}>{label}</p>
     </div>
   );
 };
