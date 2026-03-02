@@ -38,10 +38,10 @@ const CountUpStat = ({ end, suffix = "", prefix = "", label, duration = 2000, da
 
   return (
     <div ref={ref} className="text-center">
-      <div className={`font-mono-metric text-3xl md:text-4xl font-bold ${dark ? "gradient-text" : "text-primary"}`}>
+      <div className={`font-mono-metric text-3xl md:text-5xl font-bold ${dark ? "gradient-text" : "text-primary"}`}>
         {prefix}{count}{suffix}
       </div>
-      <p className={`mt-2 text-sm ${dark ? "text-slate-400" : "text-muted-foreground"}`}>{label}</p>
+      <p className={`mt-2 text-sm ${dark ? "text-[hsl(220_10%_50%)]" : "text-muted-foreground"}`}>{label}</p>
     </div>
   );
 };
