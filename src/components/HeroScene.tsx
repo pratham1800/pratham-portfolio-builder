@@ -16,159 +16,202 @@ const useMousePosition = () => {
   return mouse;
 };
 
-/* ── Floating translucent panel (represents a code block) ── */
-const CodePanel = ({
-  position,
-  size,
+/* ── Silk ribbon mesh ── */
+const SilkRibbon = ({
+  offset,
+  amplitude,
   speed,
-  rotOffset,
-  color,
+  color1,
+  color2,
+  yBase,
+  zBase,
   mouse,
 }: {
-  position: [number, number, number];
-  size: [number, number];
+  offset: number;
+  amplitude: number;
   speed: number;
-  rotOffset: number;
-  color: string;
+  color1: string;
+  color2: string;
+  yBase: number;
+  zBase: number;
   mouse: React.MutableRefObject<{ x: number; y: number }>;
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const segmentsX = 128;
+  const segmentsY = 24;
 
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return;
-    const t = clock.getElapsedTime();
-    groupRef.current.position.y = position[1] + Math.sin(t * speed * 0.4 + rotOffset) * 0.5;
-    groupRef.current.position.x = position[0] + Math.sin(t * speed * 0.2 + rotOffset * 1.5) * 0.3;
-    groupRef.current.rotation.y = Math.sin(t * speed * 0.1) * 0.15 + mouse.current.x * 0.1;
-    groupRef.current.rotation.x = Math.sin(t * speed * 0.08) * 0.08 + mouse.current.y * 0.05;
-  });
+  const geometry = useMemo(() => {
+    const geo = new THREE.PlaneGeometry(14, 3, segmentsX, segmentsY);
+    return geo;
+  }, []);
 
-  const lineCount = Math.floor(size[1] / 0.18);
-
-  return (
-    <group ref={groupRef} position={position}>
-      {/* Background panel */}
-      <mesh position={[0, 0, -0.01]}>
-        <planeGeometry args={size} />
-        <meshBasicMaterial color="#1e1b4b" transparent opacity={0.3} side={THREE.DoubleSide} />
-      </mesh>
-
-      {/* Border glow */}
-      <mesh position={[0, 0, -0.02]}>
-        <planeGeometry args={[size[0] + 0.06, size[1] + 0.06]} />
-        <meshBasicMaterial color={color} transparent opacity={0.06} side={THREE.DoubleSide} />
-      </mesh>
-
-      {/* Simulated code lines */}
-      {Array.from({ length: lineCount }, (_, i) => {
-        const lineWidth = 0.3 + Math.random() * (size[0] * 0.6);
-        const indent = i % 3 === 0 ? 0 : i % 2 === 0 ? 0.15 : 0.3;
-        return (
-          <mesh
-            key={i}
-            position={[
-              -size[0] / 2 + indent + lineWidth / 2 + 0.12,
-              size[1] / 2 - 0.12 - i * 0.18,
-              0,
-            ]}
-          >
-            <planeGeometry args={[lineWidth, 0.06]} />
-            <meshBasicMaterial
-              color={color}
-              transparent
-              opacity={0.15 + Math.random() * 0.25}
-              side={THREE.DoubleSide}
-            />
-          </mesh>
-        );
-      })}
-
-      {/* Dot decorators (like syntax highlighting) */}
-      {Array.from({ length: Math.floor(lineCount / 2) }, (_, i) => (
-        <mesh
-          key={`dot-${i}`}
-          position={[
-            -size[0] / 2 + 0.08,
-            size[1] / 2 - 0.12 - i * 2 * 0.18,
-            0.01,
-          ]}
-        >
-          <circleGeometry args={[0.025, 8]} />
-          <meshBasicMaterial color={i % 2 === 0 ? "#818cf8" : "#a5b4fc"} transparent opacity={0.5} />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-/* ── Bracket / symbol shapes floating around ── */
-const FloatingSymbol = ({
-  position,
-  shape,
-  speed,
-  rotOffset,
-}: {
-  position: [number, number, number];
-  shape: "bracket" | "angle" | "curly";
-  speed: number;
-  rotOffset: number;
-}) => {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    const t = clock.getElapsedTime();
-    ref.current.position.y = position[1] + Math.sin(t * speed * 0.3 + rotOffset) * 0.6;
-    ref.current.rotation.z = Math.sin(t * speed * 0.15) * 0.3 + rotOffset;
-  });
-
-  // Create bracket-like shapes using torus segments
-  const getGeometry = () => {
-    switch (shape) {
-      case "bracket":
-        return <torusGeometry args={[0.15, 0.015, 8, 16, Math.PI]} />;
-      case "angle":
-        return <coneGeometry args={[0.12, 0.2, 3]} />;
-      case "curly":
-        return <torusKnotGeometry args={[0.08, 0.015, 32, 4, 2, 3]} />;
+  const colorArray = useMemo(() => {
+    const c1 = new THREE.Color(color1);
+    const c2 = new THREE.Color(color2);
+    const count = (segmentsX + 1) * (segmentsY + 1);
+    const colors = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const t = i / count;
+      const c = c1.clone().lerp(c2, t);
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
     }
-  };
+    return colors;
+  }, [color1, color2]);
+
+  useFrame(({ clock }) => {
+    if (!meshRef.current) return;
+    const t = clock.getElapsedTime() * speed;
+    const pos = meshRef.current.geometry.attributes.position;
+    const arr = pos.array as Float32Array;
+    const cols = segmentsX + 1;
+    const rows = segmentsY + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const idx = (iy * cols + ix) * 3;
+        const x = arr[idx];
+        const normalizedX = ix / cols;
+        const normalizedY = iy / rows;
+
+        // Layered wave functions for organic silk movement
+        arr[idx + 2] =
+          Math.sin(normalizedX * 4 + t + offset) * amplitude * 0.6 +
+          Math.sin(normalizedY * 3 + t * 0.7 + offset * 2) * amplitude * 0.4 +
+          Math.cos(normalizedX * 2 + normalizedY * 2 + t * 0.5) * amplitude * 0.3 +
+          Math.sin(x * 0.5 + t * 0.3 + offset) * amplitude * 0.2;
+
+        // Subtle vertical displacement
+        arr[idx + 1] +=
+          Math.sin(normalizedX * 3 + t * 0.4 + offset) * 0.02;
+      }
+    }
+
+    // Mouse reactivity
+    meshRef.current.rotation.x = -0.3 + mouse.current.y * 0.08;
+    meshRef.current.rotation.z = mouse.current.x * 0.04;
+
+    pos.needsUpdate = true;
+  });
 
   return (
-    <mesh ref={ref} position={position}>
-      {getGeometry()}
-      <meshBasicMaterial color="#6366f1" transparent opacity={0.15} wireframe />
+    <mesh ref={meshRef} position={[0, yBase, zBase]} rotation={[-0.3, 0, 0]}>
+      <bufferGeometry attach="geometry" {...geometry}>
+        <bufferAttribute
+          attach="attributes-color"
+          count={colorArray.length / 3}
+          array={colorArray}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <meshBasicMaterial
+        vertexColors
+        transparent
+        opacity={0.12}
+        side={THREE.DoubleSide}
+        wireframe={false}
+      />
     </mesh>
   );
 };
 
-/* ── Code dust particles ── */
-const CodeDust = () => {
-  const ref = useRef<THREE.Points>(null);
-  const count = 600;
+/* ── Wireframe ribbon overlay for depth ── */
+const WireRibbon = ({
+  offset,
+  amplitude,
+  speed,
+  color,
+  yBase,
+  zBase,
+  mouse,
+}: {
+  offset: number;
+  amplitude: number;
+  speed: number;
+  color: string;
+  yBase: number;
+  zBase: number;
+  mouse: React.MutableRefObject<{ x: number; y: number }>;
+}) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const segmentsX = 80;
+  const segmentsY = 12;
 
-  const [positions, velocities] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 18;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
-      vel[i * 3] = (Math.random() - 0.5) * 0.002;
-      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.002;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.001;
-    }
-    return [pos, vel];
+  const geometry = useMemo(() => {
+    return new THREE.PlaneGeometry(14, 2, segmentsX, segmentsY);
   }, []);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
+    if (!meshRef.current) return;
+    const t = clock.getElapsedTime() * speed;
+    const pos = meshRef.current.geometry.attributes.position;
+    const arr = pos.array as Float32Array;
+    const cols = segmentsX + 1;
+    const rows = segmentsY + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const idx = (iy * cols + ix) * 3;
+        const normalizedX = ix / cols;
+        const normalizedY = iy / rows;
+
+        arr[idx + 2] =
+          Math.sin(normalizedX * 5 + t + offset) * amplitude * 0.5 +
+          Math.cos(normalizedY * 4 + t * 0.6 + offset) * amplitude * 0.3;
+      }
+    }
+
+    meshRef.current.rotation.x = -0.25 + mouse.current.y * 0.06;
+    meshRef.current.rotation.z = mouse.current.x * 0.03;
+
+    pos.needsUpdate = true;
+  });
+
+  return (
+    <mesh ref={meshRef} position={[0, yBase, zBase]} rotation={[-0.25, 0, 0]}>
+      <primitive attach="geometry" object={geometry} />
+      <meshBasicMaterial
+        color={color}
+        transparent
+        opacity={0.05}
+        side={THREE.DoubleSide}
+        wireframe
+      />
+    </mesh>
+  );
+};
+
+/* ── Floating light particles ── */
+const SilkDust = () => {
+  const ref = useRef<THREE.Points>(null);
+  const count = 400;
+
+  const [positions, velocities, sizes] = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    const vel = new Float32Array(count * 3);
+    const sz = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 16;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
+      vel[i * 3] = (Math.random() - 0.5) * 0.001;
+      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.0015;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.0008;
+      sz[i] = 0.01 + Math.random() * 0.025;
+    }
+    return [pos, vel, sz];
+  }, []);
+
+  useFrame(({ clock }) => {
     if (!ref.current) return;
     const arr = ref.current.geometry.attributes.position.array as Float32Array;
+    const t = clock.getElapsedTime();
     for (let i = 0; i < count; i++) {
-      arr[i * 3] += velocities[i * 3];
+      arr[i * 3] += velocities[i * 3] + Math.sin(t * 0.2 + i) * 0.0003;
       arr[i * 3 + 1] += velocities[i * 3 + 1];
       arr[i * 3 + 2] += velocities[i * 3 + 2];
-      if (Math.abs(arr[i * 3]) > 9) velocities[i * 3] *= -1;
+      if (Math.abs(arr[i * 3]) > 8) velocities[i * 3] *= -1;
       if (Math.abs(arr[i * 3 + 1]) > 5) velocities[i * 3 + 1] *= -1;
       if (Math.abs(arr[i * 3 + 2]) > 4) velocities[i * 3 + 2] *= -1;
     }
@@ -180,80 +223,20 @@ const CodeDust = () => {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.02} color="#6366f1" transparent opacity={0.3} sizeAttenuation />
+      <pointsMaterial
+        size={0.025}
+        color="#a5b4fc"
+        transparent
+        opacity={0.25}
+        sizeAttenuation
+      />
     </points>
-  );
-};
-
-/* ── Connection lines ── */
-const ConnectionLines = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number }> }) => {
-  const groupRef = useRef<THREE.Group>(null);
-
-  const lineObjects = useMemo(() => {
-    return Array.from({ length: 6 }, () => {
-      const start = new THREE.Vector3(
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 8,
-        -3 - Math.random() * 2
-      );
-      const end = new THREE.Vector3(
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 8,
-        -3 - Math.random() * 2
-      );
-      const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
-      const material = new THREE.LineBasicMaterial({
-        color: "#6366f1",
-        transparent: true,
-        opacity: 0.04 + Math.random() * 0.06,
-      });
-      return new THREE.Line(geometry, material);
-    });
-  }, []);
-
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return;
-    groupRef.current.rotation.z =
-      Math.sin(clock.getElapsedTime() * 0.05) * 0.03 + mouse.current.x * 0.05;
-  });
-
-  return (
-    <group ref={groupRef}>
-      {lineObjects.map((obj, i) => (
-        <primitive key={i} object={obj} />
-      ))}
-    </group>
   );
 };
 
 /* ── Main Scene ── */
 const HeroScene = () => {
   const mouse = useMousePosition();
-
-  const panels = useMemo(
-    () => [
-      { position: [-4.5, 2, -2] as [number, number, number], size: [2.2, 1.2] as [number, number], speed: 0.35, rotOffset: 0, color: "#818cf8" },
-      { position: [3, 2.5, -3] as [number, number, number], size: [2, 1.5] as [number, number], speed: 0.28, rotOffset: 2, color: "#6366f1" },
-      { position: [-3, -1.5, -1.5] as [number, number, number], size: [1.6, 0.8] as [number, number], speed: 0.4, rotOffset: 4, color: "#a5b4fc" },
-      { position: [4.5, -1.5, -2.5] as [number, number, number], size: [1.8, 1.4] as [number, number], speed: 0.32, rotOffset: 1, color: "#c7d2fe" },
-      { position: [-1.5, 3.5, -4] as [number, number, number], size: [2.4, 1] as [number, number], speed: 0.25, rotOffset: 3, color: "#818cf8" },
-      { position: [1.5, -3, -2] as [number, number, number], size: [1.4, 1] as [number, number], speed: 0.38, rotOffset: 5, color: "#6366f1" },
-      { position: [-5, -3, -3.5] as [number, number, number], size: [1.8, 0.9] as [number, number], speed: 0.3, rotOffset: 1.5, color: "#a5b4fc" },
-      { position: [5.5, 0.5, -4] as [number, number, number], size: [2, 1.2] as [number, number], speed: 0.22, rotOffset: 3.5, color: "#c7d2fe" },
-    ],
-    []
-  );
-
-  const symbols = useMemo(
-    () => [
-      { position: [-2, 1, -1] as [number, number, number], shape: "bracket" as const, speed: 0.4, rotOffset: 0 },
-      { position: [2, -2, -2] as [number, number, number], shape: "angle" as const, speed: 0.35, rotOffset: 2 },
-      { position: [-4, -2.5, -3] as [number, number, number], shape: "curly" as const, speed: 0.3, rotOffset: 4 },
-      { position: [4, 3, -3.5] as [number, number, number], shape: "bracket" as const, speed: 0.45, rotOffset: 1 },
-      { position: [0, -4, -2] as [number, number, number], shape: "angle" as const, speed: 0.38, rotOffset: 3 },
-    ],
-    []
-  );
 
   return (
     <div className="absolute inset-0 -z-10">
@@ -263,20 +246,22 @@ const HeroScene = () => {
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[5, 3, 5]} intensity={0.5} color="#6366f1" />
-        <pointLight position={[-4, -2, 3]} intensity={0.3} color="#818cf8" />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[5, 3, 5]} intensity={0.4} color="#6366f1" />
+        <pointLight position={[-4, -2, 3]} intensity={0.25} color="#818cf8" />
+        <pointLight position={[0, 0, 4]} intensity={0.15} color="#a5b4fc" />
 
-        {panels.map((p, i) => (
-          <CodePanel key={i} {...p} mouse={mouse} />
-        ))}
+        {/* Primary silk ribbons */}
+        <SilkRibbon offset={0} amplitude={1.2} speed={0.3} color1="#4338ca" color2="#818cf8" yBase={0.5} zBase={-2} mouse={mouse} />
+        <SilkRibbon offset={2} amplitude={0.9} speed={0.25} color1="#6366f1" color2="#c7d2fe" yBase={-0.8} zBase={-3} mouse={mouse} />
+        <SilkRibbon offset={4} amplitude={1.5} speed={0.2} color1="#3730a3" color2="#a5b4fc" yBase={1.5} zBase={-4} mouse={mouse} />
 
-        {symbols.map((s, i) => (
-          <FloatingSymbol key={i} {...s} />
-        ))}
+        {/* Wireframe overlays for depth */}
+        <WireRibbon offset={1} amplitude={0.8} speed={0.35} color="#6366f1" yBase={0} zBase={-1.5} mouse={mouse} />
+        <WireRibbon offset={3} amplitude={0.6} speed={0.28} color="#818cf8" yBase={-1.5} zBase={-2.5} mouse={mouse} />
 
-        <CodeDust />
-        <ConnectionLines mouse={mouse} />
+        {/* Floating particles */}
+        <SilkDust />
       </Canvas>
     </div>
   );
