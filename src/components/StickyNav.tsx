@@ -9,6 +9,7 @@ const StickyNav = () => {
   const location = useLocation();
 
   const isCaseStudy = location.pathname !== "/";
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -19,49 +20,45 @@ const StickyNav = () => {
   useEffect(() => setMenuOpen(false), [location]);
 
   const navLinks = isCaseStudy
-    ? [{ label: "← Back", to: "/" }]
+    ? [{ label: "← Back to Portfolio", to: "/" }]
     : [
+        { label: "Home", to: "/" },
         { label: "Work", to: "/#work" },
         { label: "About", to: "/#about" },
       ];
 
+  const atHeroDark = isHome && !scrolled;
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/60 backdrop-blur-2xl border-b border-primary/10"
+          ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="font-extrabold text-xl tracking-tight">
-          <span className="gradient-text font-mono-metric">PM</span>
+        <Link to="/" className={`font-extrabold text-xl tracking-tight transition-colors ${atHeroDark ? "text-white" : ""}`}>
+          <span className="gradient-text">PM</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
-            >
+            <Link key={l.to} to={l.to} className={`text-sm font-medium transition-colors ${atHeroDark ? "text-[hsl(220_15%_65%)] hover:text-white" : "text-muted-foreground hover:text-foreground"}`}>
               {l.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
           {!isCaseStudy && (
-            <motion.a
+            <a
               href="mailto:pratham@example.com"
-              className="text-sm font-bold gradient-btn px-5 py-2 rounded-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="text-sm font-semibold gradient-btn px-4 py-2 rounded-xl"
             >
               Let's Talk
-            </motion.a>
+            </a>
           )}
         </nav>
 
-        <button className="md:hidden p-2 text-foreground" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+        <button className={`md:hidden p-2 ${atHeroDark ? "text-white" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
@@ -72,16 +69,19 @@ const StickyNav = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-2xl border-b border-border overflow-hidden"
+            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
-            <nav className="flex flex-col gap-2 px-6 py-6">
+            <nav className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
-                <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-3 min-h-[44px] flex items-center">
+                <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-3 min-h-[44px] flex items-center">
                   {l.label}
                 </Link>
               ))}
               {!isCaseStudy && (
-                <a href="mailto:pratham@example.com" className="text-sm font-bold gradient-btn px-4 py-3 rounded-xl text-center mt-2">
+                <a
+                  href="mailto:pratham@example.com"
+                  className="text-sm font-semibold gradient-btn px-4 py-2 rounded-xl text-center"
+                >
                   Let's Talk
                 </a>
               )}
