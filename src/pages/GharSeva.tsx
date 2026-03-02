@@ -165,8 +165,8 @@ const GharSeva = () => {
       <section className="px-6 py-20" style={{ background: C.cardBg }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <h2 className="text-6xl md:text-8xl font-extrabold mb-3" style={{ color: C.charcoal }}>The Problem</h2>
-            <p className="text-4xl md:text-5xl font-bold mb-3" style={{ color: C.green }}>Broken System</p>
+            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.orange }}>The Problem</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.charcoal }}>Broken System</h2>
             <p className="text-sm mb-2" style={{ color: C.muted }}>A 21st-century problem stuck in a 19th-century solution</p>
             <p className="max-w-3xl leading-relaxed mb-12" style={{ color: C.charcoalLight }}>
               Every day in India, millions of families and domestic workers desperately search for each other — often in the same locality — yet never connect. The system runs on informal trust, word-of-mouth, and hope.
@@ -323,8 +323,8 @@ const GharSeva = () => {
       <section className="px-6 py-20" style={{ background: C.cardBg }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <h2 className="text-6xl md:text-8xl font-extrabold mb-3" style={{ color: C.charcoal }}>Who We're Building For</h2>
-            <p className="text-4xl md:text-5xl font-bold mb-12" style={{ color: C.green }}>User Personas</p>
+            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>User Personas</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: C.charcoal }}>Who We're Building For</h2>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -411,9 +411,9 @@ const GharSeva = () => {
       <section className="px-6 py-20" style={{ background: C.cream }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <h2 className="text-6xl md:text-8xl font-extrabold mb-3" style={{ color: C.charcoal }}>The Solution</h2>
-            <p className="text-4xl md:text-5xl font-bold mb-3" style={{ color: C.green }}>Not Just Matching. A Complete Ecosystem.</p>
-            <p className="text-sm mb-2 mb-12" style={{ color: C.muted }}>The 3-Pillar Approach</p>
+            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>The Solution</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.charcoal }}>Not Just Matching. A Complete Ecosystem.</h2>
+            <p className="mb-12" style={{ color: C.muted }}>The 3-Pillar Approach</p>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
