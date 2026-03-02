@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import gharsevaPreview from "@/assets/gharseva-preview.png";
 import zeptoPreview from "@/assets/zepto-preview.png";
+import HeroScene from "@/components/HeroScene";
 
 const projects = [
 {
@@ -43,13 +44,19 @@ const timeline = [
 const Index = () =>
 <main className="pt-16">
     {/* Hero */}
-    <section className="min-h-[85vh] flex items-center px-6">
-      <div className="w-full">
+    <section className="min-h-[85vh] flex items-center px-6 relative overflow-hidden">
+      <HeroScene />
+      <div className="w-full relative z-10">
         <ScrollFadeIn>
           <p className="text-primary font-medium mb-4 text-sm tracking-wide uppercase">Product Manager</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-4xl mb-6">
+          <motion.h1
+            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-4xl mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             Hi, I'm Pratham Maheshwari.
-          </h1>
+          </motion.h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-4 leading-relaxed">
             I build products that bridge the gap between human needs and digital solutions.
           </p>
