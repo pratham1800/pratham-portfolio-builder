@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import gharsevaPreview from "@/assets/gharseva-preview.png";
+import gharsevaFamily from "@/assets/gharseva-family.png";
 
 /* ── GharSeva palette ── */
 const C = {
@@ -64,13 +64,13 @@ const GharSeva = () => {
       {/* P0: Hero with background image */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={gharsevaPreview} alt="GharSeva homepage" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(44,44,44,0.4) 0%, rgba(44,44,44,0.6) 100%)" }} />
+          <img src={gharsevaFamily} alt="GharSeva family" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(255,248,240,0.3) 0%, rgba(255,248,240,0.55) 100%)" }} />
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
             className="text-sm tracking-widest uppercase mb-4"
-            style={{ color: C.orange }}
+            style={{ color: C.charcoal }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -79,7 +79,6 @@ const GharSeva = () => {
           </motion.p>
           <motion.h1
             className="text-5xl md:text-8xl font-bold mb-6"
-            style={{ color: "#FFFFFF" }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -89,12 +88,13 @@ const GharSeva = () => {
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              GharSeva
+              <span style={{ color: C.orange }}>Ghar</span>
+              <span style={{ color: C.green }}>Seva</span>
             </motion.span>
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl mb-3"
-            style={{ color: "rgba(255,255,255,0.9)" }}
+            style={{ color: C.charcoal }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -103,7 +103,7 @@ const GharSeva = () => {
           </motion.p>
           <motion.p
             className="text-sm max-w-xl mx-auto"
-            style={{ color: "rgba(255,255,255,0.65)" }}
+            style={{ color: C.charcoalLight }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
