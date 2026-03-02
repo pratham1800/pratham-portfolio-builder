@@ -76,23 +76,11 @@ const GharSeva = () => {
           </motion.p>
         </div>
 
-        {/* Image with GharSeva title overlaid on the wall */}
+        {/* Image with GharSeva title centered on top */}
         <div className="relative w-full max-w-5xl mx-auto px-6">
-          {/* GharSeva title positioned on the wall area above the family */}
-          <motion.h1
-            className="absolute top-[8%] left-1/2 -translate-x-1/2 z-10 text-6xl md:text-9xl font-extrabold text-center pointer-events-none select-none"
-            style={{ opacity: 0.15, color: C.charcoal }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 0.15, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <span style={{ color: "#F5A623" }}>Ghar</span>
-            <span style={{ color: "#4CAF50" }}>Seva</span>
-          </motion.h1>
-
-          {/* Foreground floating branded title */}
+          {/* GharSeva title centered over image */}
           <motion.div
-            className="absolute top-[12%] left-1/2 -translate-x-1/2 z-20 text-center"
+            className="absolute top-[15%] left-1/2 -translate-x-1/2 z-20 text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -102,8 +90,7 @@ const GharSeva = () => {
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <span style={{ color: "#F5A623" }}>Ghar</span>
-              <span style={{ color: "#4CAF50" }}>Seva</span>
+              <span style={{ color: "#C17817" }}>GharSeva</span>
             </motion.span>
           </motion.div>
 
