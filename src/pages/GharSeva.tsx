@@ -64,8 +64,8 @@ const GharSeva = () => {
       {/* P0: Hero with background image */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={gharsevaPreview} alt="GharSeva homepage" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(44,44,44,0.75) 0%, rgba(44,44,44,0.85) 100%)" }} />
+          <img src={gharsevaPreview} alt="GharSeva homepage" className="w-full h-full object-cover object-top" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(44,44,44,0.4) 0%, rgba(44,44,44,0.6) 100%)" }} />
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
@@ -120,9 +120,9 @@ const GharSeva = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 className="rounded-xl p-6 text-left cursor-default"
-                style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}` }}
-                whileHover={{ scale: 1.03, boxShadow: "0 10px 40px rgba(232,137,12,0.2)" }}
-                transition={{ type: "spring", stiffness: 300 }}
+                style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
+                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <p className="text-2xl mb-2">🎯</p>
                 <h3 className="font-bold mb-2" style={{ color: C.orange }}>Mission</h3>
@@ -132,9 +132,9 @@ const GharSeva = () => {
               </motion.div>
               <motion.div
                 className="rounded-xl p-6 text-left cursor-default"
-                style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}` }}
-                whileHover={{ scale: 1.03, boxShadow: "0 10px 40px rgba(45,106,79,0.2)" }}
-                transition={{ type: "spring", stiffness: 300 }}
+                style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
+                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <p className="text-2xl mb-2">🌍</p>
                 <h3 className="font-bold mb-2" style={{ color: C.green }}>Vision</h3>
@@ -151,8 +151,8 @@ const GharSeva = () => {
       <section className="px-6 py-20" style={{ background: C.cardBg }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>The Problem</p>
-            <h2 className="text-5xl md:text-7xl font-bold mb-3" style={{ color: C.charcoal }}>Broken System</h2>
+            <h2 className="text-6xl md:text-8xl font-extrabold mb-3" style={{ color: C.charcoal }}>The Problem</h2>
+            <p className="text-4xl md:text-5xl font-bold mb-3" style={{ color: C.green }}>Broken System</p>
             <p className="text-sm mb-2" style={{ color: C.muted }}>A 21st-century problem stuck in a 19th-century solution</p>
             <p className="max-w-3xl leading-relaxed mb-12" style={{ color: C.charcoalLight }}>
               Every day in India, millions of families and domestic workers desperately search for each other — often in the same locality — yet never connect. The system runs on informal trust, word-of-mouth, and hope.
@@ -243,7 +243,7 @@ const GharSeva = () => {
                   whileInView={{ rotateY: 0, opacity: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.7, delay: idx * 0.2 }}
-                  whileHover={{ scale: 1.02, borderColor: phase.color }}
+                  whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${phase.color}25` }}
                 >
                   <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
                   <ul className="space-y-3 text-sm" style={{ color: C.charcoalLight }}>
@@ -331,9 +331,9 @@ const GharSeva = () => {
               <ScrollFadeIn key={persona.name} delay={idx * 0.15}>
                 <motion.div
                   className="rounded-xl border-2 p-6 cursor-default h-full"
-                  style={{ borderColor: persona.color, background: C.cardBg }}
-                  whileHover={{ scale: 1.03, boxShadow: `0 15px 50px ${persona.color}20`, borderColor: persona.color }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  style={{ borderColor: persona.color, background: C.cardBg, borderTop: `4px solid ${persona.color}` }}
+                  whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${persona.color}25` }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div
                     className="flex items-center gap-3 mb-4"
@@ -419,8 +419,9 @@ const GharSeva = () => {
             <ScrollFadeIn>
               <motion.div
                 className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}` }}
-                whileHover={{ scale: 1.02 }}
+                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.orange}` }}
+                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <h3 className="font-bold mb-4" style={{ color: C.orange }}>For Families</h3>
                 <ul className="space-y-2 text-sm" style={{ color: C.charcoalLight }}>
@@ -433,8 +434,9 @@ const GharSeva = () => {
             <ScrollFadeIn delay={0.1}>
               <motion.div
                 className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}` }}
-                whileHover={{ scale: 1.02 }}
+                style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.green}` }}
+                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <h3 className="font-bold mb-4" style={{ color: C.green }}>For Workers</h3>
                 <ul className="space-y-2 text-sm" style={{ color: C.charcoalLight }}>
@@ -450,8 +452,9 @@ const GharSeva = () => {
           <ScrollFadeIn>
             <motion.div
               className="rounded-xl p-8 text-center"
-              style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}` }}
-              whileHover={{ scale: 1.01 }}
+              style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
+              whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <h3 className="font-bold mb-4" style={{ color: C.green }}>The Virtuous Cycle</h3>
               <p className="text-sm max-w-2xl mx-auto leading-relaxed" style={{ color: C.charcoalLight }}>
@@ -479,8 +482,9 @@ const GharSeva = () => {
                   <div className={`text-right ${i % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
                     <motion.div
                       className="inline-block rounded-xl p-4 text-left md:text-inherit shadow-sm"
-                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}` }}
-                      whileHover={{ scale: 1.05, boxShadow: `0 8px 30px ${C.orange}15` }}
+                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.orange}` }}
+                      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
                       <p className="text-sm font-medium" style={{ color: C.charcoal }}>{step.employer}</p>
@@ -499,8 +503,9 @@ const GharSeva = () => {
                   <div className={i % 2 === 0 ? "" : "md:order-1 md:text-right"}>
                     <motion.div
                       className="inline-block rounded-xl p-4 shadow-sm"
-                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}` }}
-                      whileHover={{ scale: 1.05, boxShadow: `0 8px 30px ${C.green}15` }}
+                      style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderTop: `4px solid ${C.green}` }}
+                      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
                       <p className="text-sm font-medium" style={{ color: C.charcoal }}>{step.worker}</p>
