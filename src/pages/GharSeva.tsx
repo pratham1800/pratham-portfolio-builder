@@ -64,7 +64,16 @@ const GharSeva = () => {
       {/* P0: Hero */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0" style={{ background: C.cream }}>
         {/* Case Study label */}
-        <div className="relative z-10 text-center px-6 mb-4">
+        <div className="relative z-10 text-center px-6 mb-2">
+          <motion.h1
+            className="text-5xl md:text-8xl font-bold mb-4"
+            style={{ color: "#000000" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            GharSeva
+          </motion.h1>
           <motion.p
             className="text-sm tracking-widest uppercase"
             style={{ color: C.charcoal }}
@@ -76,17 +85,8 @@ const GharSeva = () => {
           </motion.p>
         </div>
 
-        {/* Image with GharSeva title centered on top */}
+        {/* Image */}
         <div className="relative w-full max-w-5xl mx-auto px-6">
-          {/* GharSeva title centered on image */}
-          <motion.div
-            className="absolute top-4 md:top-8 left-1/2 -translate-x-1/2 z-20 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <span className="text-5xl md:text-8xl font-bold" style={{ color: "#000000" }}>GharSeva</span>
-          </motion.div>
 
           <motion.img
             src={gharsevaFamily}
