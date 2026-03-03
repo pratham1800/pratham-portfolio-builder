@@ -109,31 +109,6 @@ const Index = () => (
     {/* Tech Marquee */}
     <TechMarquee />
 
-    {/* Impact Metrics */}
-    <section className="px-6 py-24">
-      <div className="max-w-6xl mx-auto">
-        <ScrollFadeIn>
-          <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3 text-center">Proven Results</p>
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-16 text-center font-display">Impact That Speaks</h2>
-        </ScrollFadeIn>
-        <ScrollFadeIn delay={0.1}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <CountUpStat end={45} suffix="%" label="Faster Fault Detection" />
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <CountUpStat end={60} suffix="%" label="Less Manual Reporting" />
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <CountUpStat end={1} suffix="M+" label="Customers Impacted" />
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <CountUpStat end={85} suffix="%" label="Task Completion Rate" />
-            </div>
-          </div>
-        </ScrollFadeIn>
-      </div>
-    </section>
 
     {/* Selected Work */}
     <section id="work" className="px-6 py-24">
