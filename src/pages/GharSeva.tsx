@@ -57,6 +57,7 @@ const TiltCard = ({ children, className = "", style = {}, glowColor = C.orange }
       onMouseLeave={handleLeave}
     >
       <motion.div
+        className="h-full"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         whileHover={{ y: -6, boxShadow: `0 25px 50px ${glowColor}30` }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -186,7 +187,7 @@ const GharSeva = () => {
 
   return (
     <main className="pt-16 bg-background text-foreground relative">
-      <AmbientCrystals accentColor="#6366f1" intensity="moderate" />
+      <AmbientCrystals accentColor="#4353FF" intensity="moderate" />
 
       {/* ═══ Hero ═══ */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0 bg-background">
