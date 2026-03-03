@@ -10,21 +10,21 @@ import AmbientCrystals from "@/components/AmbientCrystals";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
-  purple: "#7B2FF2",
-  purpleLight: "rgba(123,47,242,0.10)",
-  purpleBorder: "rgba(123,47,242,0.25)",
-  purpleDark: "#5A1DB8",
-  white: "#FFFFFF",
-  offWhite: "#FAFAFE",
-  lavender: "#F5F0FF",
-  charcoal: "#1A1A2E",
-  charcoalLight: "#3D3D5C",
-  muted: "#7A7A9A",
-  cardBg: "#FFFFFF",
-  cardBorder: "#E8E0F0",
-  amber: "#F59E0B",
-  red: "#EF4444",
-  green: "#10B981",
+  purple: "#818CF8",
+  purpleLight: "rgba(129,140,248,0.08)",
+  purpleBorder: "rgba(129,140,248,0.20)",
+  purpleDark: "#6366F1",
+  white: "#F0F0F5",
+  offWhite: "#0A0A0F",
+  lavender: "#0D0D14",
+  charcoal: "#E8E8ED",
+  charcoalLight: "#B0B0C0",
+  muted: "#6B6B80",
+  cardBg: "#111118",
+  cardBorder: "rgba(255,255,255,0.08)",
+  amber: "#FBBF24",
+  red: "#F87171",
+  green: "#34D399",
 };
 
 const frictionPoints = [
@@ -153,7 +153,7 @@ const Zepto = () => {
 
   return (
     <main className="pt-16 relative" style={{ background: Z.offWhite, color: Z.charcoal }}>
-      <AmbientCrystals accentColor="#7B2FF2" intensity="subtle" />
+      <AmbientCrystals accentColor="#818CF8" intensity="subtle" />
       {/* Hero */}
       <section className="px-6 py-20 md:py-28" style={{ background: `linear-gradient(180deg, ${Z.lavender} 0%, ${Z.offWhite} 100%)` }}>
         <div className="max-w-6xl mx-auto text-center">
@@ -194,7 +194,7 @@ const Zepto = () => {
       </section>
 
       {/* Why It Matters */}
-      <section className="px-6 py-20" style={{ background: Z.white }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Problem</p>
@@ -219,8 +219,8 @@ const Zepto = () => {
 
           {/* Business Impact Stats */}
           <ScrollFadeIn>
-            <div className="rounded-2xl p-8 md:p-12" style={{ background: Z.charcoal }}>
-              <h3 className="text-center font-bold mb-8" style={{ color: Z.white }}>Current Business Impact</h3>
+            <div className="rounded-2xl p-8 md:p-12" style={{ background: "rgba(129,140,248,0.06)", border: `1px solid ${Z.purpleBorder}` }}>
+              <h3 className="text-center font-bold mb-8" style={{ color: Z.charcoal }}>Current Business Impact</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   { val: "68%", label: "of consumers abandon after one spoiled experience", color: Z.red },
@@ -338,7 +338,7 @@ const Zepto = () => {
 
           {/* Key Insight Callout */}
           <ScrollFadeIn>
-            <div className="rounded-2xl p-8 md:p-12 text-center" style={{ background: `linear-gradient(135deg, ${Z.charcoal} 0%, ${Z.charcoalLight} 100%)`, border: `1px solid ${Z.purpleBorder}` }}>
+            <div className="rounded-2xl p-8 md:p-12 text-center" style={{ background: `linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(99,102,241,0.04) 100%)`, border: `1px solid ${Z.purpleBorder}` }}>
               <p className="text-sm uppercase tracking-widest mb-4" style={{ color: Z.purple }}>Key Insight</p>
               <h3 className="text-2xl md:text-3xl font-bold" style={{ color: Z.white }}>
                 "Speed is the hook, but Trust is the hook-remover."
@@ -352,7 +352,7 @@ const Zepto = () => {
       </section>
 
       {/* Personas */}
-      <section className="px-6 py-20" style={{ background: Z.white }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>User Personas</p>
@@ -437,7 +437,7 @@ const Zepto = () => {
       </section>
 
       {/* Before/After Journeys */}
-      <section className="px-6 py-20" style={{ background: Z.white }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>User Journey Overhaul</p>
@@ -495,7 +495,7 @@ const Zepto = () => {
       </section>
 
       {/* Success Metrics */}
-      <section className="px-6 py-20" style={{ background: Z.white }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Success Metrics</p>
@@ -504,9 +504,9 @@ const Zepto = () => {
 
           {/* North Star */}
           <ScrollFadeIn>
-            <div className="rounded-2xl p-8 text-center mb-8" style={{ background: `linear-gradient(135deg, ${Z.charcoal} 0%, ${Z.charcoalLight} 100%)`, border: `1px solid ${Z.purpleBorder}` }}>
+            <div className="rounded-2xl p-8 text-center mb-8" style={{ background: `linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(99,102,241,0.04) 100%)`, border: `1px solid ${Z.purpleBorder}` }}>
               <p className="text-xs uppercase tracking-widest mb-2" style={{ color: Z.purple }}>North Star Metric</p>
-              <h3 className="text-2xl font-bold mb-2" style={{ color: Z.white }}>Customer Lifetime Value (LTV)</h3>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: Z.charcoal }}>Customer Lifetime Value (LTV)</h3>
               <p className="font-mono-metric text-4xl font-bold mb-4" style={{ color: Z.purple }}>+22%</p>
               <p className="text-xs max-w-lg mx-auto" style={{ color: "#B0B0B0" }}>
                 LTV = AOV × Purchase Frequency × Customer Lifespan. By solving for trust, we extend Lifespan and maintain Frequency.
