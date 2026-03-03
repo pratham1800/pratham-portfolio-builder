@@ -1,9 +1,9 @@
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import CountUpStat from "@/components/CountUpStat";
 import Footer from "@/components/Footer";
-import { ArrowUp, CheckCircle, XCircle, Shield, Users, Handshake, Settings, ExternalLink } from "lucide-react";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { ArrowUp, CheckCircle, XCircle, Shield, Users, Handshake, Settings, ExternalLink, Sparkles } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion";
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import {
 import gharsevaFamily from "@/assets/gharseva-family.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
 
-/* ── GharSeva accent colors (kept for brand identity on dark theme) ── */
+/* ── GharSeva accent colors ── */
 const C = {
   orange: "#E8890C",
   orangeLight: "rgba(232,137,12,0.10)",
@@ -24,6 +24,68 @@ const C = {
   greenLight: "rgba(45,106,79,0.10)",
   greenBorder: "rgba(45,106,79,0.20)",
 };
+
+/* ── Tilt Card wrapper ── */
+const TiltCard = ({ children, className = "", style = {}, glowColor = C.orange }: { children: React.ReactNode; className?: string; style?: React.CSSProperties; glowColor?: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouse = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
+    setIsHovered(false);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      className={`relative ${className}`}
+      style={{ ...style, perspective: 800, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouse}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleLeave}
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        whileHover={{ y: -6, boxShadow: `0 25px 50px ${glowColor}30` }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      >
+        {children}
+        {/* Animated gradient border glow */}
+        <motion.div
+          className="absolute inset-0 rounded-xl pointer-events-none"
+          style={{ border: `2px solid transparent`, borderImage: `linear-gradient(135deg, ${glowColor}00, ${glowColor}60, ${glowColor}00) 1` }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+};
+
+/* ── Animated counter pill ── */
+const AnimatedPill = ({ text, color }: { text: string; color: string }) => (
+  <motion.span
+    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+    style={{ background: `${color}15`, color, border: `1px solid ${color}30` }}
+    whileHover={{ scale: 1.1, boxShadow: `0 0 20px ${color}30` }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Sparkles size={10} />
+    {text}
+  </motion.span>
+);
 
 const researchTable = [
   { finding: "Families fear losing workers more than finding them", decision: "Replacement guarantee + substitute during leaves" },
@@ -42,6 +104,75 @@ const journeySteps = [
   { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" },
 ];
 
+/* ── Stagger container variants ── */
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+const staggerItem = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
+};
+
+/* ── Interactive timeline node ── */
+const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: number }) => {
+  const [active, setActive] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-40% 0px -40% 0px" });
+
+  useEffect(() => {
+    setActive(isInView);
+  }, [isInView]);
+
+  return (
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
+      <div className={`text-right ${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
+        <TiltCard glowColor={C.orange} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `3px solid ${C.orange}` }}
+            animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
+            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+          </motion.div>
+        </TiltCard>
+      </div>
+      <div className="hidden md:flex flex-col items-center">
+        <motion.div
+          className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
+          style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
+          animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.3, rotate: 360 }}
+        >
+          {index + 1}
+        </motion.div>
+        <motion.p
+          className="text-xs mt-2 text-center max-w-[120px] font-medium"
+          animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+        >
+          {step.system}
+        </motion.p>
+      </div>
+      <div className={index % 2 === 0 ? "" : "md:order-1 md:text-right"}>
+        <TiltCard glowColor={C.green} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 shadow-sm"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `3px solid ${C.green}` }}
+            animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
+            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+          </motion.div>
+        </TiltCard>
+      </div>
+    </div>
+  );
+};
+
 const GharSeva = () => {
   const [showTop, setShowTop] = useState(false);
 
@@ -56,25 +187,39 @@ const GharSeva = () => {
   return (
     <main className="pt-16 bg-background text-foreground relative">
       <AmbientCrystals accentColor="#6366f1" intensity="moderate" />
-      {/* P0: Hero */}
+
+      {/* ═══ Hero ═══ */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0 bg-background">
         <div className="relative z-10 text-center px-6 mb-2">
+          <motion.div
+            className="inline-flex items-center gap-2 mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, type: "spring" }}
+          >
+            <AnimatedPill text="Case Study" color={C.orange} />
+          </motion.div>
           <motion.h1
             className="text-5xl md:text-8xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            GharSeva
+            <motion.span
+              className="inline-block"
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 5, repeat: Infinity }}
+              style={{
+                backgroundImage: `linear-gradient(90deg, ${C.orange}, #fff, ${C.orange})`,
+                backgroundSize: "200% auto",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              GharSeva
+            </motion.span>
           </motion.h1>
-          <motion.p
-            className="text-sm tracking-widest uppercase text-muted-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Case Study
-          </motion.p>
         </div>
 
         <div className="relative w-full max-w-5xl mx-auto px-6">
@@ -82,9 +227,10 @@ const GharSeva = () => {
             src={gharsevaFamily}
             alt="GharSeva family"
             className="w-full h-auto object-contain rounded-t-2xl"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            whileHover={{ scale: 1.02 }}
           />
         </div>
 
@@ -114,81 +260,106 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* Mission & Vision */}
+      {/* ═══ Mission & Vision ═══ */}
       <section className="px-6 py-20 bg-background">
         <div className="max-w-3xl mx-auto">
           <ScrollFadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                className="rounded-xl p-6 text-left cursor-default"
-                style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
-                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <p className="text-2xl mb-2">🎯</p>
-                <h3 className="font-bold mb-2" style={{ color: C.orange }}>Mission</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Eliminate the chaos of finding and retaining domestic help by building a managed platform — where families get verified, reliable workers and workers get fair pay, financial security, and dignity.
-                </p>
-              </motion.div>
-              <motion.div
-                className="rounded-xl p-6 text-left cursor-default"
-                style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
-                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <p className="text-2xl mb-2">🌍</p>
-                <h3 className="font-bold mb-2" style={{ color: C.green }}>Vision</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Become India's trust infrastructure for domestic help — a world where no family spends weeks searching, and no worker is exploited because there was no system to protect them.
-                </p>
-              </motion.div>
-            </div>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                { emoji: "🎯", title: "Mission", color: C.orange, bg: C.orangeLight, border: C.orangeBorder, text: "Eliminate the chaos of finding and retaining domestic help by building a managed platform — where families get verified, reliable workers and workers get fair pay, financial security, and dignity." },
+                { emoji: "🌍", title: "Vision", color: C.green, bg: C.greenLight, border: C.greenBorder, text: "Become India's trust infrastructure for domestic help — a world where no family spends weeks searching, and no worker is exploited because there was no system to protect them." },
+              ].map((card) => (
+                <motion.div key={card.title} variants={staggerItem}>
+                  <TiltCard glowColor={card.color}>
+                    <div
+                      className="rounded-xl p-6 text-left cursor-default h-full"
+                      style={{ background: card.bg, border: `1px solid ${card.border}`, borderTop: `4px solid ${card.color}` }}
+                    >
+                      <motion.p
+                        className="text-2xl mb-2"
+                        whileHover={{ scale: 1.3, rotate: [0, -10, 10, 0] }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {card.emoji}
+                      </motion.p>
+                      <h3 className="font-bold mb-2" style={{ color: card.color }}>{card.title}</h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{card.text}</p>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              ))}
+            </motion.div>
           </ScrollFadeIn>
         </div>
       </section>
 
-      {/* Problem */}
+      {/* ═══ Problem ═══ */}
       <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.orange }}>The Problem</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Broken System</h2>
+            <AnimatedPill text="The Problem" color={C.orange} />
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Broken System</h2>
             <p className="text-sm mb-2 text-muted-foreground">A 21st-century problem stuck in a 19th-century solution</p>
             <p className="max-w-3xl leading-relaxed mb-12 text-muted-foreground">
               Every day in India, millions of families and domestic workers desperately search for each other — often in the same locality — yet never connect. The system runs on informal trust, word-of-mouth, and hope.
             </p>
           </ScrollFadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
               { title: "For Families", color: C.orange, bg: C.orangeLight, items: ["No verification means constant safety anxiety", "No replacement guarantee disrupts weeks of life", "No substitute during leaves — household bears all burden"] },
               { title: "For Workers", color: C.green, bg: C.greenLight, items: ["No job security — income always at risk", "No financial safety nets during emergencies", "Undignified job search, dependent on who you know"] },
               { title: "For the Market", color: "#EF4444", bg: "rgba(239,68,68,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
-            ].map((c, i) => (
-              <ScrollFadeIn key={c.title} delay={i * 0.1}>
-                <motion.div
-                  className="rounded-xl p-6 shadow-sm cursor-default h-full"
-                  style={{ background: c.bg, border: `1px solid ${c.color}30`, borderTop: `4px solid ${c.color}` }}
-                  whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${c.color}25` }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <h3 className="font-bold mb-4 text-lg" style={{ color: c.color }}>{c.title}</h3>
-                  <ul className="space-y-3">
-                    {c.items.map((item) => (
-                      <li key={item} className="text-sm flex items-start gap-2 text-muted-foreground">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c.color }} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </ScrollFadeIn>
+            ].map((c) => (
+              <motion.div key={c.title} variants={staggerItem}>
+                <TiltCard glowColor={c.color} className="h-full">
+                  <div
+                    className="rounded-xl p-6 shadow-sm cursor-default h-full"
+                    style={{ background: c.bg, border: `1px solid ${c.color}30`, borderTop: `4px solid ${c.color}` }}
+                  >
+                    <h3 className="font-bold mb-4 text-lg" style={{ color: c.color }}>{c.title}</h3>
+                    <ul className="space-y-3">
+                      {c.items.map((item, idx) => (
+                        <motion.li
+                          key={item}
+                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          initial={{ opacity: 0, x: -15 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.1, type: "spring" }}
+                        >
+                          <motion.span
+                            className="mt-1.5 w-2 h-2 rounded-full shrink-0"
+                            style={{ background: c.color }}
+                            whileHover={{ scale: 2 }}
+                          />
+                          {item}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </TiltCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <ScrollFadeIn>
-            <div className="rounded-2xl p-8 md:p-12 bg-secondary">
+            <motion.div
+              className="rounded-2xl p-8 md:p-12 bg-secondary"
+              whileHover={{ boxShadow: `0 0 60px ${C.orange}15` }}
+            >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
                   { end: 35, suffix: "M+", label: "Urban households stuck in chaos" },
@@ -199,23 +370,29 @@ const GharSeva = () => {
                   <CountUpStat key={s.label} end={s.end} suffix={s.suffix} prefix={s.prefix || ""} label={s.label} />
                 ))}
               </div>
-            </div>
+            </motion.div>
           </ScrollFadeIn>
         </div>
       </section>
 
-      {/* Research */}
+      {/* ═══ Research ═══ */}
       <section className="px-6 py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>Research & Discovery</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
+            <AnimatedPill text="Research & Discovery" color={C.green} />
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
             <p className="max-w-3xl mb-12 leading-relaxed text-muted-foreground">
               The domestic help market operates through informal networks, cash transactions, and unspoken social dynamics. Understanding it required getting off the desk.
             </p>
           </ScrollFadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
               {
                 title: "Phase 1 — Market Research",
@@ -233,33 +410,41 @@ const GharSeva = () => {
                 keyTitle: "Key Finding:",
                 keyText: "Demand is huge, but fragmented supply fails to meet it. Trust deficit is the core blocker.",
               },
-            ].map((phase, idx) => (
-              <ScrollFadeIn key={phase.title} delay={idx * 0.15}>
-                <motion.div
-                  className="rounded-xl p-6 shadow-sm cursor-default h-full"
-                  style={{ background: phase.bg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
-                  initial={{ rotateY: 90, opacity: 0 }}
-                  whileInView={{ rotateY: 0, opacity: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${phase.color}25` }}
-                >
-                  <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
-                  <ul className="space-y-3 text-sm text-muted-foreground">
-                    {phase.items.map((item) => <li key={item}>• {item}</li>)}
-                  </ul>
-                  <motion.div
-                    className="mt-4 p-3 rounded-lg"
-                    style={{ background: phase.bg }}
-                    whileHover={{ scale: 1.02 }}
+            ].map((phase) => (
+              <motion.div key={phase.title} variants={staggerItem}>
+                <TiltCard glowColor={phase.color} className="h-full">
+                  <div
+                    className="rounded-xl p-6 shadow-sm cursor-default h-full"
+                    style={{ background: phase.bg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
                   >
-                    <p className="text-xs font-medium text-foreground">{phase.keyTitle}</p>
-                    <p className="text-xs text-muted-foreground">{phase.keyText}</p>
-                  </motion.div>
-                </motion.div>
-              </ScrollFadeIn>
+                    <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
+                    <ul className="space-y-3 text-sm text-muted-foreground">
+                      {phase.items.map((item, idx) => (
+                        <motion.li
+                          key={item}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.08 }}
+                        >
+                          • {item}
+                        </motion.li>
+                      ))}
+                    </ul>
+                    <motion.div
+                      className="mt-4 p-4 rounded-lg"
+                      style={{ background: `${phase.color}10`, border: `1px dashed ${phase.color}40` }}
+                      whileHover={{ scale: 1.03, background: `${phase.color}18` }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <p className="text-xs font-semibold text-foreground">{phase.keyTitle}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{phase.keyText}</p>
+                    </motion.div>
+                  </div>
+                </TiltCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <ScrollFadeIn>
             <motion.h3
@@ -283,16 +468,23 @@ const GharSeva = () => {
                   {researchTable.map((r, i) => (
                     <motion.tr
                       key={i}
-                      className="border-b border-border transition-colors"
+                      className="border-b border-border transition-colors cursor-default group"
                       style={{ background: i % 2 === 0 ? 'hsl(var(--card))' : 'hsl(var(--secondary))' }}
                       initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
-                      whileHover={{ background: C.orangeLight, scale: 1.01 }}
+                      whileHover={{ background: C.orangeLight, scale: 1.01, x: 4 }}
                     >
                       <TableCell className="text-sm text-muted-foreground">{r.finding}</TableCell>
-                      <TableCell className="text-sm font-semibold text-foreground">→ {r.decision}</TableCell>
+                      <TableCell className="text-sm font-semibold text-foreground">
+                        <motion.span
+                          className="inline-block"
+                          whileHover={{ x: 4 }}
+                        >
+                          → {r.decision}
+                        </motion.span>
+                      </TableCell>
                     </motion.tr>
                   ))}
                 </TableBody>
@@ -302,15 +494,21 @@ const GharSeva = () => {
         </div>
       </section>
 
-      {/* Personas */}
+      {/* ═══ Personas ═══ */}
       <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>User Personas</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">Who We're Building For</h2>
+            <AnimatedPill text="User Personas" color={C.green} />
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">Who We're Building For</h2>
           </ScrollFadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
               {
                 name: "Priya Sharma", emoji: "👩‍💼", meta: "34 | Working Professional | Tier 2 City", color: C.orange, bgLight: C.orangeLight,
@@ -324,189 +522,161 @@ const GharSeva = () => {
                 pains: ["Loses weeks searching door-to-door", "No financial help during emergencies", "Frequently exploited — delayed payments", "Existing platforms offer no support"],
                 needs: ["Fast, dignified access to jobs", "Financial safety nets — advances, insurance", "Stable long-term employment"],
               },
-            ].map((persona, idx) => (
-              <ScrollFadeIn key={persona.name} delay={idx * 0.15}>
-                <motion.div
-                  className="rounded-xl border-2 p-6 cursor-default h-full"
-                  style={{ borderColor: persona.color, background: persona.bgLight, borderTop: `4px solid ${persona.color}` }}
-                  whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${persona.color}25` }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <motion.div
-                    className="flex items-center gap-3 mb-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+            ].map((persona) => (
+              <motion.div key={persona.name} variants={staggerItem}>
+                <TiltCard glowColor={persona.color} className="h-full">
+                  <div
+                    className="rounded-xl border-2 p-6 cursor-default h-full"
+                    style={{ borderColor: `${persona.color}40`, background: persona.bgLight, borderTop: `4px solid ${persona.color}` }}
                   >
-                    <motion.div
-                      className="w-14 h-14 rounded-full flex items-center justify-center text-xl"
-                      style={{ background: persona.bgLight }}
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                    >
-                      {persona.emoji}
+                    <motion.div className="flex items-center gap-3 mb-4">
+                      <motion.div
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-xl"
+                        style={{ background: `${persona.color}15` }}
+                        whileHover={{ rotate: [0, -15, 15, -10, 10, 0], scale: 1.2 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        {persona.emoji}
+                      </motion.div>
+                      <div>
+                        <h3 className="font-bold text-lg text-foreground">{persona.name}</h3>
+                        <p className="text-xs text-muted-foreground">{persona.meta}</p>
+                      </div>
                     </motion.div>
-                    <div>
-                      <h3 className="font-bold text-lg text-foreground">{persona.name}</h3>
-                      <p className="text-xs text-muted-foreground">{persona.meta}</p>
-                    </div>
-                  </motion.div>
-                  <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
-                  <ul className="space-y-2 mb-4">
-                    {persona.pains.map((p, pi) => (
-                      <motion.li
-                        key={p}
-                        className="text-sm flex items-start gap-2 text-muted-foreground"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: pi * 0.05 }}
-                      >
-                        <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#EF4444" }} />{p}
-                      </motion.li>
-                    ))}
-                  </ul>
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: C.green }}>Needs</h4>
-                  <ul className="space-y-2">
-                    {persona.needs.map((n, ni) => (
-                      <motion.li
-                        key={n}
-                        className="text-sm flex items-start gap-2 text-muted-foreground"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: ni * 0.05 }}
-                      >
-                        <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{n}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </ScrollFadeIn>
+                    <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
+                    <ul className="space-y-2 mb-4">
+                      {persona.pains.map((p, pi) => (
+                        <motion.li
+                          key={p}
+                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: pi * 0.06 }}
+                          whileHover={{ x: 6, color: "#EF4444" }}
+                        >
+                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#EF4444" }} />{p}
+                        </motion.li>
+                      ))}
+                    </ul>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: C.green }}>Needs</h4>
+                    <ul className="space-y-2">
+                      {persona.needs.map((n, ni) => (
+                        <motion.li
+                          key={n}
+                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: ni * 0.06 }}
+                          whileHover={{ x: 6, color: C.green }}
+                        >
+                          <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{n}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </TiltCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Solution */}
+      {/* ═══ Solution ═══ */}
       <section className="px-6 py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>The Solution</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
+            <AnimatedPill text="The Solution" color={C.green} />
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
             <p className="mb-12 text-muted-foreground">The 3-Pillar Approach</p>
           </ScrollFadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
               { num: "01", title: "Verify", icon: Shield, desc: "Multi-level background checks covering ID, police verification, and references. Peace of mind for families, credibility for workers.", color: C.orange },
               { num: "02", title: "Match & Trial", icon: Users, desc: "AI-powered matching + 3-day trial period. Both sides evaluate fit before committing — removing risk from both ends.", color: C.green },
               { num: "03", title: "Manage", icon: Settings, desc: "Salary handling, replacements, substitutes, attendance tracking. The platform stays involved after the match.", color: "hsl(var(--primary))" },
-            ].map((p, i) => (
-              <ScrollFadeIn key={p.num} delay={i * 0.1}>
+            ].map((p) => (
+              <motion.div key={p.num} variants={staggerItem}>
                 <SolutionCard pillar={p} />
-              </ScrollFadeIn>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Benefits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <ScrollFadeIn>
-              <motion.div
-                className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
-                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <h3 className="font-bold mb-4" style={{ color: C.orange }}>For Families</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {["Verified workers matched within 48 hours", "Replacement within 2 days", "Instant substitute during unplanned leaves", "Low monthly subscription — no heavy upfront fees"].map(b => (
-                    <li key={b} className="flex items-start gap-2"><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{b}</li>
-                  ))}
-                </ul>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {[
+              { title: "For Families", color: C.orange, bg: C.orangeLight, border: C.orangeBorder, items: ["Verified workers matched within 48 hours", "Replacement within 2 days", "Instant substitute during unplanned leaves", "Low monthly subscription — no heavy upfront fees"] },
+              { title: "For Workers", color: C.green, bg: C.greenLight, border: C.greenBorder, items: ["Fast job matching without door-to-door searching", "Salary advances and emergency funds", "Government scheme facilitation", "Performance bonuses tied to retention"] },
+            ].map((card) => (
+              <motion.div key={card.title} variants={staggerItem}>
+                <TiltCard glowColor={card.color} className="h-full">
+                  <div
+                    className="rounded-xl p-6 shadow-sm h-full"
+                    style={{ background: card.bg, border: `1px solid ${card.border}`, borderTop: `4px solid ${card.color}` }}
+                  >
+                    <h3 className="font-bold mb-4" style={{ color: card.color }}>{card.title}</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      {card.items.map((b, bi) => (
+                        <motion.li
+                          key={b}
+                          className="flex items-start gap-2"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: bi * 0.08 }}
+                          whileHover={{ x: 6 }}
+                        >
+                          <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{b}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </TiltCard>
               </motion.div>
-            </ScrollFadeIn>
-            <ScrollFadeIn delay={0.1}>
-              <motion.div
-                className="rounded-xl p-6 shadow-sm"
-                style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
-                whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <h3 className="font-bold mb-4" style={{ color: C.green }}>For Workers</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {["Fast job matching without door-to-door searching", "Salary advances and emergency funds", "Government scheme facilitation", "Performance bonuses tied to retention"].map(b => (
-                    <li key={b} className="flex items-start gap-2"><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: C.green }} />{b}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            </ScrollFadeIn>
-          </div>
+            ))}
+          </motion.div>
 
           {/* Virtuous Cycle */}
           <ScrollFadeIn>
-            <motion.div
-              className="rounded-xl p-8 text-center"
-              style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
-              whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <h3 className="font-bold mb-4" style={{ color: C.green }}>The Virtuous Cycle</h3>
-              <p className="text-sm max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-                More workers in a cluster → more families served → higher worker bonuses → stronger worker loyalty → better service → more referrals → lower acquisition cost → higher margins
-              </p>
-            </motion.div>
+            <VirtuousCycle />
           </ScrollFadeIn>
         </div>
       </section>
 
-      {/* Product Walkthrough */}
+      {/* ═══ Product Walkthrough ═══ */}
       <section className="px-6 py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
-            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: C.green }}>Product Walkthrough</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">The Dual-Sided User Journey</h2>
+            <AnimatedPill text="Product Walkthrough" color={C.green} />
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
           </ScrollFadeIn>
 
           <div className="relative">
-            <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block bg-border" />
+            <motion.div
+              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block"
+              style={{ background: `linear-gradient(to bottom, ${C.orange}, ${C.green})` }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            />
             {journeySteps.map((step, i) => (
-              <ScrollFadeIn key={i} delay={i * 0.08}>
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
-                  <div className={`text-right ${i % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
-                    <motion.div
-                      className="inline-block rounded-xl p-4 text-left md:text-inherit shadow-sm"
-                      style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `4px solid ${C.orange}` }}
-                      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.orange}25` }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
-                      <p className="text-sm font-medium text-foreground">{step.employer}</p>
-                    </motion.div>
-                  </div>
-                  <div className="hidden md:flex flex-col items-center">
-                    <motion.div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold z-10"
-                      style={{ background: C.orange, color: "#FFFFFF" }}
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      {i + 1}
-                    </motion.div>
-                    <p className="text-xs mt-1 text-center max-w-[100px] text-muted-foreground">{step.system}</p>
-                  </div>
-                  <div className={i % 2 === 0 ? "" : "md:order-1 md:text-right"}>
-                    <motion.div
-                      className="inline-block rounded-xl p-4 shadow-sm"
-                      style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
-                      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${C.green}25` }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
-                      <p className="text-sm font-medium text-foreground">{step.worker}</p>
-                    </motion.div>
-                  </div>
-                </div>
-              </ScrollFadeIn>
+              <TimelineNode key={i} step={step} index={i} />
             ))}
           </div>
 
@@ -515,20 +685,25 @@ const GharSeva = () => {
               href="https://gharseva-househelp.lovable.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 rounded-2xl p-8 mt-8 text-center cursor-pointer no-underline"
+              className="flex items-center justify-center gap-3 rounded-2xl p-8 mt-8 text-center cursor-pointer no-underline group"
               style={{ background: C.orange, color: "#FFFFFF" }}
               whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(232,137,12,0.35)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <ExternalLink size={24} />
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <ExternalLink size={24} />
+              </motion.div>
               <span className="text-xl font-bold">Visit the Live GharSeva Website</span>
             </motion.a>
           </ScrollFadeIn>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ═══ Footer CTA ═══ */}
       <section className="bg-background">
         <div className="py-16 px-6">
           <div className="max-w-6xl mx-auto text-center">
@@ -564,50 +739,123 @@ const GharSeva = () => {
       </section>
 
       {/* Back to Top */}
-      {showTop && (
-        <motion.button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40 bg-primary text-primary-foreground"
-          aria-label="Back to top"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ y: -4, boxShadow: "0 10px 30px hsl(var(--primary) / 0.4)" }}
-        >
-          <ArrowUp size={20} />
-        </motion.button>
-      )}
+      <AnimatePresence>
+        {showTop && (
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40 bg-primary text-primary-foreground"
+            aria-label="Back to top"
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0, y: 20 }}
+            whileHover={{ y: -4, boxShadow: "0 10px 30px hsl(var(--primary) / 0.4)", rotate: 360 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <ArrowUp size={20} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
 
-/* Solution card with hover-reveal description */
+/* ═══ Solution card with hover-reveal ═══ */
 const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: any; desc: string; color: string } }) => {
   const [hovered, setHovered] = useState(false);
   const Icon = pillar.icon;
+  const bg = pillar.color === C.orange ? C.orangeLight : pillar.color === C.green ? C.greenLight : "rgba(99,102,241,0.08)";
+
+  return (
+    <TiltCard glowColor={pillar.color} className="h-full">
+      <motion.div
+        className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
+        style={{ background: bg, border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+      >
+        <motion.div
+          animate={{ opacity: hovered ? 0.2 : 1, scale: hovered ? 0.7 : 1, y: hovered ? -10 : 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          <motion.p
+            className="font-mono text-xs mb-3"
+            style={{ color: pillar.color }}
+            animate={{ letterSpacing: hovered ? "0.3em" : "0em" }}
+          >
+            {pillar.num}
+          </motion.p>
+          <motion.div
+            animate={{ rotate: hovered ? 360 : 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Icon size={36} className="mb-3 mx-auto" style={{ color: pillar.color }} />
+          </motion.div>
+          <h3 className="text-xl font-bold text-foreground">{pillar.title}</h3>
+        </motion.div>
+
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center p-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
+          transition={{ duration: 0.35 }}
+        >
+          <p className="text-sm leading-relaxed text-muted-foreground">{pillar.desc}</p>
+        </motion.div>
+      </motion.div>
+    </TiltCard>
+  );
+};
+
+/* ═══ Animated Virtuous Cycle ═══ */
+const VirtuousCycle = () => {
+  const steps = [
+    "More workers in a cluster",
+    "More families served",
+    "Higher worker bonuses",
+    "Stronger worker loyalty",
+    "Better service",
+    "More referrals",
+    "Lower acquisition cost",
+    "Higher margins",
+  ];
 
   return (
     <motion.div
-      className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
-      style={{ background: pillar.color === C.orange ? C.orangeLight : pillar.color === C.green ? C.greenLight : "rgba(99,102,241,0.08)", border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      whileHover={{ scale: 1.05, y: -8, boxShadow: `0 20px 40px ${pillar.color}25` }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="rounded-xl p-8 text-center"
+      style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `4px solid ${C.green}` }}
+      whileHover={{ boxShadow: `0 20px 60px ${C.green}20` }}
     >
-      <motion.div animate={{ opacity: hovered ? 0.3 : 1, scale: hovered ? 0.8 : 1 }} transition={{ duration: 0.3 }}>
-        <p className="font-mono-metric text-xs mb-3" style={{ color: pillar.color }}>{pillar.num}</p>
-        <Icon size={36} className="mb-3 mx-auto" style={{ color: pillar.color }} />
-        <h3 className="text-xl font-bold text-foreground">{pillar.title}</h3>
-      </motion.div>
-
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center p-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
-        transition={{ duration: 0.3 }}
-      >
-        <p className="text-sm leading-relaxed text-muted-foreground">{pillar.desc}</p>
-      </motion.div>
+      <h3 className="font-bold mb-6" style={{ color: C.green }}>The Virtuous Cycle</h3>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {steps.map((step, i) => (
+          <motion.span
+            key={step}
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            whileHover={{ scale: 1.1, color: C.green }}
+          >
+            <motion.span
+              className="px-3 py-1.5 rounded-full text-xs font-medium"
+              style={{ background: `${C.green}15`, border: `1px solid ${C.green}30` }}
+              whileHover={{ background: `${C.green}25`, boxShadow: `0 0 15px ${C.green}30` }}
+            >
+              {step}
+            </motion.span>
+            {i < steps.length - 1 && (
+              <motion.span
+                style={{ color: C.green }}
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }}
+              >
+                →
+              </motion.span>
+            )}
+          </motion.span>
+        ))}
+      </div>
     </motion.div>
   );
 };
