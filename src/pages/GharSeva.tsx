@@ -170,6 +170,7 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
 };
 
+const GharSevaPage = () => {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
@@ -857,4 +858,4 @@ const VirtuousCycle = () => {
   );
 };
 
-export default GharSeva;
+export default GharSevaPage;
