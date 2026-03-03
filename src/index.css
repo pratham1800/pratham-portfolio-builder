@@ -12,29 +12,29 @@
     --card-foreground: 0 0% 96%;
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 96%;
-    --primary: 235 100% 60%;
+    --primary: 231 100% 63%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 14%;
     --secondary-foreground: 0 0% 96%;
     --muted: 0 0% 14%;
     --muted-foreground: 0 0% 55%;
-    --accent: 235 100% 60%;
+    --accent: 231 100% 63%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 17%;
     --input: 0 0% 17%;
-    --ring: 235 100% 60%;
+    --ring: 231 100% 63%;
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 235 100% 60%;
+    --sidebar-primary: 231 100% 63%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 14%;
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 0 0% 17%;
-    --sidebar-ring: 235 100% 60%;
+    --sidebar-ring: 231 100% 63%;
   }
 
   .dark {
@@ -44,19 +44,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
-    --primary: 235 100% 60%;
+    --primary: 231 100% 63%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 11%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 11%;
     --muted-foreground: 0 0% 60%;
-    --accent: 235 100% 60%;
+    --accent: 231 100% 63%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 235 100% 60%;
+    --ring: 231 100% 63%;
   }
 }
 
@@ -93,5 +93,5 @@
 
 /* Primary glow effect */
 .glow-primary {
-  box-shadow: 0 0 30px hsl(235 100% 60% / 0.3), 0 0 60px hsl(235 100% 60% / 0.1);
+  box-shadow: 0 0 30px hsl(231 100% 63% / 0.3), 0 0 60px hsl(231 100% 63% / 0.1);
 }

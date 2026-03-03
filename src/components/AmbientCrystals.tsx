@@ -111,7 +111,7 @@ interface AmbientCrystalsProps {
   intensity?: "subtle" | "moderate";
 }
 
-const AmbientCrystals = ({ accentColor = "#6366f1", intensity = "subtle" }: AmbientCrystalsProps) => {
+const AmbientCrystals = ({ accentColor = "#4353FF", intensity = "subtle" }: AmbientCrystalsProps) => {
   const waveCount = intensity === "moderate" ? 3 : 2;
 
   const waves = useMemo(() => {
