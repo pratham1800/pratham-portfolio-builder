@@ -56,13 +56,13 @@ const Index = () => (
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Product Manager
           </div>
-          <p className="text-lg md:text-xl text-muted-foreground mb-2">Hi, I'm</p>
           <motion.h1
             className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            <span className="text-muted-foreground text-2xl md:text-3xl font-medium block mb-2">Hi, I'm</span>
             <motion.span
               className="inline-block"
               animate={{ y: [0, -6, 0] }}
