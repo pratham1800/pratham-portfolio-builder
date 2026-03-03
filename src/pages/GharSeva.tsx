@@ -97,12 +97,54 @@ const researchTable = [
 ];
 
 const journeySteps = [
-  { employer: "Browse Categories", system: "Landing Page", worker: "KYC Onboarding" },
-  { employer: "Fill Requirements", system: "Requirement Matching", worker: "Set Availability" },
-  { employer: "View Verified Profiles", system: "AI Match & Notify", worker: "Receive Trial Request" },
-  { employer: "Select & Pay Booking", system: "Payment Processing", worker: "Accept/Reject" },
-  { employer: "Trial Period (1-2 Days)", system: "Trial Management", worker: "Trial Execution" },
-  { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" },
+  {
+    employer: "Browse & Post Requirements",
+    employerDesc: "Employer selects service category (cook, cleaner, nanny) and fills in location, timing, and budget preferences.",
+    system: "Smart Matching Engine",
+    systemDesc: "Platform cross-references employer needs with verified worker profiles, availability, and proximity.",
+    worker: "Complete KYC & Profile",
+    workerDesc: "Worker submits ID, skills, experience, and preferred work areas. Platform runs background verification.",
+  },
+  {
+    employer: "Review Matched Profiles",
+    employerDesc: "Employer receives a curated shortlist of 3–5 verified workers with ratings, experience, and availability status.",
+    system: "AI Ranking & Notification",
+    systemDesc: "Platform scores matches on fit, sends push notifications to workers, and highlights top picks for employers.",
+    worker: "Receive & Respond to Requests",
+    workerDesc: "Worker gets notified of matching opportunities, reviews household details, and accepts or declines the request.",
+  },
+  {
+    employer: "Book & Pay for Trial",
+    employerDesc: "Employer selects a worker, pays a nominal trial fee through the app. No long-term commitment yet.",
+    system: "Secure Payment & Scheduling",
+    systemDesc: "Platform processes payment, schedules the trial dates, and sends reminders to both parties.",
+    worker: "Confirm & Prepare for Trial",
+    workerDesc: "Worker confirms the trial slot, receives household address and expectations, and prepares accordingly.",
+  },
+  {
+    employer: "Evaluate During Trial",
+    employerDesc: "Employer observes the worker over 1–3 days. Rates punctuality, skill quality, and communication.",
+    system: "Trial Monitoring & Feedback",
+    systemDesc: "Platform collects real-time feedback from both sides, mediates any issues, and ensures fair evaluation.",
+    worker: "Perform & Get Evaluated",
+    workerDesc: "Worker delivers services during the trial period. Can also rate the household environment and expectations.",
+  },
+  {
+    employer: "Activate Subscription",
+    employerDesc: "If satisfied, employer subscribes to a monthly plan. Gets replacement guarantee and substitute coverage.",
+    system: "Contract & Payroll Management",
+    systemDesc: "Platform generates a digital agreement, handles monthly salary disbursement, and tracks attendance.",
+    worker: "Start Regular Employment",
+    workerDesc: "Worker begins stable employment with guaranteed pay, access to salary advances, and emergency fund benefits.",
+  },
+  {
+    employer: "Ongoing Support & Retention",
+    employerDesc: "Employer can request substitutes, raise concerns, or switch workers — all managed through the app.",
+    system: "Relationship Management",
+    systemDesc: "Platform monitors satisfaction, sends periodic check-ins, and proactively resolves retention risks.",
+    worker: "Grow & Access Benefits",
+    workerDesc: "Worker earns performance bonuses, accesses govt. scheme facilitation, and builds a verified work history.",
+  },
 ];
 
 /* ── Stagger container variants ── */
@@ -119,27 +161,31 @@ const staggerItem = {
 const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: number }) => {
   const [active, setActive] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-40% 0px -40% 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-30% 0px -30% 0px" });
 
   useEffect(() => {
     setActive(isInView);
   }, [isInView]);
 
   return (
-    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
-      <div className={`text-right ${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
-        <TiltCard glowColor={C.orange} className="inline-block">
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-16 items-start">
+      {/* Employer side */}
+      <div className={`${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
+        <TiltCard glowColor={C.orange} className="inline-block w-full">
           <motion.div
-            className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
+            className="rounded-xl p-5 shadow-sm"
             style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `3px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
-            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+            <p className="text-sm font-semibold text-foreground mb-2">{step.employer}</p>
+            <p className="text-xs leading-relaxed text-foreground/75">{step.employerDesc}</p>
           </motion.div>
         </TiltCard>
       </div>
+
+      {/* Center - Platform */}
       <div className="hidden md:flex flex-col items-center">
         <motion.div
           className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
@@ -150,15 +196,33 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         >
           {index + 1}
         </motion.div>
-        <motion.p
-          className="text-xs mt-2 text-center max-w-[120px] font-medium"
-          animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+        <motion.div
+          className="mt-3 text-center max-w-[160px] p-3 rounded-lg"
+          style={{ background: active ? "hsl(var(--secondary))" : "transparent", border: active ? `1px solid ${C.orange}30` : "1px solid transparent" }}
+          animate={{ opacity: active ? 1 : 0.7 }}
+          transition={{ duration: 0.3 }}
         >
-          {step.system}
-        </motion.p>
+          <p className="text-xs font-semibold mb-1" style={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}>
+            {step.system}
+          </p>
+          <p className="text-[10px] leading-relaxed text-muted-foreground">{step.systemDesc}</p>
+        </motion.div>
       </div>
+
+      {/* Mobile: Platform card */}
+      <div className="md:hidden">
+        <motion.div
+          className="rounded-lg p-3 text-center"
+          style={{ background: "hsl(var(--secondary))", border: `1px solid ${C.orange}25` }}
+        >
+          <p className="text-xs font-semibold" style={{ color: C.orange }}>⚙️ {step.system}</p>
+          <p className="text-[10px] text-muted-foreground mt-1">{step.systemDesc}</p>
+        </motion.div>
+      </div>
+
+      {/* Worker side */}
       <div className={index % 2 === 0 ? "" : "md:order-1 md:text-right"}>
-        <TiltCard glowColor={C.green} className="inline-block">
+        <TiltCard glowColor={C.green} className="inline-block w-full">
           <motion.div
             className="rounded-xl p-5 shadow-sm"
             style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `3px solid ${C.green}` }}
@@ -166,7 +230,8 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
-            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+            <p className="text-sm font-semibold text-foreground mb-2">{step.worker}</p>
+            <p className="text-xs leading-relaxed text-foreground/75">{step.workerDesc}</p>
           </motion.div>
         </TiltCard>
       </div>
