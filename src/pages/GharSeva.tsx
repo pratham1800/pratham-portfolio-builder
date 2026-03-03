@@ -276,8 +276,8 @@ const GharSeva = () => {
                 { emoji: "🎯", title: "Mission", color: C.orange, bg: C.orangeLight, border: C.orangeBorder, text: "Eliminate the chaos of finding and retaining domestic help by building a managed platform — where families get verified, reliable workers and workers get fair pay, financial security, and dignity." },
                 { emoji: "🌍", title: "Vision", color: C.green, bg: C.greenLight, border: C.greenBorder, text: "Become India's trust infrastructure for domestic help — a world where no family spends weeks searching, and no worker is exploited because there was no system to protect them." },
               ].map((card) => (
-                <motion.div key={card.title} variants={staggerItem}>
-                  <TiltCard glowColor={card.color}>
+                <motion.div key={card.title} variants={staggerItem} className="h-full">
+                  <TiltCard glowColor={card.color} className="h-full">
                     <div
                       className="rounded-xl p-6 text-left cursor-default h-full"
                       style={{ background: card.bg, border: `1px solid ${card.border}`, borderTop: `4px solid ${card.color}` }}
