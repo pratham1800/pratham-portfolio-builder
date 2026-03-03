@@ -96,70 +96,15 @@ const researchTable = [
   { finding: "High upfront fees create friction", decision: "Low monthly subscription model" },
 ];
 
-const employerScreens = [
-  "Home → Select service category",
-  "Post requirement → Location, timing, budget",
-  "View matched profiles → Verified shortlist",
-  "Book trial → Pay nominal fee",
-  "Trial period → Rate the worker",
-  "Subscribe → Monthly plan activated",
-  "Dashboard → Attendance, substitutes, support",
+const journeySteps = [
+  { employer: "Browse Categories", system: "Landing Page", worker: "KYC Onboarding" },
+  { employer: "Fill Requirements", system: "Requirement Matching", worker: "Set Availability" },
+  { employer: "View Verified Profiles", system: "AI Match & Notify", worker: "Receive Trial Request" },
+  { employer: "Select & Pay Booking", system: "Payment Processing", worker: "Accept/Reject" },
+  { employer: "Trial Period (1-2 Days)", system: "Trial Management", worker: "Trial Execution" },
+  { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" },
 ];
 
-const workerScreens = [
-  "Onboarding → KYC & ID verification",
-  "Build profile → Skills, experience, areas",
-  "Browse opportunities → Accept/decline requests",
-  "Confirm trial → View household details",
-  "Complete trial → Get rated & rate back",
-  "Employment starts → Guaranteed monthly pay",
-  "Benefits hub → Advances, bonuses, govt. schemes",
-];
-
-/* ── Ordered Journey Row ── */
-const JourneyStep = ({ index, employer, worker }: { index: number; employer: string; worker: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20% 0px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center"
-      initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-    >
-      {/* Employer */}
-      <div
-        className="rounded-lg px-4 py-3 text-sm text-foreground"
-        style={{ background: C.orangeLight, borderLeft: `3px solid ${C.orange}` }}
-      >
-        {employer}
-      </div>
-
-      {/* Step number */}
-      <div className="flex flex-col items-center gap-1">
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-          style={{ background: C.orange, color: "#fff" }}
-        >
-          {index + 1}
-        </div>
-        {index < employerScreens.length - 1 && (
-          <div className="w-px h-8" style={{ background: `${C.orange}40` }} />
-        )}
-      </div>
-
-      {/* Worker */}
-      <div
-        className="rounded-lg px-4 py-3 text-sm text-foreground"
-        style={{ background: C.greenLight, borderLeft: `3px solid ${C.green}` }}
-      >
-        {worker}
-      </div>
-    </motion.div>
-  );
-};
 /* ── Stagger container variants ── */
 const staggerContainer = {
   hidden: {},
@@ -170,7 +115,66 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
 };
 
-const GharSevaPage = () => {
+/* ── Interactive timeline node ── */
+const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: number }) => {
+  const [active, setActive] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-40% 0px -40% 0px" });
+
+  useEffect(() => {
+    setActive(isInView);
+  }, [isInView]);
+
+  return (
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
+      <div className={`text-right ${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
+        <TiltCard glowColor={C.orange} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `3px solid ${C.orange}` }}
+            animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
+            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+          </motion.div>
+        </TiltCard>
+      </div>
+      <div className="hidden md:flex flex-col items-center">
+        <motion.div
+          className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
+          style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
+          animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.3, rotate: 360 }}
+        >
+          {index + 1}
+        </motion.div>
+        <motion.p
+          className="text-xs mt-2 text-center max-w-[120px] font-medium"
+          animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+        >
+          {step.system}
+        </motion.p>
+      </div>
+      <div className={index % 2 === 0 ? "" : "md:order-1 md:text-right"}>
+        <TiltCard glowColor={C.green} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 shadow-sm"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `3px solid ${C.green}` }}
+            animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
+            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+          </motion.div>
+        </TiltCard>
+      </div>
+    </div>
+  );
+};
+
+const GharSeva = () => {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
@@ -655,26 +659,25 @@ const GharSevaPage = () => {
         </div>
       </section>
 
+      {/* ═══ Product Walkthrough ═══ */}
       <section className="px-6 py-20 bg-card">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Product Walkthrough" color={C.green} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 mt-3 text-foreground">Screen-by-Screen User Journey</h2>
-            <div className="flex items-center gap-8 mb-10">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm" style={{ background: C.orange }} />
-                <span className="text-xs font-medium text-foreground/70">Employer Flow</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm" style={{ background: C.green }} />
-                <span className="text-xs font-medium text-foreground/70">Worker Flow</span>
-              </div>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
           </ScrollFadeIn>
 
-          <div className="space-y-1">
-            {employerScreens.map((emp, i) => (
-              <JourneyStep key={i} index={i} employer={emp} worker={workerScreens[i]} />
+          <div className="relative">
+            <motion.div
+              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block"
+              style={{ background: `linear-gradient(to bottom, ${C.orange}, ${C.green})` }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            />
+            {journeySteps.map((step, i) => (
+              <TimelineNode key={i} step={step} index={i} />
             ))}
           </div>
 
@@ -858,4 +861,4 @@ const VirtuousCycle = () => {
   );
 };
 
-export default GharSevaPage;
+export default GharSeva;
