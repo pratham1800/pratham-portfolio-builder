@@ -335,7 +335,7 @@ const GharSeva = () => {
                       {c.items.map((item, idx) => (
                         <motion.li
                           key={item}
-                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          className="text-sm flex items-start gap-2 text-foreground/85"
                           initial={{ opacity: 0, x: -15 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
