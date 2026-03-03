@@ -322,7 +322,7 @@ const GharSeva = () => {
             {[
               { title: "For Families", color: C.orange, bg: C.orangeLight, items: ["No verification means constant safety anxiety", "No replacement guarantee disrupts weeks of life", "No substitute during leaves — household bears all burden"] },
               { title: "For Workers", color: C.green, bg: C.greenLight, items: ["No job security — income always at risk", "No financial safety nets during emergencies", "Undignified job search, dependent on who you know"] },
-              { title: "For the Market", color: "#EF4444", bg: "rgba(239,68,68,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
+              { title: "For the Market", color: "hsl(217, 91%, 60%)", bg: "hsla(217, 91%, 60%, 0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
             ].map((c) => (
               <motion.div key={c.title} variants={staggerItem}>
                 <TiltCard glowColor={c.color} className="h-full">
