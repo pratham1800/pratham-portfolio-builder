@@ -96,81 +96,14 @@ const researchTable = [
   { finding: "High upfront fees create friction", decision: "Low monthly subscription model" },
 ];
 
-/* ── Sequence-diagram journey phases ── */
-type ArrowDir = "c2g" | "g2c" | "g2w" | "w2g" | "c2w";
-interface SeqStep {
-  from: "Customer" | "GharSeva" | "Worker";
-  to: "Customer" | "GharSeva" | "Worker";
-  dir: ArrowDir;
-  label: string;
-  dashed?: boolean;
-}
-interface JourneyPhase {
-  phase: string;
-  note?: string;
-  steps: SeqStep[];
-  alt?: { condition: string; steps: SeqStep[]; elseCondition?: string; elseSteps?: SeqStep[] };
-}
-
-const journeyPhases: JourneyPhase[] = [
-  {
-    phase: "Phase 1: Discovery & Matching",
-    steps: [
-      { from: "Customer", to: "GharSeva", dir: "c2g", label: "Browses Categories & Fills Requirements" },
-      { from: "GharSeva", to: "Customer", dir: "g2c", label: "Displays Verified Worker Profiles" },
-      { from: "Customer", to: "GharSeva", dir: "c2g", label: "Selects Worker & Pays Booking Fee" },
-    ],
-  },
-  {
-    phase: "Phase 2: The Handshake",
-    steps: [
-      { from: "GharSeva", to: "Worker", dir: "g2w", label: "Sends Trial Request & Profile Match", dashed: true },
-      { from: "Worker", to: "GharSeva", dir: "w2g", label: "Accepts / Rejects Request" },
-    ],
-    alt: {
-      condition: "Worker Accepts",
-      steps: [
-        { from: "GharSeva", to: "Customer", dir: "g2c", label: "Shares Worker ID & Contact Details" },
-      ],
-      elseCondition: "Worker Rejects",
-      elseSteps: [
-        { from: "GharSeva", to: "Customer", dir: "g2c", label: "Notifies Customer & Suggests Alternatives" },
-      ],
-    },
-  },
-  {
-    phase: "Phase 3: The 3-Day Trial",
-    note: "Both sides evaluate fit",
-    steps: [
-      { from: "Customer", to: "Worker", dir: "c2w", label: "Conducts 3-Day Trial Period" },
-      { from: "Customer", to: "GharSeva", dir: "c2g", label: "Submits Hire / Reject Decision" },
-    ],
-  },
-  {
-    phase: "Phase 4: Long-term Engagement",
-    steps: [],
-    alt: {
-      condition: "Hire Confirmed",
-      steps: [
-        { from: "Customer", to: "GharSeva", dir: "c2g", label: "Activates Subscription" },
-        { from: "GharSeva", to: "Worker", dir: "g2w", label: "Confirms Regular Employment Status" },
-        { from: "Worker", to: "GharSeva", dir: "w2g", label: "Logs Monthly Attendance" },
-        { from: "Customer", to: "GharSeva", dir: "c2g", label: "Processes Monthly Payment via App" },
-      ],
-      elseCondition: "Replacement Needed",
-      elseSteps: [
-        { from: "Customer", to: "GharSeva", dir: "c2g", label: "Requests Replacement" },
-        { from: "GharSeva", to: "Customer", dir: "g2c", label: "Restarts Matching Flow" },
-      ],
-    },
-  },
+const journeySteps = [
+  { employer: "Browse Categories", system: "Landing Page", worker: "KYC Onboarding" },
+  { employer: "Fill Requirements", system: "Requirement Matching", worker: "Set Availability" },
+  { employer: "View Verified Profiles", system: "AI Match & Notify", worker: "Receive Trial Request" },
+  { employer: "Select & Pay Booking", system: "Payment Processing", worker: "Accept/Reject" },
+  { employer: "Trial Period (1-2 Days)", system: "Trial Management", worker: "Trial Execution" },
+  { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" },
 ];
-
-const participantColor: Record<string, string> = {
-  Customer: C.orange,
-  GharSeva: "hsl(217, 91%, 60%)",
-  Worker: C.green,
-};
 
 /* ── Stagger container variants ── */
 const staggerContainer = {
@@ -182,144 +115,64 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
 };
 
-/* ── Sequence arrow component ── */
-const SeqArrow = ({ step, index }: { step: SeqStep; index: number }) => {
-  const fromCol = step.from === "Customer" ? 0 : step.from === "GharSeva" ? 1 : 2;
-  const toCol = step.to === "Customer" ? 0 : step.to === "GharSeva" ? 1 : 2;
-  const leftCol = Math.min(fromCol, toCol);
-  const rightCol = Math.max(fromCol, toCol);
-  const goesRight = toCol > fromCol;
+/* ── Interactive timeline node ── */
+const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: number }) => {
+  const [active, setActive] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-40% 0px -40% 0px" });
+
+  useEffect(() => {
+    setActive(isInView);
+  }, [isInView]);
 
   return (
-    <motion.div
-      className="grid items-center py-2"
-      style={{ gridTemplateColumns: "1fr 1fr 1fr" }}
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, type: "spring", stiffness: 260, damping: 20 }}
-    >
-      {[0, 1, 2].map((col) => {
-        if (col === fromCol) {
-          return (
-            <div key={col} className="flex justify-center">
-              <motion.div
-                className="w-3 h-3 rounded-full"
-                style={{ background: participantColor[step.from] }}
-                whileHover={{ scale: 1.5 }}
-              />
-            </div>
-          );
-        }
-        if (col >= leftCol && col <= rightCol && col !== fromCol) {
-          return (
-            <div key={col} className="flex items-center justify-center relative px-1">
-              <motion.div
-                className="w-full h-0.5 relative"
-                style={{
-                  background: `linear-gradient(${goesRight ? "to right" : "to left"}, ${participantColor[step.from]}, ${participantColor[step.to]})`,
-                  ...(step.dashed ? { backgroundImage: "none", borderTop: `2px dashed ${participantColor[step.from]}` } : {}),
-                }}
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 + 0.1, duration: 0.4 }}
-              />
-              {col === toCol && (
-                <motion.span
-                  className="absolute text-xs"
-                  style={{
-                    color: participantColor[step.to],
-                    [goesRight ? "right" : "left"]: "-4px",
-                  }}
-                >
-                  {goesRight ? "▶" : "◀"}
-                </motion.span>
-              )}
-            </div>
-          );
-        }
-        return <div key={col} />;
-      })}
-      <div
-        className="col-span-3 text-center mt-1"
-      >
-        <motion.span
-          className="text-xs md:text-sm font-medium text-foreground/90"
-          whileHover={{ color: participantColor[step.from] }}
-        >
-          {step.label}
-        </motion.span>
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
+      <div className={`text-right ${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
+        <TiltCard glowColor={C.orange} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `3px solid ${C.orange}` }}
+            animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
+            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+          </motion.div>
+        </TiltCard>
       </div>
-    </motion.div>
+      <div className="hidden md:flex flex-col items-center">
+        <motion.div
+          className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
+          style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
+          animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.3, rotate: 360 }}
+        >
+          {index + 1}
+        </motion.div>
+        <motion.p
+          className="text-xs mt-2 text-center max-w-[120px] font-medium"
+          animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+        >
+          {step.system}
+        </motion.p>
+      </div>
+      <div className={index % 2 === 0 ? "" : "md:order-1 md:text-right"}>
+        <TiltCard glowColor={C.green} className="inline-block">
+          <motion.div
+            className="rounded-xl p-5 shadow-sm"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `3px solid ${C.green}` }}
+            animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
+            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+          </motion.div>
+        </TiltCard>
+      </div>
+    </div>
   );
 };
-
-/* ── Phase block ── */
-const PhaseBlock = ({ phase, phaseIndex }: { phase: JourneyPhase; phaseIndex: number }) => (
-  <motion.div
-    className="mb-8"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: phaseIndex * 0.1 }}
-  >
-    <div className="flex items-center gap-3 mb-4">
-      <motion.div
-        className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider"
-        style={{ background: `${C.orange}20`, color: C.orange, border: `1px solid ${C.orange}30` }}
-        whileHover={{ scale: 1.05 }}
-      >
-        {phase.phase}
-      </motion.div>
-      {phase.note && (
-        <span className="text-xs text-muted-foreground italic">— {phase.note}</span>
-      )}
-    </div>
-
-    {phase.steps.map((step, i) => (
-      <SeqArrow key={i} step={step} index={i} />
-    ))}
-
-    {phase.alt && (
-      <div className="mt-3 space-y-3">
-        <motion.div
-          className="rounded-xl p-4"
-          style={{ background: `${C.green}08`, border: `1px solid ${C.green}20` }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <CheckCircle size={14} style={{ color: C.green }} />
-            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: C.green }}>{phase.alt.condition}</span>
-          </div>
-          {phase.alt.steps.map((step, i) => (
-            <SeqArrow key={i} step={step} index={i} />
-          ))}
-        </motion.div>
-
-        {phase.alt.elseCondition && phase.alt.elseSteps && (
-          <motion.div
-            className="rounded-xl p-4"
-            style={{ background: "rgba(248,113,113,0.06)", border: "1px solid rgba(248,113,113,0.20)" }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <XCircle size={14} style={{ color: "#F87171" }} />
-              <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#F87171" }}>{phase.alt.elseCondition}</span>
-            </div>
-            {phase.alt.elseSteps.map((step, i) => (
-              <SeqArrow key={i} step={step} index={i} />
-            ))}
-          </motion.div>
-        )}
-      </div>
-    )}
-  </motion.div>
-);
 
 const GharSeva = () => {
   const [showTop, setShowTop] = useState(false);
@@ -814,29 +667,19 @@ const GharSeva = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
           </ScrollFadeIn>
 
-          {/* Participant headers */}
-          <div className="grid mb-8" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
-            {(["Customer", "GharSeva", "Worker"] as const).map((p) => (
-              <div key={p} className="flex flex-col items-center">
-                <motion.div
-                  className="px-4 py-2 rounded-lg text-xs md:text-sm font-bold"
-                  style={{ background: `${participantColor[p]}15`, color: participantColor[p], border: `1px solid ${participantColor[p]}30` }}
-                  whileHover={{ scale: 1.08, boxShadow: `0 0 20px ${participantColor[p]}25` }}
-                >
-                  {p}
-                </motion.div>
-                <motion.div
-                  className="w-0.5 h-6 mt-1"
-                  style={{ background: `${participantColor[p]}40` }}
-                />
-              </div>
+          <div className="relative">
+            <motion.div
+              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block"
+              style={{ background: `linear-gradient(to bottom, ${C.orange}, ${C.green})` }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            />
+            {journeySteps.map((step, i) => (
+              <TimelineNode key={i} step={step} index={i} />
             ))}
           </div>
-
-          {/* Phases */}
-          {journeyPhases.map((phase, i) => (
-            <PhaseBlock key={i} phase={phase} phaseIndex={i} />
-          ))}
 
           <ScrollFadeIn>
             <motion.a
