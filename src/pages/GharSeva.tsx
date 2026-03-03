@@ -15,14 +15,14 @@ import {
 import gharsevaFamily from "@/assets/gharseva-family.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
 
-/* ── GharSeva accent colors ── */
+/* ── GharSeva accent colors — dark navy + teal/cyan ── */
 const C = {
-  orange: "#E8890C",
-  orangeLight: "rgba(232,137,12,0.10)",
-  orangeBorder: "rgba(232,137,12,0.25)",
-  green: "#2D6A4F",
-  greenLight: "rgba(45,106,79,0.10)",
-  greenBorder: "rgba(45,106,79,0.20)",
+  orange: "#2DD4BF",
+  orangeLight: "rgba(45,212,191,0.08)",
+  orangeBorder: "rgba(45,212,191,0.22)",
+  green: "#34D399",
+  greenLight: "rgba(52,211,153,0.08)",
+  greenBorder: "rgba(52,211,153,0.20)",
 };
 
 /* ── Tilt Card wrapper ── */
@@ -187,7 +187,7 @@ const GharSeva = () => {
 
   return (
     <main className="pt-16 bg-background text-foreground relative">
-      <AmbientCrystals accentColor="#4353FF" intensity="moderate" />
+      <AmbientCrystals accentColor="#2DD4BF" intensity="moderate" />
 
       {/* ═══ Hero ═══ */}
       <section className="relative flex flex-col items-center overflow-hidden pt-12 pb-0 bg-background">
@@ -322,7 +322,7 @@ const GharSeva = () => {
             {[
               { title: "For Families", color: C.orange, bg: C.orangeLight, items: ["No verification means constant safety anxiety", "No replacement guarantee disrupts weeks of life", "No substitute during leaves — household bears all burden"] },
               { title: "For Workers", color: C.green, bg: C.greenLight, items: ["No job security — income always at risk", "No financial safety nets during emergencies", "Undignified job search, dependent on who you know"] },
-              { title: "For the Market", color: "#EF4444", bg: "rgba(239,68,68,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
+              { title: "For the Market", color: "#60A5FA", bg: "rgba(96,165,250,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
             ].map((c) => (
               <motion.div key={c.title} variants={staggerItem}>
                 <TiltCard glowColor={c.color} className="h-full">
@@ -545,7 +545,7 @@ const GharSeva = () => {
                       </div>
                     </motion.div>
                     <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
-                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#F87171" }}>Pain Points</h4>
                     <ul className="space-y-2 mb-4">
                       {persona.pains.map((p, pi) => (
                         <motion.li
@@ -555,9 +555,9 @@ const GharSeva = () => {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: pi * 0.06 }}
-                          whileHover={{ x: 6, color: "#EF4444" }}
+                          whileHover={{ x: 6, color: "#F87171" }}
                         >
-                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#EF4444" }} />{p}
+                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#F87171" }} />{p}
                         </motion.li>
                       ))}
                     </ul>
