@@ -15,14 +15,14 @@ import {
 import gharsevaFamily from "@/assets/gharseva-family.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
 
-/* ── GharSeva accent colors (Blue & Teal) ── */
+/* ── GharSeva accent colors ── */
 const C = {
-  orange: "#4353FF",
-  orangeLight: "rgba(67,83,255,0.10)",
-  orangeBorder: "rgba(67,83,255,0.25)",
-  green: "#0D9488",
-  greenLight: "rgba(13,148,136,0.10)",
-  greenBorder: "rgba(13,148,136,0.20)",
+  orange: "#E8890C",
+  orangeLight: "rgba(232,137,12,0.10)",
+  orangeBorder: "rgba(232,137,12,0.25)",
+  green: "#2D6A4F",
+  greenLight: "rgba(45,106,79,0.10)",
+  greenBorder: "rgba(45,106,79,0.20)",
 };
 
 /* ── Tilt Card wrapper ── */
@@ -322,7 +322,7 @@ const GharSeva = () => {
             {[
               { title: "For Families", color: C.orange, bg: C.orangeLight, items: ["No verification means constant safety anxiety", "No replacement guarantee disrupts weeks of life", "No substitute during leaves — household bears all burden"] },
               { title: "For Workers", color: C.green, bg: C.greenLight, items: ["No job security — income always at risk", "No financial safety nets during emergencies", "Undignified job search, dependent on who you know"] },
-              { title: "For the Market", color: "#F43F5E", bg: "rgba(244,63,94,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
+              { title: "For the Market", color: "#EF4444", bg: "rgba(239,68,68,0.08)", items: ["Trust deficit on both sides", "No platform owns the trust layer", "Neither side has reason to change"] },
             ].map((c) => (
               <motion.div key={c.title} variants={staggerItem}>
                 <TiltCard glowColor={c.color} className="h-full">
@@ -545,7 +545,7 @@ const GharSeva = () => {
                       </div>
                     </motion.div>
                     <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
-                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#F43F5E" }}>Pain Points</h4>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
                     <ul className="space-y-2 mb-4">
                       {persona.pains.map((p, pi) => (
                         <motion.li
@@ -555,9 +555,9 @@ const GharSeva = () => {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: pi * 0.06 }}
-                          whileHover={{ x: 6, color: "#F43F5E" }}
+                          whileHover={{ x: 6, color: "#EF4444" }}
                         >
-                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#F43F5E" }} />{p}
+                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#EF4444" }} />{p}
                         </motion.li>
                       ))}
                     </ul>
