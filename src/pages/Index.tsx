@@ -62,17 +62,15 @@ const Index = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="text-muted-foreground text-2xl md:text-3xl font-medium block mb-2">Hi, I'm</span>
             <motion.span
               className="inline-block"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              Pratham Maheshwari.
+              Hi, I'm Pratham Maheshwari.
             </motion.span>
-            <br />
-            <span className="text-primary">I build products that drive growth.</span>
           </motion.h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6">I build products that drive growth.</p>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
             Software Engineer turned Product Manager. Bridging human needs with digital solutions — obsessed with marketplaces and trust-infrastructure.
           </p>
