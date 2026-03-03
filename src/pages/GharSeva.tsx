@@ -17,12 +17,12 @@ import AmbientCrystals from "@/components/AmbientCrystals";
 
 /* ── GharSeva accent colors ── */
 const C = {
-  orange: "#F59E0B",
-  orangeLight: "rgba(245,158,11,0.12)",
-  orangeBorder: "rgba(245,158,11,0.30)",
-  green: "#34D399",
-  greenLight: "rgba(52,211,153,0.10)",
-  greenBorder: "rgba(52,211,153,0.25)",
+  orange: "#6366F1",
+  orangeLight: "rgba(99,102,241,0.10)",
+  orangeBorder: "rgba(99,102,241,0.28)",
+  green: "#38BDF8",
+  greenLight: "rgba(56,189,248,0.08)",
+  greenBorder: "rgba(56,189,248,0.22)",
 };
 
 /* ── Tilt Card wrapper ── */
@@ -545,7 +545,7 @@ const GharSeva = () => {
                       </div>
                     </motion.div>
                     <p className="text-sm mb-4 text-foreground/80">{persona.bio}</p>
-                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#F87171" }}>Pain Points</h4>
                     <ul className="space-y-2 mb-4">
                       {persona.pains.map((p, pi) => (
                         <motion.li
@@ -555,9 +555,9 @@ const GharSeva = () => {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: pi * 0.06 }}
-                          whileHover={{ x: 6, color: "#EF4444" }}
+                          whileHover={{ x: 6, color: "#F87171" }}
                         >
-                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#EF4444" }} />{p}
+                          <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: "#F87171" }} />{p}
                         </motion.li>
                       ))}
                     </ul>
