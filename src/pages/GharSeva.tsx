@@ -17,12 +17,12 @@ import AmbientCrystals from "@/components/AmbientCrystals";
 
 /* ── GharSeva accent colors ── */
 const C = {
-  orange: "#E8890C",
-  orangeLight: "rgba(232,137,12,0.10)",
-  orangeBorder: "rgba(232,137,12,0.25)",
-  green: "#2D6A4F",
-  greenLight: "rgba(45,106,79,0.10)",
-  greenBorder: "rgba(45,106,79,0.20)",
+  orange: "#F59E0B",
+  orangeLight: "rgba(245,158,11,0.12)",
+  orangeBorder: "rgba(245,158,11,0.30)",
+  green: "#34D399",
+  greenLight: "rgba(52,211,153,0.10)",
+  greenBorder: "rgba(52,211,153,0.25)",
 };
 
 /* ── Tilt Card wrapper ── */
@@ -290,7 +290,7 @@ const GharSeva = () => {
                         {card.emoji}
                       </motion.p>
                       <h3 className="font-bold mb-2" style={{ color: card.color }}>{card.title}</h3>
-                      <p className="text-sm leading-relaxed text-muted-foreground">{card.text}</p>
+                      <p className="text-sm leading-relaxed text-foreground/85">{card.text}</p>
                     </div>
                   </TiltCard>
                 </motion.div>
@@ -419,7 +419,7 @@ const GharSeva = () => {
                     style={{ background: phase.bg, border: `2px solid ${phase.color}40`, borderTop: `4px solid ${phase.color}` }}
                   >
                     <h3 className="font-bold mb-4 text-lg" style={{ color: phase.color }}>{phase.title}</h3>
-                    <ul className="space-y-3 text-sm text-muted-foreground">
+                    <ul className="space-y-3 text-sm text-foreground/85">
                       {phase.items.map((item, idx) => (
                         <motion.li
                           key={item}
@@ -439,7 +439,7 @@ const GharSeva = () => {
                       transition={{ type: "spring", stiffness: 400 }}
                     >
                       <p className="text-xs font-semibold text-foreground">{phase.keyTitle}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{phase.keyText}</p>
+                      <p className="text-xs text-foreground/80 mt-1">{phase.keyText}</p>
                     </motion.div>
                   </div>
                 </TiltCard>
@@ -477,7 +477,7 @@ const GharSeva = () => {
                       transition={{ duration: 0.4, delay: i * 0.1 }}
                       whileHover={{ background: C.orangeLight, scale: 1.01, x: 4 }}
                     >
-                      <TableCell className="text-sm text-muted-foreground">{r.finding}</TableCell>
+                      <TableCell className="text-sm text-foreground/80">{r.finding}</TableCell>
                       <TableCell className="text-sm font-semibold text-foreground">
                         <motion.span
                           className="inline-block"
@@ -544,13 +544,13 @@ const GharSeva = () => {
                         <p className="text-xs text-muted-foreground">{persona.meta}</p>
                       </div>
                     </motion.div>
-                    <p className="text-sm mb-4 text-muted-foreground">{persona.bio}</p>
+                    <p className="text-sm mb-4 text-foreground/80">{persona.bio}</p>
                     <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#EF4444" }}>Pain Points</h4>
                     <ul className="space-y-2 mb-4">
                       {persona.pains.map((p, pi) => (
                         <motion.li
                           key={p}
-                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          className="text-sm flex items-start gap-2 text-foreground/85"
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
@@ -566,7 +566,7 @@ const GharSeva = () => {
                       {persona.needs.map((n, ni) => (
                         <motion.li
                           key={n}
-                          className="text-sm flex items-start gap-2 text-muted-foreground"
+                          className="text-sm flex items-start gap-2 text-foreground/85"
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
@@ -631,7 +631,7 @@ const GharSeva = () => {
                     style={{ background: card.bg, border: `1px solid ${card.border}`, borderTop: `4px solid ${card.color}` }}
                   >
                     <h3 className="font-bold mb-4" style={{ color: card.color }}>{card.title}</h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-sm text-foreground/85">
                       {card.items.map((b, bi) => (
                         <motion.li
                           key={b}
@@ -800,7 +800,7 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
           animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
           transition={{ duration: 0.35 }}
         >
-          <p className="text-sm leading-relaxed text-muted-foreground">{pillar.desc}</p>
+          <p className="text-sm leading-relaxed text-foreground/85">{pillar.desc}</p>
         </motion.div>
       </motion.div>
     </TiltCard>
@@ -831,7 +831,7 @@ const VirtuousCycle = () => {
         {steps.map((step, i) => (
           <motion.span
             key={step}
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground"
+            className="inline-flex items-center gap-1 text-sm text-foreground/85"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
