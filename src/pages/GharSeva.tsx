@@ -201,12 +201,12 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         </motion.div>
       </div>
 
-      {/* Flowchart row: Employer → Platform → Worker */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center gap-3 md:gap-0">
+      {/* Flowchart row: Employer → GharSeva → Worker */}
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 md:gap-0">
         {/* Employer action */}
-        <TiltCard glowColor={C.orange} className="flex-1 max-w-xs mx-auto md:mx-0">
+        <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
-            className="rounded-xl p-5 shadow-sm h-full"
+            className="rounded-xl p-5 shadow-sm h-full min-h-[80px] flex flex-col justify-center"
             style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `4px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -216,17 +216,17 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           </motion.div>
         </TiltCard>
 
-        {/* Arrow: Employer → Platform */}
+        {/* Arrow: Employer → GharSeva */}
         <AnimatedArrow color={C.orange} active={active} direction="right" />
 
         {/* GharSeva / System */}
         <motion.div
-          className="flex-shrink-0 mx-auto md:mx-0 relative z-20"
+          className="w-full relative z-20"
           animate={active ? { scale: 1.05 } : { scale: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
-            className="rounded-xl px-5 py-4 text-center shadow-md min-w-[150px]"
+            className="rounded-xl px-5 py-4 text-center shadow-md h-full min-h-[80px] flex flex-col justify-center"
             style={{
               background: "hsl(var(--card))",
               border: `1px solid`,
@@ -239,13 +239,13 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           </div>
         </motion.div>
 
-        {/* Arrow: Platform → Worker */}
+        {/* Arrow: GharSeva → Worker */}
         <AnimatedArrow color={C.green} active={active} direction="right" />
 
         {/* Worker action */}
-        <TiltCard glowColor={C.green} className="flex-1 max-w-xs mx-auto md:mx-0">
+        <TiltCard glowColor={C.green} className="w-full">
           <motion.div
-            className="rounded-xl p-5 shadow-sm h-full"
+            className="rounded-xl p-5 shadow-sm h-full min-h-[80px] flex flex-col justify-center"
             style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `4px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
