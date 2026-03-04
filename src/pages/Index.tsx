@@ -20,10 +20,10 @@ const projects = [
     preview: gharsevaPreview,
   },
   {
-    title: "Zepto: Perishable Goods UX",
+    title: "Zepto: Beyond The Stopwatch",
     subtitle: "Building trust infrastructure beyond the 10-minute promise.",
     description: "A deep-dive into how hidden product metadata and last-mile thermal failures drive users back to kirana stores.",
-    tags: ["UX Research", "Quick-Commerce", "Trust Systems"],
+    tags: ["User Research", "Quick-Commerce", "Trust Systems"],
     to: "/zepto",
     imageFirst: false,
     preview: zeptoPreview,
