@@ -27,7 +27,7 @@ const Footer = () =>
           <Mail size={20} />
         </a>
       </div>
-      <p className="text-xs text-muted-foreground/40">© 2024 Pratham Maheshwari · Built with React + Tailwind</p>
+      
     </div>
   </footer>;
 
