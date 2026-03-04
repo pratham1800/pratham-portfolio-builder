@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -7,6 +7,7 @@ const StickyNav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isCaseStudy = location.pathname !== "/";
 
@@ -17,6 +18,29 @@ const StickyNav = () => {
   }, []);
 
   useEffect(() => setMenuOpen(false), [location]);
+
+  const scrollToHash = useCallback((hash: string) => {
+    const el = document.querySelector(hash);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
+  const handleNavClick = useCallback(
+    (to: string) => (e: React.MouseEvent) => {
+      if (to.startsWith("/#")) {
+        e.preventDefault();
+        const hash = to.replace("/", "");
+        if (location.pathname === "/") {
+          scrollToHash(hash);
+        } else {
+          navigate("/");
+          setTimeout(() => scrollToHash(hash), 100);
+        }
+      }
+    },
+    [location.pathname, navigate, scrollToHash]
+  );
 
   const navLinks = isCaseStudy
     ? [{ label: "← Back to Portfolio", to: "/" }]
@@ -42,7 +66,12 @@ const StickyNav = () => {
         {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
-            <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={handleNavClick(l.to)}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
               {l.label}
             </Link>
           ))}
@@ -73,7 +102,12 @@ const StickyNav = () => {
           >
             <nav className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
-                <Link key={l.to} to={l.to} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={handleNavClick(l.to)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
                   {l.label}
                 </Link>
               ))}
