@@ -202,17 +202,17 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
       </div>
 
       {/* Flowchart row: Employer → GharSeva → Worker */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 md:gap-0">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 md:gap-0">
         {/* Employer action */}
         <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
-            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
-            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `4px solid ${C.orange}` }}
+            className="rounded-md px-2 py-1.5 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `3px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.orange }}>👤 Employer</p>
-            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.orange }}>👤 Employer</p>
+            <p className="text-xs font-medium text-foreground">{step.employer}</p>
           </motion.div>
         </TiltCard>
 
@@ -226,7 +226,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
-            className="rounded-lg px-3 py-2.5 text-center shadow-md h-full min-h-[56px] flex flex-col justify-center"
+            className="rounded-md px-2 py-1.5 text-center shadow-md h-full min-h-[44px] flex flex-col justify-center"
             style={{
               background: "hsl(var(--card))",
               border: `1px solid`,
@@ -234,8 +234,8 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
               boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
             }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-muted-foreground">⚙️ GharSeva</p>
-            <p className="text-sm font-bold text-foreground">{step.system}</p>
+            <p className="text-[9px] font-semibold uppercase tracking-wider mb-0.5 text-muted-foreground">⚙️ GharSeva</p>
+            <p className="text-xs font-bold text-foreground">{step.system}</p>
           </div>
         </motion.div>
 
@@ -245,13 +245,13 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Worker action */}
         <TiltCard glowColor={C.green} className="w-full">
           <motion.div
-            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
-            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `4px solid ${C.green}` }}
+            className="rounded-md px-2 py-1.5 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `3px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.green }}>🔧 Worker</p>
-            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.green }}>🔧 Worker</p>
+            <p className="text-xs font-medium text-foreground">{step.worker}</p>
           </motion.div>
         </TiltCard>
       </div>
@@ -746,7 +746,7 @@ const GharSeva = () => {
 
       {/* ═══ Product Walkthrough ═══ */}
       <section className="px-6 py-20 bg-card">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Product Walkthrough" color={C.green} />
             <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
