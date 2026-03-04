@@ -5,8 +5,8 @@ import CountUpStat from "@/components/CountUpStat";
 import Footer from "@/components/Footer";
 import TechMarquee from "@/components/TechMarquee";
 import { motion } from "framer-motion";
-import gharsevaFamily from "@/assets/gharseva-family.png";
-import zeptoLogo from "@/assets/zepto-logo.png";
+import gharsevaPreview from "@/assets/gharseva-preview.png";
+import zeptoPreview from "@/assets/zepto-preview.png";
 import HeroScene from "@/components/HeroScene";
 
 const projects = [
@@ -17,7 +17,7 @@ const projects = [
     tags: ["Marketplace", "Trust Infrastructure", "B2C"],
     to: "/gharseva",
     imageFirst: true,
-    preview: gharsevaFamily,
+    preview: gharsevaPreview,
   },
   {
     title: "Zepto: Perishable Goods UX",
@@ -26,7 +26,7 @@ const projects = [
     tags: ["UX Research", "Quick-Commerce", "Trust Systems"],
     to: "/zepto",
     imageFirst: false,
-    preview: zeptoLogo,
+    preview: zeptoPreview,
   },
 ];
 
@@ -126,8 +126,8 @@ const Index = () => (
                   whileHover={{ y: -4 }}
                   className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-2xl hover:shadow-primary/5 cursor-pointer"
                 >
-                  <div className={`w-full h-64 md:h-80 bg-secondary flex items-center justify-center p-6 ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
-                    <img src={p.preview} alt={`${p.title} preview`} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                  <div className={`w-full h-64 md:h-80 bg-secondary overflow-hidden ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
+                    <img src={p.preview} alt={`${p.title} preview`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className={`flex flex-col justify-center p-8 md:p-12 ${p.imageFirst ? "md:order-2" : "md:order-1"}`}>
                     <h3 className="text-2xl md:text-3xl font-extrabold mb-2 font-display">{p.title}</h3>
