@@ -126,7 +126,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
   }, [isInView]);
 
   return (
-    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 mb-12 items-center">
       <div className="text-right">
         <TiltCard glowColor={C.orange} className="inline-block">
           <motion.div
@@ -140,22 +140,44 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           </motion.div>
         </TiltCard>
       </div>
-      <div className="hidden md:flex flex-col items-center">
+      <div className="hidden md:flex flex-row items-center gap-0">
+        {/* Left arrow ← pointing to Employer */}
         <motion.div
-          className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
-          style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
-          animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
-          transition={{ duration: 0.6 }}
-          whileHover={{ scale: 1.3, rotate: 360 }}
+          className="flex items-center"
+          animate={{ opacity: active ? 1 : 0.4 }}
         >
-          {index + 1}
+          <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
+            <path d="M40 6H4" stroke={active ? C.orange : `${C.orange}60`} strokeWidth="2" />
+            <path d="M8 1L2 6L8 11" stroke={active ? C.orange : `${C.orange}60`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </motion.div>
-        <motion.p
-          className="text-xs mt-2 text-center max-w-[120px] font-medium"
-          animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+        <div className="flex flex-col items-center">
+          <motion.div
+            className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
+            style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
+            animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ scale: 1.3, rotate: 360 }}
+          >
+            {index + 1}
+          </motion.div>
+          <motion.p
+            className="text-xs mt-2 text-center max-w-[120px] font-medium"
+            animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
+          >
+            {step.system}
+          </motion.p>
+        </div>
+        {/* Right arrow → pointing to Worker */}
+        <motion.div
+          className="flex items-center"
+          animate={{ opacity: active ? 1 : 0.4 }}
         >
-          {step.system}
-        </motion.p>
+          <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
+            <path d="M0 6H36" stroke={active ? C.green : `${C.green}60`} strokeWidth="2" />
+            <path d="M32 1L38 6L32 11" stroke={active ? C.green : `${C.green}60`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.div>
       </div>
       <div>
         <TiltCard glowColor={C.green} className="inline-block">
