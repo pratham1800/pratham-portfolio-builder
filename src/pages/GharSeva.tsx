@@ -183,16 +183,16 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
   return (
     <motion.div
       ref={ref}
-      className="mb-8 relative z-10"
+      className="mb-6 sm:mb-8 relative z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08, type: "spring", stiffness: 200, damping: 20 }}
     >
       {/* Step number badge */}
-      <div className="flex justify-center mb-3">
+      <div className="flex justify-center mb-2 sm:mb-3">
         <motion.div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold relative z-20"
+          className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold relative z-20"
           style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
           animate={active ? { scale: [1, 1.15, 1], boxShadow: `0 0 20px ${C.orange}40` } : { scale: 1, boxShadow: "none" }}
           transition={{ duration: 0.5 }}
@@ -206,13 +206,13 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Employer action */}
         <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
-            className="rounded-md px-2 py-1.5 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            className="rounded-md px-1.5 py-1 sm:px-2 sm:py-1.5 shadow-sm h-full min-h-[36px] sm:min-h-[44px] flex flex-col justify-center"
             style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `3px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.orange }}>👤 Employer</p>
-            <p className="text-xs font-medium text-foreground">{step.employer}</p>
+            <p className="text-[8px] sm:text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.orange }}>👤 Employer</p>
+            <p className="text-[10px] sm:text-xs font-medium text-foreground leading-tight">{step.employer}</p>
           </motion.div>
         </TiltCard>
 
@@ -226,7 +226,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
-            className="rounded-md px-2 py-1.5 text-center shadow-md h-full min-h-[44px] flex flex-col justify-center"
+            className="rounded-md px-1.5 py-1 sm:px-2 sm:py-1.5 text-center shadow-md h-full min-h-[36px] sm:min-h-[44px] flex flex-col justify-center"
             style={{
               background: "hsl(var(--card))",
               border: `1px solid`,
@@ -234,8 +234,8 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
               boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
             }}
           >
-            <p className="text-[9px] font-semibold uppercase tracking-wider mb-0.5 text-muted-foreground">⚙️ GharSeva</p>
-            <p className="text-xs font-bold text-foreground">{step.system}</p>
+            <p className="text-[7px] sm:text-[9px] font-semibold uppercase tracking-wider mb-0.5 text-muted-foreground">⚙️ GharSeva</p>
+            <p className="text-[10px] sm:text-xs font-bold text-foreground leading-tight">{step.system}</p>
           </div>
         </motion.div>
 
@@ -245,13 +245,13 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Worker action */}
         <TiltCard glowColor={C.green} className="w-full">
           <motion.div
-            className="rounded-md px-2 py-1.5 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            className="rounded-md px-1.5 py-1 sm:px-2 sm:py-1.5 shadow-sm h-full min-h-[36px] sm:min-h-[44px] flex flex-col justify-center"
             style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `3px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.green }}>🔧 Worker</p>
-            <p className="text-xs font-medium text-foreground">{step.worker}</p>
+            <p className="text-[8px] sm:text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.green }}>🔧 Worker</p>
+            <p className="text-[10px] sm:text-xs font-medium text-foreground leading-tight">{step.worker}</p>
           </motion.div>
         </TiltCard>
       </div>
@@ -286,7 +286,7 @@ const GharSeva = () => {
             <AnimatedPill text="Case Study" color={C.orange} />
           </motion.div>
           <motion.h1
-            className="text-5xl md:text-8xl font-bold mb-4 text-foreground"
+            className="text-4xl sm:text-5xl md:text-8xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -322,7 +322,7 @@ const GharSeva = () => {
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto py-8">
           <motion.p
-            className="text-xl md:text-2xl mb-3 font-semibold text-foreground"
+            className="text-lg sm:text-xl md:text-2xl mb-3 font-semibold text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -347,7 +347,7 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Mission & Vision ═══ */}
-      <section className="px-6 py-20 bg-background">
+      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
         <div className="max-w-3xl mx-auto">
           <ScrollFadeIn>
             <motion.div
@@ -386,11 +386,11 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Problem ═══ */}
-      <section className="px-6 py-20 bg-card">
+      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="The Problem" color={C.orange} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Broken System</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Broken System</h2>
             <p className="text-sm mb-2 text-muted-foreground">A 21st-century problem stuck in a 19th-century solution</p>
             <p className="max-w-3xl leading-relaxed mb-12 text-muted-foreground">
               Every day in India, millions of families and domestic workers desperately search for each other — often in the same locality — yet never connect. The system runs on informal trust, word-of-mouth, and hope.
@@ -446,7 +446,7 @@ const GharSeva = () => {
               className="rounded-2xl p-8 md:p-12 bg-secondary"
               whileHover={{ boxShadow: `0 0 60px ${C.orange}15` }}
             >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
                 {[
                   { end: 35, suffix: "M+", label: "Urban households stuck in chaos" },
                   { end: 10, suffix: "M+", label: "Workers trapped in the same cycle" },
@@ -462,11 +462,11 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Research ═══ */}
-      <section className="px-6 py-20 bg-background">
+      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Research & Discovery" color={C.green} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
             <p className="max-w-3xl mb-12 leading-relaxed text-muted-foreground">
               The domestic help market operates through informal networks, cash transactions, and unspoken social dynamics. Understanding it required getting off the desk.
             </p>
@@ -581,11 +581,11 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Personas ═══ */}
-      <section className="px-6 py-20 bg-card">
+      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-card">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="User Personas" color={C.green} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">Who We're Building For</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-12 mt-3 text-foreground">Who We're Building For</h2>
           </ScrollFadeIn>
 
           <motion.div
@@ -671,12 +671,12 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Solution ═══ */}
-      <section className="px-6 py-20 bg-background">
+      <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="The Solution" color={C.green} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
-            <p className="mb-12 text-muted-foreground">The 3-Pillar Approach</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
+            <p className="mb-8 sm:mb-12 text-muted-foreground">The 3-Pillar Approach</p>
           </ScrollFadeIn>
 
           <motion.div
@@ -745,11 +745,11 @@ const GharSeva = () => {
       </section>
 
       {/* ═══ Product Walkthrough ═══ */}
-      <section className="px-6 py-20 bg-card">
+      <section className="px-3 sm:px-6 py-12 sm:py-20 bg-card">
         <div className="max-w-3xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Product Walkthrough" color={C.green} />
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
           </ScrollFadeIn>
 
           <div className="relative">
@@ -772,7 +772,7 @@ const GharSeva = () => {
               href="https://gharseva-househelp.lovable.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 rounded-2xl p-8 mt-8 text-center cursor-pointer no-underline group"
+              className="flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl p-5 sm:p-8 mt-8 text-center cursor-pointer no-underline group"
               style={{ background: C.orange, color: "#FFFFFF" }}
               whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(232,137,12,0.35)" }}
               whileTap={{ scale: 0.98 }}
@@ -784,7 +784,7 @@ const GharSeva = () => {
               >
                 <ExternalLink size={24} />
               </motion.div>
-              <span className="text-xl font-bold">Visit the Live GharSeva Website</span>
+              <span className="text-base sm:text-xl font-bold">Visit the Live GharSeva Website</span>
             </motion.a>
           </ScrollFadeIn>
         </div>
@@ -796,7 +796,7 @@ const GharSeva = () => {
           <div className="max-w-6xl mx-auto text-center">
             <ScrollFadeIn>
               <motion.h2
-                className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
