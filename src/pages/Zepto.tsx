@@ -315,7 +315,7 @@ const Zepto = () => {
           {/* SHAP Analysis */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             <ScrollFadeIn>
-              <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.purple }}>Churn Driver Analysis (SHAP Lens)</h3>
                 <div className="space-y-4">
                   <div>
@@ -342,7 +342,7 @@ const Zepto = () => {
               </div>
             </ScrollFadeIn>
             <ScrollFadeIn delay={0.1}>
-              <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.amber }}>Basket Abandonment: The Halo Effect</h3>
                 <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>
                   Dairy and Bakery are "Destination Categories" that anchor the household's daily habit loop.
@@ -425,7 +425,7 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {personas.map((p, i) => (
               <ScrollFadeIn key={p.name} delay={i * 0.1}>
-                <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl">{p.emoji}</span>
                     <div>
@@ -546,7 +546,7 @@ const Zepto = () => {
                 { icon: Camera, title: "Visual AI Dispute Resolution", desc: "Computer Vision model trained on viscosity patterns for melted liquids to automate refunds without human support intervention.", color: Z.red },
               ].map((a, i) => (
                 <ScrollFadeIn key={a.title} delay={i * 0.1}>
-                  <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${a.color}` }}>
+                  <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${a.color}` }}>
                     <a.icon size={28} className="mb-3" style={{ color: a.color }} />
                     <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{a.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{a.desc}</p>
@@ -580,7 +580,7 @@ const Zepto = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ScrollFadeIn>
-              <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.purple }}>L1 Metrics: Behavioral Shift</h3>
                 <ul className="space-y-3 text-sm" style={{ color: Z.charcoalLight }}>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.purple }} />Category-Specific Churn (Dairy/Bakery): Reduce from 12% → 7%</li>
@@ -590,7 +590,7 @@ const Zepto = () => {
               </div>
             </ScrollFadeIn>
             <ScrollFadeIn delay={0.1}>
-              <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.amber }}>L2/Guardrail Metrics</h3>
                 <ul className="space-y-3 text-sm" style={{ color: Z.charcoalLight }}>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.amber }} />Thermal Wastage: Reduce from 8–12% → under 4%</li>
@@ -613,7 +613,7 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {takeaways.map((t, i) => (
               <ScrollFadeIn key={t.title} delay={i * 0.1}>
-                <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
                   <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{t.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{t.desc}</p>
                 </div>
