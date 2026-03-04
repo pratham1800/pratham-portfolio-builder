@@ -348,7 +348,7 @@ const GharSeva = () => {
 
       {/* ═══ Mission & Vision ═══ */}
       <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <ScrollFadeIn>
             <motion.div
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -387,7 +387,7 @@ const GharSeva = () => {
 
       {/* ═══ Problem ═══ */}
       <section className="px-4 sm:px-6 py-12 sm:py-20 bg-card">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="The Problem" color={C.orange} />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Broken System</h2>
@@ -463,7 +463,7 @@ const GharSeva = () => {
 
       {/* ═══ Research ═══ */}
       <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Research & Discovery" color={C.green} />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">I Didn't Assume. I Went and Found Out.</h2>
@@ -582,7 +582,7 @@ const GharSeva = () => {
 
       {/* ═══ Personas ═══ */}
       <section className="px-4 sm:px-6 py-12 sm:py-20 bg-card">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="User Personas" color={C.green} />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-12 mt-3 text-foreground">Who We're Building For</h2>
@@ -672,7 +672,7 @@ const GharSeva = () => {
 
       {/* ═══ Solution ═══ */}
       <section className="px-4 sm:px-6 py-12 sm:py-20 bg-background">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="The Solution" color={C.green} />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 mt-3 text-foreground">Not Just Matching. A Complete Ecosystem.</h2>
@@ -746,7 +746,7 @@ const GharSeva = () => {
 
       {/* ═══ Product Walkthrough ═══ */}
       <section className="px-3 sm:px-6 py-12 sm:py-20 bg-card">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <ScrollFadeIn>
             <AnimatedPill text="Product Walkthrough" color={C.green} />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-12 mt-3 text-foreground">The Dual-Sided User Journey</h2>
@@ -793,7 +793,7 @@ const GharSeva = () => {
       {/* ═══ Footer CTA ═══ */}
       <section className="bg-background">
         <div className="py-16 px-6">
-          <div className="max-w-6xl mx-auto text-center">
+          <div className="max-w-7xl mx-auto text-center">
             <ScrollFadeIn>
               <motion.h2
                 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground"
