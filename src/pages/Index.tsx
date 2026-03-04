@@ -114,8 +114,8 @@ const Index = () => (
     <section id="work" className="px-6 py-24">
       <div className="max-w-6xl mx-auto">
         <ScrollFadeIn>
-          <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3">Selected Work</p>
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-16 font-display">Case Studies</h2>
+          <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3">MY WORK</p>
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-16 font-display">Projects & Case Studies</h2>
         </ScrollFadeIn>
 
         <div className="flex flex-col gap-10">
