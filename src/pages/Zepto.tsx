@@ -265,11 +265,20 @@ const Zepto = () => {
               { title: "Revenue at Risk", desc: "A 10% churn in high-frequency fresh categories puts ₹611 crore in annual revenue at risk based on FY25 projections.", icon: AlertTriangle, color: Z.red },
             ].map((c, i) => (
               <ScrollFadeIn key={c.title} delay={i * 0.1}>
-                <div className="rounded-xl p-6 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${c.color}` }}>
+                <motion.div
+                  className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default"
+                  style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${c.color}` }}
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: `0 0 24px ${c.color}33, 0 0 48px ${c.color}15`,
+                    borderColor: c.color,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <c.icon size={24} className="mb-3" style={{ color: c.color }} />
                   <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{c.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{c.desc}</p>
-                </div>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: Z.charcoalLight }}>{c.desc}</p>
+                </motion.div>
               </ScrollFadeIn>
             ))}
           </div>
