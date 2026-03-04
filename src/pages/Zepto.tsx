@@ -1,7 +1,8 @@
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import Footer from "@/components/Footer";
 import { ArrowUp, CheckCircle, XCircle, AlertTriangle, Thermometer, Eye, ShieldCheck, Snowflake, BarChart3, Database, Cpu, Camera } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import zeptoLogo from "@/assets/zepto-logo.png";
 import screenFreshness from "@/assets/zepto-screen-freshness.png";
 import screenThermal from "@/assets/zepto-screen-thermal.png";
@@ -140,6 +141,62 @@ const takeaways = [
   { title: "Trust as Economic Multiplier", desc: "Resolving 'Melted Product' and 'Refund Drama' unlocks high-margin categories like frozen desserts (2.7x margin) and pharmaceuticals. Trust is a top-line driver." },
 ];
 
+/* ── Animated stat counter ── */
+const AnimatedStat = ({ val, label, color }: { val: string; label: string; color: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const numMatch = val.match(/[\d.]+/);
+  const num = numMatch ? parseFloat(numMatch[0]) : 0;
+  const prefix = val.slice(0, val.indexOf(numMatch?.[0] ?? ""));
+  const suffix = val.slice((val.indexOf(numMatch?.[0] ?? "") + (numMatch?.[0]?.length ?? 0)));
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const dur = 1800;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setDisplay(eased * num);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, num]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <motion.div
+        className="font-mono-metric text-3xl md:text-4xl font-bold"
+        style={{ color }}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+      >
+        {prefix}{Number.isInteger(num) ? Math.round(display) : display.toFixed(num % 1 === 0 ? 0 : 1)}{suffix}
+      </motion.div>
+      <p className="mt-2 text-xs" style={{ color: "#B0B0B0" }}>{label}</p>
+    </div>
+  );
+};
+
+/* ── Animated SHAP bar ── */
+const AnimatedBar = ({ width, color, delay = 0 }: { width: string; color: string; delay?: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-30px" });
+  return (
+    <div ref={ref} className="h-2 rounded-full overflow-hidden" style={{ background: Z.lavender }}>
+      <motion.div
+        className="h-full rounded-full"
+        style={{ background: color }}
+        initial={{ width: "0%" }}
+        animate={inView ? { width } : { width: "0%" }}
+        transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </div>
+  );
+};
+
 const Zepto = () => {
   const [showTop, setShowTop] = useState(false);
 
@@ -226,11 +283,8 @@ const Zepto = () => {
                   { val: "68%", label: "of consumers abandon after one spoiled experience", color: Z.red },
                   { val: "57%", label: "report concerns about missing 'best before' dates", color: Z.amber },
                   { val: "₹611 Cr", label: "annual revenue at risk from fresh category churn", color: Z.purple },
-                ].map(s => (
-                  <div key={s.val} className="text-center">
-                    <div className="font-mono-metric text-3xl md:text-4xl font-bold" style={{ color: s.color }}>{s.val}</div>
-                    <p className="mt-2 text-xs" style={{ color: "#B0B0B0" }}>{s.label}</p>
-                  </div>
+                 ].map(s => (
+                  <AnimatedStat key={s.val} val={s.val} label={s.label} color={s.color} />
                 ))}
               </div>
             </div>
@@ -260,9 +314,7 @@ const Zepto = () => {
                       <span className="font-medium" style={{ color: Z.charcoal }}>Delivery Reliability</span>
                       <span className="font-mono-metric text-xs" style={{ color: Z.red }}>SHAP 0.221</span>
                     </div>
-                    <div className="h-2 rounded-full overflow-hidden" style={{ background: Z.lavender }}>
-                      <div className="h-full rounded-full" style={{ width: "88%", background: Z.red }} />
-                    </div>
+                    <AnimatedBar width="88%" color={Z.red} />
                     <p className="text-xs mt-1" style={{ color: Z.muted }}>Churn spikes to 65% when reliability falls below 80%</p>
                   </div>
                   <div>
@@ -270,9 +322,7 @@ const Zepto = () => {
                       <span className="font-medium" style={{ color: Z.charcoal }}>Support Resolution Time</span>
                       <span className="font-mono-metric text-xs" style={{ color: Z.amber }}>SHAP 0.142</span>
                     </div>
-                    <div className="h-2 rounded-full overflow-hidden" style={{ background: Z.lavender }}>
-                      <div className="h-full rounded-full" style={{ width: "57%", background: Z.amber }} />
-                    </div>
+                    <AnimatedBar width="57%" color={Z.amber} delay={0.3} />
                     <p className="text-xs mt-1" style={{ color: Z.muted }}>Churn risk increases 1.18x for every 24-hour delay</p>
                   </div>
                 </div>
@@ -320,10 +370,15 @@ const Zepto = () => {
                         <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{fp.subtitle}</span>
                       </div>
                       <p className="text-sm mb-3 leading-relaxed" style={{ color: Z.charcoalLight }}>{fp.desc}</p>
-                      <div className="flex flex-wrap items-center gap-4 mb-3">
+                      <motion.div className="flex flex-wrap items-center gap-4 mb-3"
+                        initial={{ x: -20, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                      >
                         <span className="font-mono-metric text-2xl font-bold" style={{ color: Z.red }}>{fp.stat}</span>
                         <span className="text-xs" style={{ color: Z.muted }}>{fp.statLabel}</span>
-                      </div>
+                      </motion.div>
                       {fp.quote && (
                         <blockquote className="text-sm italic border-l-2 pl-4" style={{ borderColor: Z.purple, color: Z.muted }}>
                           {fp.quote}
@@ -507,7 +562,7 @@ const Zepto = () => {
             <div className="rounded-2xl p-8 text-center mb-8" style={{ background: `linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(99,102,241,0.04) 100%)`, border: `1px solid ${Z.purpleBorder}` }}>
               <p className="text-xs uppercase tracking-widest mb-2" style={{ color: Z.purple }}>North Star Metric</p>
               <h3 className="text-2xl font-bold mb-2" style={{ color: Z.charcoal }}>Customer Lifetime Value (LTV)</h3>
-              <p className="font-mono-metric text-4xl font-bold mb-4" style={{ color: Z.purple }}>+22%</p>
+              <AnimatedStat val="+22%" label="" color={Z.purple} />
               <p className="text-xs max-w-lg mx-auto" style={{ color: "#B0B0B0" }}>
                 LTV = AOV × Purchase Frequency × Customer Lifespan. By solving for trust, we extend Lifespan and maintain Frequency.
               </p>
@@ -563,14 +618,20 @@ const Zepto = () => {
 
       {/* Back to Top */}
       {showTop && (
-        <button
+        <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40 transition-all hover:-translate-y-1"
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40"
           style={{ background: Z.purple, color: Z.white }}
           aria-label="Back to top"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          whileHover={{ scale: 1.15, y: -4 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <ArrowUp size={20} />
-        </button>
+        </motion.button>
       )}
     </main>
   );
