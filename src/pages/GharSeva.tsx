@@ -127,7 +127,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
 
   return (
     <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 mb-12 items-center">
-      <div className={`text-right ${index % 2 === 0 ? "" : "md:order-3 md:text-left"}`}>
+      <div className="text-right">
         <TiltCard glowColor={C.orange} className="inline-block">
           <motion.div
             className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
@@ -157,7 +157,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           {step.system}
         </motion.p>
       </div>
-      <div className={index % 2 === 0 ? "" : "md:order-1 md:text-right"}>
+      <div>
         <TiltCard glowColor={C.green} className="inline-block">
           <motion.div
             className="rounded-xl p-5 shadow-sm"
