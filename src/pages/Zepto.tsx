@@ -315,7 +315,7 @@ const Zepto = () => {
           {/* SHAP Analysis */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             <ScrollFadeIn>
-              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.purple }}>Churn Driver Analysis (SHAP Lens)</h3>
                 <div className="space-y-4">
                   <div>
@@ -339,10 +339,10 @@ const Zepto = () => {
                   <p className="text-xs font-medium" style={{ color: Z.charcoal }}>"Leaky Bucket" Correlation:</p>
                   <p className="text-xs" style={{ color: Z.muted }}>High-value customers prioritize consistency over speed. A single melted order offsets 10 successful deliveries.</p>
                 </div>
-              </div>
+              </motion.div>
             </ScrollFadeIn>
             <ScrollFadeIn delay={0.1}>
-              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.amber}33, 0 0 48px ${Z.amber}15`, borderColor: Z.amber }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.amber }}>Basket Abandonment: The Halo Effect</h3>
                 <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>
                   Dairy and Bakery are "Destination Categories" that anchor the household's daily habit loop.
@@ -357,7 +357,7 @@ const Zepto = () => {
                     <p className="text-xs" style={{ color: Z.muted }}>If a user buys milk from kirana due to trust issues, the entire ₹500 basket is lost. App opening frequency drops 60–70%.</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </ScrollFadeIn>
           </div>
 
@@ -368,7 +368,7 @@ const Zepto = () => {
           <div className="space-y-6 mb-12">
             {frictionPoints.map((fp, i) => (
               <ScrollFadeIn key={fp.title} delay={i * 0.1}>
-                <div className="rounded-xl p-6 md:p-8 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                <motion.div className="rounded-xl p-6 md:p-8 shadow-sm cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
                     <div className="shrink-0">
                       <fp.icon size={32} style={{ color: Z.purple }} />
@@ -395,7 +395,7 @@ const Zepto = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </ScrollFadeIn>
             ))}
           </div>
@@ -425,7 +425,7 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {personas.map((p, i) => (
               <ScrollFadeIn key={p.name} delay={i * 0.1}>
-                <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl">{p.emoji}</span>
                     <div>
@@ -446,7 +446,7 @@ const Zepto = () => {
                       <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               </ScrollFadeIn>
             ))}
           </div>
@@ -466,7 +466,7 @@ const Zepto = () => {
 
           {features.map((f, fi) => (
             <ScrollFadeIn key={f.num} delay={fi * 0.1}>
-              <div className="rounded-xl p-6 md:p-8 mb-8 shadow-sm" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <motion.div className="rounded-xl p-6 md:p-8 mb-8 shadow-sm cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <div className="flex flex-col md:flex-row gap-8">
                   {/* App Screen */}
                   <div className="shrink-0 flex justify-center">
@@ -494,7 +494,7 @@ const Zepto = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </ScrollFadeIn>
           ))}
         </div>
@@ -546,11 +546,11 @@ const Zepto = () => {
                 { icon: Camera, title: "Visual AI Dispute Resolution", desc: "Computer Vision model trained on viscosity patterns for melted liquids to automate refunds without human support intervention.", color: Z.red },
               ].map((a, i) => (
                 <ScrollFadeIn key={a.title} delay={i * 0.1}>
-                  <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${a.color}` }}>
+                  <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${a.color}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${a.color}33, 0 0 48px ${a.color}15`, borderColor: a.color }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                     <a.icon size={28} className="mb-3" style={{ color: a.color }} />
                     <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{a.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{a.desc}</p>
-                  </div>
+                  </motion.div>
                 </ScrollFadeIn>
               ))}
             </div>
@@ -580,24 +580,24 @@ const Zepto = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ScrollFadeIn>
-              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.purple }}>L1 Metrics: Behavioral Shift</h3>
                 <ul className="space-y-3 text-sm" style={{ color: Z.charcoalLight }}>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.purple }} />Category-Specific Churn (Dairy/Bakery): Reduce from 12% → 7%</li>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.purple }} />Frozen Dessert Attach Rate: +15–20% via "Verified Frozen" badges</li>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.purple }} />Transparency Conversion Rate: Measure CTR of "Min Shelf Life" badge</li>
                 </ul>
-              </div>
+              </motion.div>
             </ScrollFadeIn>
             <ScrollFadeIn delay={0.1}>
-              <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+              <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.amber}33, 0 0 48px ${Z.amber}15`, borderColor: Z.amber }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <h3 className="font-bold mb-4" style={{ color: Z.amber }}>L2/Guardrail Metrics</h3>
                 <ul className="space-y-3 text-sm" style={{ color: Z.charcoalLight }}>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.amber }} />Thermal Wastage: Reduce from 8–12% → under 4%</li>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.amber }} />Quality Support Tickets: Decrease by 40% via Visual AI</li>
                   <li className="flex items-start gap-2"><ShieldCheck size={14} className="mt-0.5 shrink-0" style={{ color: Z.amber }} />Guardrail: ADT increase ≤ 45 seconds despite stricter SOPs</li>
                 </ul>
-              </div>
+              </motion.div>
             </ScrollFadeIn>
           </div>
         </div>
@@ -613,10 +613,10 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {takeaways.map((t, i) => (
               <ScrollFadeIn key={t.title} delay={i * 0.1}>
-                <div className="rounded-xl p-6 shadow-sm h-full flex flex-col" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{t.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{t.desc}</p>
-                </div>
+                </motion.div>
               </ScrollFadeIn>
             ))}
           </div>
