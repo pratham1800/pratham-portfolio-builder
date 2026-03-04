@@ -206,7 +206,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Employer action */}
         <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
-            className="rounded-xl p-5 shadow-sm h-full min-h-[80px] flex flex-col justify-center"
+            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
             style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `4px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -226,7 +226,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
-            className="rounded-xl px-5 py-4 text-center shadow-md h-full min-h-[80px] flex flex-col justify-center"
+            className="rounded-lg px-3 py-2.5 text-center shadow-md h-full min-h-[56px] flex flex-col justify-center"
             style={{
               background: "hsl(var(--card))",
               border: `1px solid`,
@@ -245,7 +245,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Worker action */}
         <TiltCard glowColor={C.green} className="w-full">
           <motion.div
-            className="rounded-xl p-5 shadow-sm h-full min-h-[80px] flex flex-col justify-center"
+            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
             style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `4px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
