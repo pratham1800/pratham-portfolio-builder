@@ -854,41 +854,16 @@ const SolutionCard = ({ pillar }: { pillar: { num: string; title: string; icon: 
 
   return (
     <TiltCard glowColor={pillar.color} className="h-full">
-      <motion.div
-        className="rounded-xl p-6 shadow-sm cursor-pointer h-full flex flex-col items-center justify-center text-center relative overflow-hidden"
-        style={{ background: bg, border: `2px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}`, minHeight: "220px" }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
+      <div
+        className="rounded-xl p-6 shadow-sm h-full"
+        style={{ background: bg, border: `1px solid ${pillar.color}30`, borderTop: `4px solid ${pillar.color}` }}
       >
-        <motion.div
-          animate={{ opacity: hovered ? 0.2 : 1, scale: hovered ? 0.7 : 1, y: hovered ? -10 : 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          <motion.p
-            className="font-mono text-xs mb-3"
-            style={{ color: pillar.color }}
-            animate={{ letterSpacing: hovered ? "0.3em" : "0em" }}
-          >
-            {pillar.num}
-          </motion.p>
-          <motion.div
-            animate={{ rotate: hovered ? 360 : 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Icon size={36} className="mb-3 mx-auto" style={{ color: pillar.color }} />
-          </motion.div>
-          <h3 className="text-xl font-bold text-foreground">{pillar.title}</h3>
-        </motion.div>
-
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center p-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
-          transition={{ duration: 0.35 }}
-        >
-          <p className="text-sm leading-relaxed text-foreground/85">{pillar.desc}</p>
-        </motion.div>
-      </motion.div>
+        <div className="flex items-center gap-3 mb-3">
+          <Icon size={22} style={{ color: pillar.color }} />
+          <h3 className="text-lg font-bold text-foreground">{pillar.title}</h3>
+        </div>
+        <p className="text-sm leading-relaxed text-foreground/85">{pillar.desc}</p>
+      </div>
     </TiltCard>
   );
 };
