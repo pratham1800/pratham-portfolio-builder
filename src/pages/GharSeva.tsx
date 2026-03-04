@@ -118,24 +118,24 @@ const staggerItem = {
 /* ── Animated arrow component ── */
 const AnimatedArrow = ({ color, active, direction = "right" }: { color: string; active: boolean; direction?: "right" | "left" }) => (
   <motion.div
-    className="hidden md:flex items-center mx-1"
+    className="hidden md:flex items-center mx-0"
     animate={{ opacity: active ? 1 : 0.3 }}
     transition={{ duration: 0.4 }}
   >
-    <svg width="48" height="16" viewBox="0 0 48 16" fill="none">
+    <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
       {direction === "right" ? (
         <>
           <motion.path
-            d="M0 8H40"
+            d="M0 6H22"
             stroke={color}
             strokeWidth="2"
-            strokeDasharray="40"
-            initial={{ strokeDashoffset: 40 }}
-            animate={{ strokeDashoffset: active ? 0 : 40 }}
+            strokeDasharray="22"
+            initial={{ strokeDashoffset: 22 }}
+            animate={{ strokeDashoffset: active ? 0 : 22 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           />
           <motion.path
-            d="M36 3L43 8L36 13"
+            d="M20 2L26 6L20 10"
             stroke={color}
             strokeWidth="2"
             strokeLinecap="round"
@@ -147,16 +147,16 @@ const AnimatedArrow = ({ color, active, direction = "right" }: { color: string; 
       ) : (
         <>
           <motion.path
-            d="M48 8H8"
+            d="M28 6H6"
             stroke={color}
             strokeWidth="2"
-            strokeDasharray="40"
-            initial={{ strokeDashoffset: 40 }}
-            animate={{ strokeDashoffset: active ? 0 : 40 }}
+            strokeDasharray="22"
+            initial={{ strokeDashoffset: 22 }}
+            animate={{ strokeDashoffset: active ? 0 : 22 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           />
           <motion.path
-            d="M12 3L5 8L12 13"
+            d="M8 2L2 6L8 10"
             stroke={color}
             strokeWidth="2"
             strokeLinecap="round"
@@ -183,16 +183,16 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
   return (
     <motion.div
       ref={ref}
-      className="mb-8 relative z-10"
+      className="mb-4 relative z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08, type: "spring", stiffness: 200, damping: 20 }}
     >
       {/* Step number badge */}
-      <div className="flex justify-center mb-3">
+      <div className="flex justify-center mb-1.5">
         <motion.div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold relative z-20"
+          className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold relative z-20"
           style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
           animate={active ? { scale: [1, 1.15, 1], boxShadow: `0 0 20px ${C.orange}40` } : { scale: 1, boxShadow: "none" }}
           transition={{ duration: 0.5 }}
@@ -202,17 +202,17 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
       </div>
 
       {/* Flowchart row: Employer → GharSeva → Worker */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 md:gap-0">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 md:gap-0">
         {/* Employer action */}
         <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
-            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
-            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `4px solid ${C.orange}` }}
+            className="rounded-md px-2.5 py-2 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `3px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.orange }}>👤 Employer</p>
-            <p className="text-sm font-medium text-foreground">{step.employer}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.orange }}>👤 Employer</p>
+            <p className="text-xs font-medium text-foreground">{step.employer}</p>
           </motion.div>
         </TiltCard>
 
@@ -226,16 +226,16 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
-            className="rounded-lg px-3 py-2.5 text-center shadow-md h-full min-h-[56px] flex flex-col justify-center"
+            className="rounded-md px-2.5 py-2 text-center shadow-md h-full min-h-[44px] flex flex-col justify-center"
             style={{
               background: "hsl(var(--card))",
               border: `1px solid`,
               borderColor: active ? `${C.orange}` : `${C.orange}30`,
-              boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
+              boxShadow: active ? `0 0 16px ${C.orange}20, 0 0 16px ${C.green}20` : "none",
             }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-muted-foreground">⚙️ GharSeva</p>
-            <p className="text-sm font-bold text-foreground">{step.system}</p>
+            <p className="text-[9px] font-semibold uppercase tracking-wider mb-0.5 text-muted-foreground">⚙️ GharSeva</p>
+            <p className="text-xs font-bold text-foreground">{step.system}</p>
           </div>
         </motion.div>
 
@@ -245,13 +245,13 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Worker action */}
         <TiltCard glowColor={C.green} className="w-full">
           <motion.div
-            className="rounded-lg px-3 py-2.5 shadow-sm h-full min-h-[56px] flex flex-col justify-center"
-            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `4px solid ${C.green}` }}
+            className="rounded-md px-2.5 py-2 shadow-sm h-full min-h-[44px] flex flex-col justify-center"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `3px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.green }}>🔧 Worker</p>
-            <p className="text-sm font-medium text-foreground">{step.worker}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: C.green }}>🔧 Worker</p>
+            <p className="text-xs font-medium text-foreground">{step.worker}</p>
           </motion.div>
         </TiltCard>
       </div>
