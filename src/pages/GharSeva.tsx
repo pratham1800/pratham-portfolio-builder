@@ -118,7 +118,7 @@ const staggerItem = {
 /* ── Animated arrow component ── */
 const AnimatedArrow = ({ color, active, direction = "right" }: { color: string; active: boolean; direction?: "right" | "left" }) => (
   <motion.div
-    className="hidden md:flex items-center mx-1"
+    className="flex items-center mx-1"
     animate={{ opacity: active ? 1 : 0.3 }}
     transition={{ duration: 0.4 }}
   >
@@ -202,7 +202,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
       </div>
 
       {/* Flowchart row: Employer → GharSeva → Worker */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 md:gap-0">
+      <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-0">
         {/* Employer action */}
         <TiltCard glowColor={C.orange} className="w-full">
           <motion.div
@@ -755,7 +755,7 @@ const GharSeva = () => {
           <div className="relative">
             {/* Vertical connector between steps */}
             <motion.div
-              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block z-0"
+              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 block z-0"
               style={{ background: `linear-gradient(to bottom, ${C.orange}40, ${C.green}40)` }}
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
