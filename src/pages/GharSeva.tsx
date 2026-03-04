@@ -183,7 +183,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
   return (
     <motion.div
       ref={ref}
-      className="mb-8"
+      className="mb-8 relative z-10"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -234,7 +234,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
               boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
             }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-muted-foreground">⚙️ Platform</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-muted-foreground">⚙️ GharSeva</p>
             <p className="text-sm font-bold text-foreground">{step.system}</p>
           </div>
         </motion.div>
@@ -755,7 +755,7 @@ const GharSeva = () => {
           <div className="relative">
             {/* Vertical connector between steps */}
             <motion.div
-              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block"
+              className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block z-0"
               style={{ background: `linear-gradient(to bottom, ${C.orange}40, ${C.green}40)` }}
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
