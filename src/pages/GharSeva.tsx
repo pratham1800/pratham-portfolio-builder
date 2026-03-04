@@ -115,84 +115,147 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
 };
 
-/* ── Interactive timeline node ── */
+/* ── Animated arrow component ── */
+const AnimatedArrow = ({ color, active, direction = "right" }: { color: string; active: boolean; direction?: "right" | "left" }) => (
+  <motion.div
+    className="hidden md:flex items-center mx-1"
+    animate={{ opacity: active ? 1 : 0.3 }}
+    transition={{ duration: 0.4 }}
+  >
+    <svg width="48" height="16" viewBox="0 0 48 16" fill="none">
+      {direction === "right" ? (
+        <>
+          <motion.path
+            d="M0 8H40"
+            stroke={color}
+            strokeWidth="2"
+            strokeDasharray="40"
+            initial={{ strokeDashoffset: 40 }}
+            animate={{ strokeDashoffset: active ? 0 : 40 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+          <motion.path
+            d="M36 3L43 8L36 13"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={{ opacity: active ? 1 : 0.3 }}
+            transition={{ delay: 0.4 }}
+          />
+        </>
+      ) : (
+        <>
+          <motion.path
+            d="M48 8H8"
+            stroke={color}
+            strokeWidth="2"
+            strokeDasharray="40"
+            initial={{ strokeDashoffset: 40 }}
+            animate={{ strokeDashoffset: active ? 0 : 40 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+          <motion.path
+            d="M12 3L5 8L12 13"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={{ opacity: active ? 1 : 0.3 }}
+            transition={{ delay: 0.4 }}
+          />
+        </>
+      )}
+    </svg>
+  </motion.div>
+);
+
+/* ── Interactive flowchart node ── */
 const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: number }) => {
   const [active, setActive] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-40% 0px -40% 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-30% 0px -30% 0px" });
 
   useEffect(() => {
     setActive(isInView);
   }, [isInView]);
 
   return (
-    <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 mb-12 items-center">
-      <div className="text-right">
-        <TiltCard glowColor={C.orange} className="inline-block">
+    <motion.div
+      ref={ref}
+      className="mb-8"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08, type: "spring", stiffness: 200, damping: 20 }}
+    >
+      {/* Step number badge */}
+      <div className="flex justify-center mb-3">
+        <motion.div
+          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+          style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
+          animate={active ? { scale: [1, 1.15, 1], boxShadow: `0 0 20px ${C.orange}40` } : { scale: 1, boxShadow: "none" }}
+          transition={{ duration: 0.5 }}
+        >
+          {index + 1}
+        </motion.div>
+      </div>
+
+      {/* Flowchart row: Employer → Platform → Worker */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center gap-3 md:gap-0">
+        {/* Employer action */}
+        <TiltCard glowColor={C.orange} className="flex-1 max-w-xs mx-auto md:mx-0">
           <motion.div
-            className="rounded-xl p-5 text-left md:text-inherit shadow-sm"
-            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderTop: `3px solid ${C.orange}` }}
+            className="rounded-xl p-5 shadow-sm h-full"
+            style={{ background: C.orangeLight, border: `1px solid ${C.orangeBorder}`, borderLeft: `4px solid ${C.orange}` }}
             animate={active ? { scale: 1.02, borderColor: C.orange } : { scale: 1, borderColor: `${C.orange}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.orange }}>Employer</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.orange }}>👤 Employer</p>
             <p className="text-sm font-medium text-foreground">{step.employer}</p>
           </motion.div>
         </TiltCard>
-      </div>
-      <div className="hidden md:flex flex-row items-center gap-0">
-        {/* Left arrow ← pointing to Employer */}
+
+        {/* Arrow: Employer → Platform */}
+        <AnimatedArrow color={C.orange} active={active} direction="right" />
+
+        {/* Platform / System */}
         <motion.div
-          className="flex items-center"
-          animate={{ opacity: active ? 1 : 0.4 }}
+          className="flex-shrink-0 mx-auto md:mx-0"
+          animate={active ? { scale: 1.05 } : { scale: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-            <path d="M40 6H4" stroke={active ? C.orange : `${C.orange}60`} strokeWidth="2" />
-            <path d="M8 1L2 6L8 11" stroke={active ? C.orange : `${C.orange}60`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
-        <div className="flex flex-col items-center">
-          <motion.div
-            className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold z-10 cursor-pointer"
-            style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
-            animate={active ? { scale: [1, 1.3, 1], boxShadow: `0 0 30px ${C.orange}50` } : { scale: 1, boxShadow: "none" }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ scale: 1.3, rotate: 360 }}
+          <div
+            className="rounded-xl px-5 py-4 text-center shadow-md min-w-[150px]"
+            style={{
+              background: `linear-gradient(135deg, ${C.orangeLight}, ${C.greenLight})`,
+              border: `1px solid`,
+              borderColor: active ? `${C.orange}` : `${C.orange}30`,
+              boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
+            }}
           >
-            {index + 1}
-          </motion.div>
-          <motion.p
-            className="text-xs mt-2 text-center max-w-[120px] font-medium"
-            animate={{ color: active ? C.orange : "hsl(var(--muted-foreground))" }}
-          >
-            {step.system}
-          </motion.p>
-        </div>
-        {/* Right arrow → pointing to Worker */}
-        <motion.div
-          className="flex items-center"
-          animate={{ opacity: active ? 1 : 0.4 }}
-        >
-          <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-            <path d="M0 6H36" stroke={active ? C.green : `${C.green}60`} strokeWidth="2" />
-            <path d="M32 1L38 6L32 11" stroke={active ? C.green : `${C.green}60`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+            <p className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-muted-foreground">⚙️ Platform</p>
+            <p className="text-sm font-bold text-foreground">{step.system}</p>
+          </div>
         </motion.div>
-      </div>
-      <div>
-        <TiltCard glowColor={C.green} className="inline-block">
+
+        {/* Arrow: Platform → Worker */}
+        <AnimatedArrow color={C.green} active={active} direction="right" />
+
+        {/* Worker action */}
+        <TiltCard glowColor={C.green} className="flex-1 max-w-xs mx-auto md:mx-0">
           <motion.div
-            className="rounded-xl p-5 shadow-sm"
-            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderTop: `3px solid ${C.green}` }}
+            className="rounded-xl p-5 shadow-sm h-full"
+            style={{ background: C.greenLight, border: `1px solid ${C.greenBorder}`, borderRight: `4px solid ${C.green}` }}
             animate={active ? { scale: 1.02, borderColor: C.green } : { scale: 1, borderColor: `${C.green}30` }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <p className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: C.green }}>Worker</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.green }}>🔧 Worker</p>
             <p className="text-sm font-medium text-foreground">{step.worker}</p>
           </motion.div>
         </TiltCard>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -690,9 +753,10 @@ const GharSeva = () => {
           </ScrollFadeIn>
 
           <div className="relative">
+            {/* Vertical connector between steps */}
             <motion.div
               className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block"
-              style={{ background: `linear-gradient(to bottom, ${C.orange}, ${C.green})` }}
+              style={{ background: `linear-gradient(to bottom, ${C.orange}40, ${C.green}40)` }}
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
