@@ -28,7 +28,12 @@ const StickyNav = () => {
 
   const handleNavClick = useCallback(
     (to: string) => (e: React.MouseEvent) => {
-      if (to.startsWith("/#")) {
+      if (to === "/") {
+        if (location.pathname === "/") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else if (to.startsWith("/#")) {
         e.preventDefault();
         const hash = to.replace("/", "");
         if (location.pathname === "/") {
