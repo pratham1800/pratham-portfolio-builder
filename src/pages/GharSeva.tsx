@@ -192,7 +192,7 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
       {/* Step number badge */}
       <div className="flex justify-center mb-3">
         <motion.div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold relative z-20"
           style={{ background: active ? C.orange : `${C.orange}40`, color: "#FFFFFF" }}
           animate={active ? { scale: [1, 1.15, 1], boxShadow: `0 0 20px ${C.orange}40` } : { scale: 1, boxShadow: "none" }}
           transition={{ duration: 0.5 }}
@@ -219,16 +219,16 @@ const TimelineNode = ({ step, index }: { step: typeof journeySteps[0]; index: nu
         {/* Arrow: Employer → Platform */}
         <AnimatedArrow color={C.orange} active={active} direction="right" />
 
-        {/* Platform / System */}
+        {/* GharSeva / System */}
         <motion.div
-          className="flex-shrink-0 mx-auto md:mx-0"
+          className="flex-shrink-0 mx-auto md:mx-0 relative z-20"
           animate={active ? { scale: 1.05 } : { scale: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <div
             className="rounded-xl px-5 py-4 text-center shadow-md min-w-[150px]"
             style={{
-              background: `linear-gradient(135deg, ${C.orangeLight}, ${C.greenLight})`,
+              background: "hsl(var(--card))",
               border: `1px solid`,
               borderColor: active ? `${C.orange}` : `${C.orange}30`,
               boxShadow: active ? `0 0 24px ${C.orange}20, 0 0 24px ${C.green}20` : "none",
