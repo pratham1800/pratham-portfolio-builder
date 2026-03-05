@@ -81,11 +81,12 @@ const StickyNav = () => {
             </Link>
           ))}
           {!isCaseStudy && (
-            <span
-              className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg cursor-default"
+            <button
+              onClick={() => document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg hover:bg-primary/90 transition-colors"
             >
-              prathammaheshwari018@gmail.com
-            </span>
+              Let's Connect
+            </button>
           )}
         </nav>
 
@@ -116,11 +117,12 @@ const StickyNav = () => {
                 </Link>
               ))}
               {!isCaseStudy && (
-                <span
-                  className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg text-center cursor-default"
+                <button
+                  onClick={() => { setMenuOpen(false); document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg text-center hover:bg-primary/90 transition-colors"
                 >
-                  prathammaheshwari018@gmail.com
-                </span>
+                  Let's Connect
+                </button>
               )}
             </nav>
           </motion.div>
