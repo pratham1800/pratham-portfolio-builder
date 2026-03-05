@@ -48,7 +48,7 @@ const timeline = [
 const Index = () =>
 <main className="pt-16">
     {/* Hero */}
-    <section className="min-h-[90vh] flex items-center justify-center px-6 relative overflow-hidden">
+    <section className="min-h-[90vh] flex items-center justify-center px-4 sm:px-6 relative overflow-hidden">
       <HeroScene />
       <div className="w-full relative z-10 text-center flex flex-col items-center max-w-5xl mx-auto">
         <ScrollFadeIn>
@@ -57,7 +57,7 @@ const Index = () =>
             Product Manager
           </div>
           <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}>
@@ -70,8 +70,8 @@ const Index = () =>
               Hi, I'm Pratham Maheshwari.
             </motion.span>
           </motion.h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-6">I build products that bridge the gap between human needs and digital solutions.</p>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
+          <p className="text-lg md:text-2xl text-muted-foreground mb-6">I build products that bridge the gap between human needs and digital solutions.</p>
+          <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
             Software Engineer turned Product Manager. Bridging human needs with digital solutions — obsessed with marketplaces and trust-infrastructure.
           </p>
           <p className="text-sm text-muted-foreground/70 max-w-xl mx-auto mb-10">
@@ -113,7 +113,7 @@ const Index = () =>
 
 
     {/* Selected Work */}
-    <section id="work" className="px-6 py-24">
+    <section id="work" className="px-4 sm:px-6 py-16 md:py-24">
       <div className="max-w-6xl mx-auto">
         <ScrollFadeIn>
           <p className="text-primary tracking-widest uppercase mb-3 text-lg font-extrabold">MY WORK</p>
@@ -153,7 +153,7 @@ const Index = () =>
     </section>
 
     {/* Services Bento Grid */}
-    <section id="about" className="px-6 py-24">
+    <section id="about" className="px-4 sm:px-6 py-16 md:py-24">
       <div className="max-w-6xl mx-auto">
         <ScrollFadeIn>
           <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3 text-center">What I Do</p>
@@ -176,7 +176,7 @@ const Index = () =>
     </section>
 
     {/* Experience Timeline */}
-    <section className="px-6 py-24">
+    <section className="px-4 sm:px-6 py-16 md:py-24">
       <div className="max-w-4xl mx-auto">
         <ScrollFadeIn>
           <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3">Background</p>
