@@ -655,10 +655,10 @@ const Zepto = () => {
                           <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
-                      <div className="flex-1 flex flex-col gap-2.5">
+                      <div className="flex-1 flex flex-col justify-between">
                         {/* Before / After */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                          <div className="rounded-lg p-4 flex-1" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
                             <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
                               <XCircle size={12} /> Before
                             </p>
@@ -670,7 +670,7 @@ const Zepto = () => {
                               ))}
                             </ul>
                           </div>
-                          <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                          <div className="rounded-lg p-4 flex-1" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
                             <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
                               <CheckCircle size={12} /> After
                             </p>
@@ -684,11 +684,11 @@ const Zepto = () => {
                           </div>
                         </div>
                         {/* Feature cards */}
-                        <div className="grid grid-cols-1 gap-2.5">
+                        <div className="grid grid-cols-1 gap-2.5 flex-1">
                           {pillar.features && pillar.features.map((feat) => (
                             <motion.div
                               key={feat.label}
-                              className="rounded-lg px-4 py-3 cursor-default"
+                              className="rounded-lg px-5 py-5 cursor-default flex-1"
                               style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
                               whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
                               transition={{ type: "spring", stiffness: 300, damping: 20 }}
