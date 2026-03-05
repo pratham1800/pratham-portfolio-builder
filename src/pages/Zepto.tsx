@@ -104,8 +104,8 @@ const solutionPillars = [
         mockup: mockupFreshness,
         mockupAlt: "Freshness Visibility before and after comparison",
         features: [
-          { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch.", icon: ShieldCheck },
-          { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf.", icon: BarChart3 },
+          { label: "Minimum Shelf-Life Badge", desc: "A green overlay badge on every product card (e.g., 'Min. 4 Days Life') pulling real-time metadata from the dark store's active batch inventory. Eliminates guesswork — users know exactly what they're getting before adding to cart.", icon: ShieldCheck },
+          { label: "Shelf Life Filtering", desc: "A new 'Longest Shelf Life' sort filter in category search results. Users can digitally replicate the kirana habit of picking from the back of the shelf — choosing the freshest loaf every time.", icon: BarChart3 },
         ],
       },
       {
@@ -113,9 +113,9 @@ const solutionPillars = [
         mockup: mockupPdp,
         mockupAlt: "Product Detail Page before and after comparison",
         features: [
-          { label: "Freshness Details Card", desc: "Manufacturing date, Best Before date, and computed Minimum Shelf Life displayed in a clean card on every PDP.", icon: Eye },
-          { label: "Freshness Guarantee Badge", desc: "A trust seal confirming the product meets the minimum shelf-life threshold before dispatch.", icon: ShieldCheck },
-          { label: "Shelf Life Badge on Image", desc: "Green overlay badge ('5 Day Shelf Life') on product hero image for instant visual confidence.", icon: CheckCircle },
+          { label: "Freshness Details Card", desc: "A dedicated card on every PDP showing Manufacturing Date, Best Before Date, and computed Minimum Shelf Life remaining. Transforms the product page into a 'freshness passport.'", icon: Eye },
+          { label: "Freshness Guarantee Badge", desc: "A trust seal confirming the product meets the minimum shelf-life threshold before dispatch. If the guarantee is broken, users get instant credit — no questions asked.", icon: ShieldCheck },
+          { label: "Shelf Life Badge on Image", desc: "Green overlay badge ('5 Day Shelf Life') on the product hero image for instant visual confidence. Works as a pre-purchase reassurance anchor.", icon: CheckCircle },
         ],
       },
     ],
@@ -538,29 +538,29 @@ const Zepto = () => {
                     {pillar.subsections.map((sub, si) => (
                       <div key={si}>
                         <h4 className="text-xs font-bold uppercase tracking-wide mb-3" style={{ color: pillar.color }}>{sub.heading}</h4>
-                        <div className="flex flex-col lg:flex-row gap-4">
+                        <div className="flex flex-col lg:flex-row gap-4 items-start">
                           <motion.div
-                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
+                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[280px]"
                             style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                             whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                             transition={{ duration: 0.3 }}
                           >
                             <img src={sub.mockup} alt={sub.mockupAlt} className="w-full h-full object-contain" />
                           </motion.div>
-                          <div className="grid grid-cols-1 gap-2 flex-1">
+                          <div className="grid grid-cols-1 gap-2.5 flex-1">
                             {sub.features.map((feat) => (
                               <motion.div
                                 key={feat.label}
-                                className="rounded-lg p-3 cursor-default"
-                                style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                                whileHover={{ scale: 1.02, boxShadow: `0 0 16px ${pillar.color}33`, borderColor: pillar.color }}
+                                className="rounded-lg px-4 py-3 cursor-default"
+                                style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
+                                whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                               >
-                                <div className="flex items-start gap-2">
-                                  <feat.icon size={16} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                                <div className="flex items-start gap-2.5">
+                                  <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
                                   <div>
-                                    <p className="text-xs font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                    <p className="text-[11px] leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                                    <p className="text-xs font-bold mb-1" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                    <p className="text-[11px] leading-[1.6]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
                                   </div>
                                 </div>
                               </motion.div>
