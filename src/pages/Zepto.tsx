@@ -569,7 +569,7 @@ const Zepto = () => {
                     <div className="flex flex-col lg:flex-row gap-4 items-stretch">
                       {/* Left mockup - Listing Level */}
                       <motion.div
-                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
+                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
                         style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                         whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                         transition={{ duration: 0.3 }}
@@ -604,7 +604,7 @@ const Zepto = () => {
 
                       {/* Right mockup - PDP */}
                       <motion.div
-                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
+                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
                         style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                         whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                         transition={{ duration: 0.3 }}
@@ -647,7 +647,7 @@ const Zepto = () => {
                       {/* Left Visual - only for Thermal Shield */}
                       {pillar.num === "02" && (
                         <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px] flex items-center"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[340px] flex items-center"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
@@ -707,7 +707,7 @@ const Zepto = () => {
                       {/* Right Visual - only for Frozen Guardian */}
                       {pillar.num === "03" && (
                         <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px] flex items-center"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[340px] flex items-center"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
