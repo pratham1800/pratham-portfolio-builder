@@ -277,6 +277,7 @@ const Zepto = () => {
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Problem</p>
+            <h3 className="text-lg md:text-xl font-semibold mb-4" style={{ color: Z.purple }}>The Trust Crisis</h3>
             <p className="text-sm md:text-base max-w-4xl leading-relaxed mb-4" style={{ color: Z.charcoalLight }}>
               Zepto's 10-minute delivery promise successfully attracts users, but hidden product metadata and last-mile infrastructure failures are driving them away. Users receive perishables expiring in 24–72 hours without prior knowledge, beverages arrive at room temperature, and ice cream often reaches the doorstep in a melted state — killing the instant gratification which Zepto aims at providing.
             </p>
