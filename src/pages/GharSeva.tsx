@@ -774,7 +774,7 @@ const GharSeva = () => {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl p-5 sm:p-8 mt-8 text-center cursor-pointer no-underline group"
               style={{ background: C.orange, color: "#FFFFFF" }}
-              whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(232,137,12,0.35)" }}
+              whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(99,102,241,0.45)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}>
               
