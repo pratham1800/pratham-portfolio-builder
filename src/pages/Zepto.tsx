@@ -574,7 +574,7 @@ const Zepto = () => {
                         whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                         transition={{ duration: 0.3 }}
                       >
-                        <img src={pillar.subsections[0].mockup} alt={pillar.subsections[0].mockupAlt} className="w-full h-full object-contain" />
+                        <img src={pillar.subsections[0].mockup} alt={pillar.subsections[0].mockupAlt} className="w-full h-full object-cover" />
                       </motion.div>
 
                       {/* Center cards */}
@@ -609,7 +609,7 @@ const Zepto = () => {
                         whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                         transition={{ duration: 0.3 }}
                       >
-                        <img src={pillar.subsections[1].mockup} alt={pillar.subsections[1].mockupAlt} className="w-full h-full object-contain" />
+                        <img src={pillar.subsections[1].mockup} alt={pillar.subsections[1].mockupAlt} className="w-full h-full object-cover" />
                       </motion.div>
                     </div>
 
@@ -652,7 +652,7 @@ const Zepto = () => {
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full object-contain" />
+                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
                       <div className="flex-1 space-y-4">
@@ -712,7 +712,7 @@ const Zepto = () => {
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <img src={frozenGuardianImg} alt="Frozen Guardian before and after comparison" className="w-full object-contain" />
+                          <img src={frozenGuardianImg} alt="Frozen Guardian before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
                     </div>
