@@ -529,78 +529,85 @@ const Zepto = () => {
             <ScrollFadeIn key={pillar.num} delay={fi * 0.08}>
               <div className="mb-16 last:mb-0">
                 {/* Solution Header */}
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-mono-metric text-sm font-bold px-3 py-1 rounded-full" style={{ background: `${pillar.color}22`, color: pillar.color }}>{pillar.num}</span>
-                  <h3 className="text-xl md:text-2xl font-bold" style={{ color: Z.charcoal }}>{pillar.title}</h3>
-                  <span className="text-xs px-3 py-1 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{pillar.subtitle}</span>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="font-mono-metric text-xs font-bold px-2.5 py-0.5 rounded-full" style={{ background: `${pillar.color}22`, color: pillar.color }}>{pillar.num}</span>
+                  <h3 className="text-lg md:text-xl font-bold" style={{ color: Z.charcoal }}>{pillar.title}</h3>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{pillar.subtitle}</span>
                 </div>
-                <p className="text-sm leading-relaxed mb-8 max-w-3xl" style={{ color: Z.charcoalLight }}>{pillar.summary}</p>
+                <p className="text-sm leading-relaxed mb-6 max-w-3xl" style={{ color: Z.charcoalLight }}>{pillar.summary}</p>
 
-                {/* Mockup Section - Before/After */}
-                {pillar.mockup && (
-                  <motion.div
-                    className="rounded-2xl overflow-hidden mb-8 shadow-lg"
-                    style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                    whileHover={{ boxShadow: `0 0 40px ${pillar.color}22` }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={pillar.mockup}
-                      alt={pillar.mockupAlt}
-                      className="w-full object-contain"
-                    />
-                  </motion.div>
-                )}
-
-                {/* Before/After Points (for solutions without mockups) */}
-                {!pillar.mockup && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div className="rounded-xl p-5" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.red}` }}>
-                      <p className="text-xs font-bold uppercase tracking-wide mb-3 flex items-center gap-2" style={{ color: Z.red }}>
-                        <XCircle size={14} /> Before
-                      </p>
-                      <ul className="space-y-2">
-                        {pillar.beforePoints.map(p => (
-                          <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
-                            <XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="rounded-xl p-5" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.green}` }}>
-                      <p className="text-xs font-bold uppercase tracking-wide mb-3 flex items-center gap-2" style={{ color: Z.green }}>
-                        <CheckCircle size={14} /> After
-                      </p>
-                      <ul className="space-y-2">
-                        {pillar.afterPoints.map(p => (
-                          <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
-                            <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-
-                {/* Feature Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {pillar.features.map((feat, i) => (
+                {/* Layout: Mockup + Features side by side */}
+                <div className={`flex flex-col ${pillar.mockup ? 'lg:flex-row' : ''} gap-6`}>
+                  {/* Mockup - constrained size */}
+                  {pillar.mockup && (
                     <motion.div
-                      key={feat.label}
-                      className="rounded-xl p-5 cursor-default"
+                      className="shrink-0 rounded-2xl overflow-hidden shadow-lg lg:w-[420px]"
                       style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                      whileHover={{
-                        scale: 1.03,
-                        boxShadow: `0 0 20px ${pillar.color}33`,
-                        borderColor: pillar.color,
-                      }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <feat.icon size={20} className="mb-3" style={{ color: pillar.color }} />
-                      <p className="text-sm font-semibold mb-1" style={{ color: Z.charcoal }}>{feat.label}</p>
-                      <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                      <img
+                        src={pillar.mockup}
+                        alt={pillar.mockupAlt}
+                        className="w-full h-full object-contain"
+                      />
                     </motion.div>
-                  ))}
+                  )}
+
+                  {/* Before/After Points (for solutions without mockups) */}
+                  {!pillar.mockup && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                      <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.red}` }}>
+                        <p className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-2" style={{ color: Z.red }}>
+                          <XCircle size={14} /> Before
+                        </p>
+                        <ul className="space-y-1.5">
+                          {pillar.beforePoints.map(p => (
+                            <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
+                              <XCircle size={13} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.green}` }}>
+                        <p className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-2" style={{ color: Z.green }}>
+                          <CheckCircle size={14} /> After
+                        </p>
+                        <ul className="space-y-1.5">
+                          {pillar.afterPoints.map(p => (
+                            <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
+                              <CheckCircle size={13} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Feature Cards */}
+                  <div className={`grid grid-cols-1 ${pillar.mockup ? 'lg:grid-cols-1' : 'md:grid-cols-3'} gap-3 flex-1`}>
+                    {pillar.features.map((feat) => (
+                      <motion.div
+                        key={feat.label}
+                        className="rounded-xl p-4 cursor-default"
+                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                        whileHover={{
+                          scale: 1.02,
+                          boxShadow: `0 0 16px ${pillar.color}33`,
+                          borderColor: pillar.color,
+                        }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        <div className="flex items-start gap-3">
+                          <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                          <div>
+                            <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                            <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </ScrollFadeIn>
