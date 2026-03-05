@@ -534,33 +534,33 @@ const Zepto = () => {
 
                 {/* Subsections layout (for Freshness Visibility with multiple sub-parts) */}
                 {pillar.subsections ? (
-                  <div className="space-y-10">
+                  <div className="space-y-8">
                     {pillar.subsections.map((sub, si) => (
                       <div key={si}>
-                        <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: pillar.color }}>{sub.heading}</h4>
-                        <div className="flex flex-col lg:flex-row gap-6">
+                        <h4 className="text-xs font-bold uppercase tracking-wide mb-3" style={{ color: pillar.color }}>{sub.heading}</h4>
+                        <div className="flex flex-col lg:flex-row gap-4">
                           <motion.div
-                            className="shrink-0 rounded-2xl overflow-hidden shadow-lg lg:w-[400px]"
+                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
                             style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                             whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                             transition={{ duration: 0.3 }}
                           >
                             <img src={sub.mockup} alt={sub.mockupAlt} className="w-full h-full object-contain" />
                           </motion.div>
-                          <div className="grid grid-cols-1 gap-3 flex-1">
+                          <div className="grid grid-cols-1 gap-2 flex-1">
                             {sub.features.map((feat) => (
                               <motion.div
                                 key={feat.label}
-                                className="rounded-xl p-4 cursor-default"
+                                className="rounded-lg p-3 cursor-default"
                                 style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                                 whileHover={{ scale: 1.02, boxShadow: `0 0 16px ${pillar.color}33`, borderColor: pillar.color }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                               >
-                                <div className="flex items-start gap-3">
-                                  <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                                <div className="flex items-start gap-2">
+                                  <feat.icon size={16} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
                                   <div>
-                                    <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                    <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                                    <p className="text-xs font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                    <p className="text-[11px] leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
                                   </div>
                                 </div>
                               </motion.div>
@@ -569,6 +569,33 @@ const Zepto = () => {
                         </div>
                       </div>
                     ))}
+
+                    {/* User Journey: The Morning Habit */}
+                    <div className="rounded-xl p-5 mt-2" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-lg">👩‍🍳</span>
+                        <h4 className="text-sm font-bold" style={{ color: Z.charcoal }}>The Morning Habit</h4>
+                        <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>Persona: Ananya</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                          <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
+                            <XCircle size={12} /> Before
+                          </p>
+                          <p className="text-xs leading-relaxed" style={{ color: Z.charcoalLight }}>
+                            Orders bread blindly → Receives near-expiry stock → Wastage occurs → Churns back to Kirana for staples.
+                          </p>
+                        </div>
+                        <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                          <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
+                            <CheckCircle size={12} /> After
+                          </p>
+                          <p className="text-xs leading-relaxed" style={{ color: Z.charcoalLight }}>
+                            Filters by "Longest Shelf Life" → Adds bread with "5 Days Guarantee" → Basket grows to ₹650 with high-margin eggs/butter → Habit retained; LTV protected.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="space-y-6">
