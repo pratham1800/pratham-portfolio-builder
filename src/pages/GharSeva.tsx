@@ -101,7 +101,7 @@ const journeySteps = [
 { employer: "Fill Requirements", system: "Requirement Matching", worker: "Set Availability" },
 { employer: "View Verified Profiles", system: "AI Match & Notify", worker: "Receive Trial Request" },
 { employer: "Select & Pay Booking", system: "Payment Processing", worker: "Accept/Reject" },
-{ employer: "Trial Period (1-2 Days)", system: "Trial Management", worker: "Trial Execution" },
+{ employer: "Trial Period (3 Days)", system: "Trial Management", worker: "Trial Execution" },
 { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" }];
 
 
