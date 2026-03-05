@@ -81,12 +81,11 @@ const StickyNav = () => {
             </Link>
           ))}
           {!isCaseStudy && (
-            <a
-              href="mailto:pratham@example.com"
-              className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg hover:bg-primary/90 transition-all glow-primary"
+            <span
+              className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg cursor-default"
             >
-              Let's Talk
-            </a>
+              prathammaheshwari018@gmail.com
+            </span>
           )}
         </nav>
 
@@ -117,12 +116,11 @@ const StickyNav = () => {
                 </Link>
               ))}
               {!isCaseStudy && (
-                <a
-                  href="mailto:pratham@example.com"
-                  className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg text-center"
+                <span
+                  className="text-sm font-semibold bg-primary text-primary-foreground px-5 py-2 rounded-lg text-center cursor-default"
                 >
-                  Let's Talk
-                </a>
+                  prathammaheshwari018@gmail.com
+                </span>
               )}
             </nav>
           </motion.div>
