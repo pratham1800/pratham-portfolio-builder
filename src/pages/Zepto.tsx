@@ -7,15 +7,11 @@ import zeptoLogo from "@/assets/zepto-logo.png";
 import screenFreshness from "@/assets/zepto-screen-freshness.png";
 import screenThermal from "@/assets/zepto-screen-thermal.png";
 import screenFrozen from "@/assets/zepto-screen-frozen.png";
-import mockupPdp from "@/assets/zepto-mockup-pdp.png";
-import mockupFreshness from "@/assets/zepto-mockup-freshness.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
 import blinkitLogo from "@/assets/blinkit-logo.png";
 import swiggyLogo from "@/assets/swiggy-logo.png";
 import dunzoLogo from "@/assets/dunzo-logo.png";
 import bigbasketLogo from "@/assets/bigbasket-logo.png";
-import thermalShieldImg from "@/assets/zepto-thermal-shield.png";
-import frozenGuardianImg from "@/assets/zepto-frozen-guardian.png";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
@@ -93,66 +89,39 @@ const personas = [
   },
 ];
 
-const solutionPillars = [
+const features = [
   {
     num: "01",
     title: "Freshness Visibility System",
     subtitle: "Perishables",
-    color: Z.green,
-    summary: "Replacing the 'expiry blind spot' with transparent, real-time freshness data surfaced at every touchpoint — from category listing to checkout.",
-    subsections: [
-      {
-        heading: "Listing-Level Freshness",
-        mockup: mockupFreshness,
-        mockupAlt: "Freshness Visibility before and after comparison",
-        features: [
-          { label: "Minimum Shelf-Life Badge", desc: "A green overlay badge on every product card (e.g., 'Min. 4 Days Life') pulling real-time metadata from the dark store's active batch inventory. Eliminates guesswork — users know exactly what they're getting before adding to cart.", icon: ShieldCheck },
-          { label: "Shelf Life Filtering", desc: "A new 'Longest Shelf Life' sort filter in category search results. Users can digitally replicate the kirana habit of picking from the back of the shelf — choosing the freshest loaf every time.", icon: BarChart3 },
-        ],
-      },
-      {
-        heading: "Detailed Product Page (PDP)",
-        mockup: mockupPdp,
-        mockupAlt: "Product Detail Page before and after comparison",
-        features: [
-          { label: "Freshness Details Card", desc: "A dedicated card on every PDP showing Manufacturing Date, Best Before Date, and computed Minimum Shelf Life remaining. Transforms the product page into a 'freshness passport.'", icon: Eye },
-          { label: "Freshness Guarantee Badge", desc: "A trust seal confirming the product meets the minimum shelf-life threshold before dispatch. If the guarantee is broken, users get instant credit — no questions asked.", icon: ShieldCheck },
-          { label: "Shelf Life Badge on Image", desc: "Green overlay badge ('5 Day Shelf Life') on the product hero image for instant visual confidence. Works as a pre-purchase reassurance anchor.", icon: CheckCircle },
-        ],
-      },
+    screen: screenFreshness,
+    items: [
+      { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch." },
+      { label: "Detailed PDP Metadata", desc: "Manufacturing and Best Before dates for the current stock on Product Detail Page." },
+      { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf." },
     ],
-    beforePoints: ["User cannot see shelf life", "Risk of receiving near-expiry stock"],
-    afterPoints: ["Users see minimum shelf life", "Pick the freshest products possible"],
   },
   {
     num: "02",
     title: "The Thermal Shield",
     subtitle: "Beverages & Chilled",
-    color: Z.amber,
-    summary: "An end-to-end cold-chain verification system that guarantees beverages arrive chilled — turning 'thermal decay' into a competitive advantage.",
-    subsections: null,
-    features: [
-      { label: "Verified Chilled Badge", desc: "Users choose between 'Verified Chilled' (4°C) or 'Room Temperature' at product level.", icon: Thermometer },
-      { label: "IoT Cooler Sync", desc: "Real-time dark store cooler sensor integration. Product card shows 'Last verified at 3.8°C.'", icon: Cpu },
-      { label: "Cold-Chain Premium", desc: "Micro-fee option (₹7) for Thermal Bubble-Wrap Foil Sleeve. Free for Zepto Pass users.", icon: ShieldCheck },
+    screen: screenThermal,
+    items: [
+      { label: "Verified Chilled Badge", desc: "Users choose between 'Verified Chilled' (4°C) or 'Room Temperature' at product level." },
+      { label: "IoT Cooler Sync", desc: "Real-time dark store cooler sensor integration. Product card shows 'Last verified at 3.8°C.'" },
+      { label: "Cold-Chain Premium", desc: "Micro-fee option (₹7) for Thermal Bubble-Wrap Foil Sleeve. Free for Zepto Pass users." },
     ],
-    beforePoints: ["Beverages arrive at room temperature", "'Instant gratification' killed"],
-    afterPoints: ["Drink arrives at verified 4°C", "Delight; repeatable high-margin indulgence"],
   },
   {
     num: "03",
     title: "Frozen Guardian Infrastructure",
     subtitle: "Ice Cream & Meds",
-    color: Z.red,
-    summary: "Phase-change material packaging and AI-powered dispute resolution ensure frozen goods survive the last mile — unlocking the highest-margin category.",
-    subsections: null,
-    features: [
-      { label: "PCM Sub-Compartmentalization", desc: "Rider backpacks with Phase Change Material (PCM) boxes maintaining -18°C for 30 minutes.", icon: Snowflake },
-      { label: "Visual AI 'Melt-Scan' Refunds", desc: "3-second video submission → AI analyzes viscosity/state → instant refund to source.", icon: Camera },
-      { label: "Frozen Guarantee Marker", desc: "Trust badge indicating 'Guardian Box' packing — product will arrive intact.", icon: ShieldCheck },
+    screen: screenFrozen,
+    items: [
+      { label: "PCM Sub-Compartmentalization", desc: "Rider backpacks with Phase Change Material (PCM) boxes maintaining -18°C for 30 minutes." },
+      { label: "Visual AI 'Melt-Scan' Refunds", desc: "3-second video submission → AI analyzes viscosity/state → instant refund to source." },
+      { label: "Frozen Guarantee Marker", desc: "Trust badge indicating 'Guardian Box' packing — product will arrive intact." },
     ],
-    beforePoints: ["Ice cream arrives melted", "45-minute 'Refund Drama' with chatbots"],
-    afterPoints: ["Frozen until doorstep guaranteed", "Instant photo-verified refund"],
   },
 ];
 
@@ -308,11 +277,10 @@ const Zepto = () => {
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Problem</p>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: Z.purple }}>The Trust Crisis</h3>
             <p className="text-sm md:text-base max-w-4xl leading-relaxed mb-4" style={{ color: Z.charcoalLight }}>
               Zepto's 10-minute delivery promise successfully attracts users, but hidden product metadata and last-mile infrastructure failures are driving them away. Users receive perishables expiring in 24–72 hours without prior knowledge, beverages arrive at room temperature, and ice cream often reaches the doorstep in a melted state — killing the instant gratification which Zepto aims at providing.
             </p>
-            <h2 className="text-lg md:text-xl font-semibold mb-12" style={{ color: Z.charcoal }}>Why It Matters</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>Why It Matters</h2>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
@@ -497,14 +465,12 @@ const Zepto = () => {
                       <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
                     ))}
                   </ul>
-                  <div className="mt-auto">
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
                   <ul className="space-y-2">
                     {p.needs.map(need => (
                       <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
                     ))}
                   </ul>
-                  </div>
                 </motion.div>
               </ScrollFadeIn>
             ))}
@@ -523,209 +489,75 @@ const Zepto = () => {
             </p>
           </ScrollFadeIn>
 
-          {solutionPillars.map((pillar, fi) => (
-            <ScrollFadeIn key={pillar.num} delay={fi * 0.08}>
-              <div className="mb-16 last:mb-0">
-                {/* Solution Header */}
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="font-mono-metric text-xs font-bold px-2.5 py-0.5 rounded-full" style={{ background: `${pillar.color}22`, color: pillar.color }}>{pillar.num}</span>
-                  <h3 className="text-lg md:text-xl font-bold" style={{ color: Z.charcoal }}>{pillar.title}</h3>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{pillar.subtitle}</span>
+          {features.map((f, fi) => (
+            <ScrollFadeIn key={f.num} delay={fi * 0.1}>
+              <motion.div className="rounded-xl p-6 md:p-8 mb-8 shadow-sm cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* App Screen */}
+                  <div className="shrink-0 flex justify-center">
+                    <img
+                      src={f.screen}
+                      alt={f.title}
+                      className="w-48 md:w-56 rounded-2xl shadow-lg object-cover"
+                      style={{ border: `2px solid ${Z.cardBorder}` }}
+                    />
+                  </div>
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="font-mono-metric text-sm font-bold" style={{ color: Z.purple }}>{f.num}</span>
+                      <h3 className="text-lg font-bold" style={{ color: Z.charcoal }}>{f.title}</h3>
+                      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{f.subtitle}</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {f.items.map(item => (
+                        <div key={item.label} className="p-4 rounded-lg" style={{ background: Z.lavender }}>
+                          <p className="text-sm font-semibold mb-1" style={{ color: Z.charcoal }}>{item.label}</p>
+                          <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm leading-relaxed mb-6 max-w-3xl" style={{ color: Z.charcoalLight }}>{pillar.summary}</p>
-
-                {/* Subsections layout (for Freshness Visibility with multiple sub-parts) */}
-                {pillar.subsections ? (
-                  <div className="space-y-4">
-                    {/* Before / After */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
-                        <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
-                          <XCircle size={12} /> Before
-                        </p>
-                        <ul className="space-y-1">
-                          {pillar.beforePoints.map(p => (
-                            <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
-                              <XCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
-                        <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
-                          <CheckCircle size={12} /> After
-                        </p>
-                        <ul className="space-y-1">
-                          {pillar.afterPoints.map(p => (
-                            <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
-                              <CheckCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* 3-column: Left image | Center cards | Right image */}
-                    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-                      {/* Left mockup - Listing Level */}
-                      <motion.div
-                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
-                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                        whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <img src={pillar.subsections[0].mockup} alt={pillar.subsections[0].mockupAlt} className="w-full h-full object-contain" />
-                      </motion.div>
-
-                      {/* Center cards */}
-                      <div className="flex-1 flex flex-col gap-2.5 justify-center">
-                        {[
-                          { label: "Minimum Shelf-Life Badge", desc: "Green overlay badge on every product card (e.g., 'Min. 4 Days Life') pulling real-time batch metadata. Eliminates guesswork before adding to cart.", icon: ShieldCheck },
-                          { label: "Shelf Life Filtering", desc: "A 'Longest Shelf Life' sort filter in search results — digitally replicating the kirana habit of picking from the back of the shelf.", icon: BarChart3 },
-                          { label: "Detailed PDP Metadata", desc: "Dedicated freshness card on every PDP showing Manufacturing Date, Best Before Date, computed Shelf Life, and a trust-seal guarantee badge.", icon: Eye },
-                        ].map((feat) => (
-                          <motion.div
-                            key={feat.label}
-                            className="rounded-lg px-4 py-3 cursor-default"
-                            style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
-                            whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
-                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                          >
-                            <div className="flex items-start gap-2.5">
-                              <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
-                              <div>
-                                <p className="text-xs font-bold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                <p className="text-[11px] leading-[1.5]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-
-                      {/* Right mockup - PDP */}
-                      <motion.div
-                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
-                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                        whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <img src={pillar.subsections[1].mockup} alt={pillar.subsections[1].mockupAlt} className="w-full h-full object-contain" />
-                      </motion.div>
-                    </div>
-
-                    {/* User Journey: The Morning Habit */}
-                    <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-lg">👩‍🍳</span>
-                        <h4 className="text-sm font-bold" style={{ color: Z.charcoal }}>The Morning Habit</h4>
-                        <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>Persona: Ananya</span>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
-                          <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
-                            <XCircle size={12} /> Before
-                          </p>
-                          <p className="text-xs leading-relaxed" style={{ color: Z.charcoalLight }}>
-                            Orders bread blindly → Receives near-expiry stock → Wastage occurs → Churns back to Kirana for staples.
-                          </p>
-                        </div>
-                        <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
-                          <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
-                            <CheckCircle size={12} /> After
-                          </p>
-                          <p className="text-xs leading-relaxed" style={{ color: Z.charcoalLight }}>
-                            Filters by "Longest Shelf Life" → Adds bread with "5 Days Guarantee" → Basket grows to ₹650 with high-margin eggs/butter → Habit retained; LTV protected.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {/* Image + Before/After + Features side by side */}
-                    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-                      {/* Left Visual - only for Thermal Shield */}
-                      {pillar.num === "02" && (
-                        <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px] flex items-center"
-                          style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                          whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full object-contain" />
-                        </motion.div>
-                      )}
-                      <div className="flex-1 space-y-4">
-                        {/* Before / After */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
-                            <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
-                              <XCircle size={12} /> Before
-                            </p>
-                            <ul className="space-y-1">
-                              {pillar.beforePoints.map(p => (
-                                <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
-                                  <XCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
-                            <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
-                              <CheckCircle size={12} /> After
-                            </p>
-                            <ul className="space-y-1">
-                              {pillar.afterPoints.map(p => (
-                                <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
-                                  <CheckCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                        {/* Feature cards */}
-                        <div className="grid grid-cols-1 gap-2.5">
-                          {pillar.features && pillar.features.map((feat) => (
-                            <motion.div
-                              key={feat.label}
-                              className="rounded-lg px-4 py-3 cursor-default"
-                              style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
-                              whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
-                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            >
-                              <div className="flex items-start gap-2.5">
-                                <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
-                                <div>
-                                  <p className="text-xs font-bold mb-1" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                  <p className="text-[11px] leading-[1.6]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
-                                </div>
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-                      {/* Right Visual - only for Frozen Guardian */}
-                      {pillar.num === "03" && (
-                        <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px] flex items-center"
-                          style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                          whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <img src={frozenGuardianImg} alt="Frozen Guardian before and after comparison" className="w-full object-contain" />
-                        </motion.div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
+              </motion.div>
             </ScrollFadeIn>
           ))}
         </div>
       </section>
 
+      {/* Before/After Journeys */}
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
+        <div className="max-w-6xl mx-auto">
+          <ScrollFadeIn>
+            <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>User Journey Overhaul</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>The "Halo Effect" Transformation</h2>
+          </ScrollFadeIn>
+          <div className="space-y-6">
+            {journeys.map((j, i) => (
+              <ScrollFadeIn key={j.persona} delay={i * 0.1}>
+                <div className="rounded-xl overflow-hidden shadow-sm" style={{ border: `1px solid ${Z.cardBorder}` }}>
+                  <div className="p-4 font-bold text-sm" style={{ background: Z.purpleLight, color: Z.purple }}>
+                    Persona: {j.persona}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="p-6 border-b md:border-b-0 md:border-r" style={{ borderColor: Z.cardBorder, background: Z.cardBg }}>
+                      <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Before</p>
+                      <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{j.before}</p>
+                    </div>
+                    <div className="p-6" style={{ background: Z.cardBg }}>
+                      <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>After</p>
+                      <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{j.after}</p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollFadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Tech Architecture */}
-      <section className="px-6 pt-10 pb-20" style={{ background: Z.lavender }}>
+      <section className="px-6 py-20" style={{ background: Z.lavender }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Technical Architecture</p>
