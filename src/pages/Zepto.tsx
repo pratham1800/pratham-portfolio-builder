@@ -451,7 +451,7 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {personas.map((p, i) => (
               <ScrollFadeIn key={p.name} delay={i * 0.1}>
-                <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+                <motion.div className="rounded-xl p-6 shadow-sm h-full cursor-default grid" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, gridTemplateRows: 'auto 80px auto 1fr auto 1fr' }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl">{p.emoji}</span>
                     <div>
@@ -459,14 +459,14 @@ const Zepto = () => {
                       <p className="text-xs" style={{ color: Z.muted }}>{p.role}</p>
                     </div>
                   </div>
-                  <p className="text-sm mb-4 leading-relaxed flex-grow" style={{ color: Z.charcoalLight }}>{p.about}</p>
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Pain Points</h4>
+                  <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>{p.about}</p>
+                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2 self-end" style={{ color: Z.red }}>Pain Points</h4>
                   <ul className="space-y-2 mb-4">
                     {p.pains.map(pain => (
                       <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
                     ))}
                   </ul>
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2 self-end" style={{ color: Z.green }}>Needs</h4>
                   <ul className="space-y-2">
                     {p.needs.map(need => (
                       <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
