@@ -466,12 +466,14 @@ const Zepto = () => {
                       <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
                     ))}
                   </ul>
+                  <div className="mt-auto">
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
                   <ul className="space-y-2">
                     {p.needs.map(need => (
                       <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
                     ))}
                   </ul>
+                  </div>
                 </motion.div>
               </ScrollFadeIn>
             ))}
