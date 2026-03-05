@@ -247,7 +247,7 @@ const Zepto = () => {
     <main className="pt-16 relative" style={{ background: Z.offWhite, color: Z.charcoal }}>
       <AmbientCrystals accentColor="#818CF8" intensity="subtle" />
       {/* Hero */}
-      <section className="px-4 sm:px-6 py-16 md:py-28" style={{ background: `linear-gradient(180deg, ${Z.lavender} 0%, ${Z.offWhite} 100%)` }}>
+      <section className="px-6 py-20 md:py-28" style={{ background: `linear-gradient(180deg, ${Z.lavender} 0%, ${Z.offWhite} 100%)` }}>
         <div className="max-w-6xl mx-auto text-center">
           <ScrollFadeIn>
             <img src={zeptoLogo} alt="Zepto" className="h-12 md:h-16 mx-auto mb-8 object-contain" />
@@ -304,7 +304,7 @@ const Zepto = () => {
       </section>
 
       {/* Why It Matters */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.offWhite }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Problem</p>
@@ -359,7 +359,7 @@ const Zepto = () => {
       </section>
 
       {/* Research */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.lavender }}>
+      <section className="px-6 py-20" style={{ background: Z.lavender }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Research & Discovery</p>
@@ -473,7 +473,7 @@ const Zepto = () => {
       </section>
 
       {/* Personas */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.offWhite }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>User Personas</p>
@@ -513,7 +513,7 @@ const Zepto = () => {
       </section>
 
       {/* Solution */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.lavender }}>
+      <section className="px-6 py-20" style={{ background: Z.lavender }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Solution</p>
@@ -538,8 +538,8 @@ const Zepto = () => {
                 {pillar.subsections ? (
                   <div className="space-y-4">
                     {/* Before / After */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="rounded-lg p-4" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
                         <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
                           <XCircle size={12} /> Before
                         </p>
@@ -551,7 +551,7 @@ const Zepto = () => {
                           ))}
                         </ul>
                       </div>
-                      <div className="rounded-lg p-4" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                      <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
                         <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
                           <CheckCircle size={12} /> After
                         </p>
@@ -578,7 +578,7 @@ const Zepto = () => {
                       </motion.div>
 
                       {/* Center cards */}
-                      <div className="flex-1 flex flex-col gap-3 justify-center">
+                      <div className="flex-1 flex flex-col gap-2.5 justify-center">
                         {[
                           { label: "Minimum Shelf-Life Badge", desc: "Green overlay badge on every product card (e.g., 'Min. 4 Days Life') pulling real-time batch metadata. Eliminates guesswork before adding to cart.", icon: ShieldCheck },
                           { label: "Shelf Life Filtering", desc: "A 'Longest Shelf Life' sort filter in search results — digitally replicating the kirana habit of picking from the back of the shelf.", icon: BarChart3 },
@@ -586,7 +586,7 @@ const Zepto = () => {
                         ].map((feat) => (
                           <motion.div
                             key={feat.label}
-                            className="rounded-lg px-4 py-4 cursor-default"
+                            className="rounded-lg px-4 py-3 cursor-default"
                             style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
                             whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -620,7 +620,7 @@ const Zepto = () => {
                         <h4 className="text-sm font-bold" style={{ color: Z.charcoal }}>The Morning Habit</h4>
                         <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>Persona: Ananya</span>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
                           <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
                             <XCircle size={12} /> Before
@@ -647,18 +647,18 @@ const Zepto = () => {
                       {/* Left Visual - only for Thermal Shield */}
                       {pillar.num === "02" && (
                         <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg w-full lg:w-[340px]"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[340px] flex items-center"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-auto lg:h-full object-cover" />
+                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
-                      <div className="flex-1 flex flex-col gap-3">
+                      <div className="flex-1 flex flex-col justify-between">
                         {/* Before / After */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="rounded-lg p-4" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div className="rounded-lg p-4 flex-1" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
                             <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
                               <XCircle size={12} /> Before
                             </p>
@@ -670,7 +670,7 @@ const Zepto = () => {
                               ))}
                             </ul>
                           </div>
-                          <div className="rounded-lg p-4" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                          <div className="rounded-lg p-4 flex-1" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
                             <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
                               <CheckCircle size={12} /> After
                             </p>
@@ -684,11 +684,11 @@ const Zepto = () => {
                           </div>
                         </div>
                         {/* Feature cards */}
-                        <div className="grid grid-cols-1 gap-3">
+                        <div className="grid grid-cols-1 gap-2.5 flex-1">
                           {pillar.features && pillar.features.map((feat) => (
                             <motion.div
                               key={feat.label}
-                              className="rounded-lg px-4 py-4 cursor-default"
+                              className="rounded-lg px-5 py-5 cursor-default flex-1"
                               style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
                               whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
                               transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -707,12 +707,12 @@ const Zepto = () => {
                       {/* Right Visual - only for Frozen Guardian */}
                       {pillar.num === "03" && (
                         <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg w-full lg:w-[340px]"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[340px] flex items-center"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <img src={frozenGuardianImg} alt="Frozen Guardian before and after comparison" className="w-full h-auto lg:h-full object-cover" />
+                          <img src={frozenGuardianImg} alt="Frozen Guardian before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
                     </div>
@@ -750,7 +750,7 @@ const Zepto = () => {
       </section>
 
       {/* Success Metrics */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.offWhite }}>
+      <section className="px-6 py-20" style={{ background: Z.offWhite }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Success Metrics</p>
@@ -795,7 +795,7 @@ const Zepto = () => {
       </section>
 
       {/* Key Takeaways */}
-      <section className="px-4 sm:px-6 py-16 md:py-20" style={{ background: Z.lavender }}>
+      <section className="px-6 py-20" style={{ background: Z.lavender }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Key Takeaways</p>
