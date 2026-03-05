@@ -101,7 +101,7 @@ const journeySteps = [
 { employer: "Fill Requirements", system: "Requirement Matching", worker: "Set Availability" },
 { employer: "View Verified Profiles", system: "AI Match & Notify", worker: "Receive Trial Request" },
 { employer: "Select & Pay Booking", system: "Payment Processing", worker: "Accept/Reject" },
-{ employer: "Trial Period (3 Days)", system: "Trial Management", worker: "Trial Execution" },
+{ employer: "Trial Period (1-2 Days)", system: "Trial Management", worker: "Trial Execution" },
 { employer: "Subscription Activation", system: "Contract & Payroll", worker: "Regular Employment" }];
 
 
@@ -774,7 +774,7 @@ const GharSeva = () => {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl p-5 sm:p-8 mt-8 text-center cursor-pointer no-underline group"
               style={{ background: C.orange, color: "#FFFFFF" }}
-              whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(99,102,241,0.45)" }}
+              whileHover={{ scale: 1.03, boxShadow: "0 20px 60px rgba(232,137,12,0.35)" }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}>
               
@@ -816,9 +816,9 @@ const GharSeva = () => {
                 href="mailto:pratham@example.com"
                 className="inline-block px-8 py-3 rounded-lg font-medium no-underline bg-primary text-primary-foreground"
                 whileHover={{ scale: 1.05, boxShadow: "0 10px 30px hsl(var(--primary) / 0.3)" }}
-                whileTap={{ scale: 0.97 }}>
-                
-                pratham@example.com
+                whileTap={{ scale: 0.97 }}>prathammaheshwari018@gmail.com
+
+
               </motion.a>
             </ScrollFadeIn>
           </div>
