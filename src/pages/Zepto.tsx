@@ -537,7 +537,7 @@ const Zepto = () => {
                 {/* Subsections layout (for Freshness Visibility with multiple sub-parts) */}
                 {pillar.subsections ? (
                   <div className="space-y-4">
-                    {/* Before / After for Freshness */}
+                    {/* Before / After */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
                         <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
@@ -565,41 +565,53 @@ const Zepto = () => {
                       </div>
                     </div>
 
-                    {/* All subsections compact */}
-                    {pillar.subsections.map((sub, si) => (
-                      <div key={si}>
-                        <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: pillar.color }}>{sub.heading}</h4>
-                        <div className="flex flex-col lg:flex-row gap-3 items-start">
+                    {/* 3-column: Left image | Center cards | Right image */}
+                    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+                      {/* Left mockup - Listing Level */}
+                      <motion.div
+                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
+                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                        whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <img src={pillar.subsections[0].mockup} alt={pillar.subsections[0].mockupAlt} className="w-full h-full object-contain" />
+                      </motion.div>
+
+                      {/* Center cards */}
+                      <div className="flex-1 flex flex-col gap-2.5 justify-center">
+                        {[
+                          { label: "Minimum Shelf-Life Badge", desc: "Green overlay badge on every product card (e.g., 'Min. 4 Days Life') pulling real-time batch metadata. Eliminates guesswork before adding to cart.", icon: ShieldCheck },
+                          { label: "Shelf Life Filtering", desc: "A 'Longest Shelf Life' sort filter in search results — digitally replicating the kirana habit of picking from the back of the shelf.", icon: BarChart3 },
+                          { label: "Detailed PDP Metadata", desc: "Dedicated freshness card on every PDP showing Manufacturing Date, Best Before Date, computed Shelf Life, and a trust-seal guarantee badge.", icon: Eye },
+                        ].map((feat) => (
                           <motion.div
-                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px]"
-                            style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                            whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                            transition={{ duration: 0.3 }}
+                            key={feat.label}
+                            className="rounded-lg px-4 py-3 cursor-default"
+                            style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
+                            whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
                           >
-                            <img src={sub.mockup} alt={sub.mockupAlt} className="w-full h-full object-contain" />
+                            <div className="flex items-start gap-2.5">
+                              <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                              <div>
+                                <p className="text-xs font-bold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                <p className="text-[11px] leading-[1.5]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
+                              </div>
+                            </div>
                           </motion.div>
-                          <div className="grid grid-cols-1 gap-2 flex-1">
-                            {sub.features.map((feat) => (
-                              <motion.div
-                                key={feat.label}
-                                className="rounded-lg px-3 py-2.5 cursor-default"
-                                style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
-                                whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                              >
-                                <div className="flex items-start gap-2">
-                                  <feat.icon size={14} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
-                                  <div>
-                                    <p className="text-xs font-bold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                    <p className="text-[11px] leading-[1.5]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
+                        ))}
                       </div>
-                    ))}
+
+                      {/* Right mockup - PDP */}
+                      <motion.div
+                        className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[240px]"
+                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                        whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <img src={pillar.subsections[1].mockup} alt={pillar.subsections[1].mockupAlt} className="w-full h-full object-contain" />
+                      </motion.div>
+                    </div>
 
                     {/* User Journey: The Morning Habit */}
                     <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
