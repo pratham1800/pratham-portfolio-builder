@@ -655,7 +655,7 @@ const Zepto = () => {
                           <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-full object-cover" />
                         </motion.div>
                       )}
-                      <div className="flex-1 flex flex-col justify-between gap-4">
+                      <div className="flex-1 flex flex-col gap-2.5">
                         {/* Before / After */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
