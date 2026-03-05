@@ -8,10 +8,6 @@ import screenFreshness from "@/assets/zepto-screen-freshness.png";
 import screenThermal from "@/assets/zepto-screen-thermal.png";
 import screenFrozen from "@/assets/zepto-screen-frozen.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
-import blinkitLogo from "@/assets/blinkit-logo.png";
-import swiggyLogo from "@/assets/swiggy-logo.png";
-import dunzoLogo from "@/assets/dunzo-logo.png";
-import bigbasketLogo from "@/assets/bigbasket-logo.png";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
@@ -29,130 +25,130 @@ const Z = {
   cardBorder: "rgba(255,255,255,0.08)",
   amber: "#FBBF24",
   red: "#F87171",
-  green: "#34D399",
+  green: "#34D399"
 };
 
 const frictionPoints = [
-  {
-    icon: Eye,
-    title: "The Expiry Blind Spot",
-    subtitle: "Perishables",
-    stat: "57%",
-    statLabel: "consumers concerned about missing 'best before' dates",
-    quote: '"Received a packet of bread expiring in 1 day, while a regular loaf has 5-7 days. I ended up throwing half of it away."',
-    desc: "Regulations mandate food items have 30% of shelf life remaining, yet online platforms are often perceived as 'dumping yards' for slow stock.",
-  },
-  {
-    icon: Thermometer,
-    title: "Last-Mile Thermal Decay",
-    subtitle: "Beverages",
-    stat: "8-12%",
-    statLabel: "last-mile wastage in temperature-sensitive categories",
-    quote: null,
-    desc: "Indian summers (40°C+) test the limits of two-wheeler deliveries. Standard bags rise by 2-4°C every five minutes. Chilled beverages arrive at room temperature, killing the 'Instant Gratification' value proposition.",
-  },
-  {
-    icon: Snowflake,
-    title: "The Frozen Failure",
-    subtitle: "Ice Cream",
-    stat: "2.7x",
-    statLabel: "higher margin per SKU than dairy staples",
-    quote: '"Ordered ice cream, it arrived completely melted, and the agent said he has nothing to do with it. Cones became weird paper!"',
-    desc: "Frozen goods represent the highest margin per SKU. 68% of users will abandon a platform after receiving melted or spoiled goods.",
-  },
-];
+{
+  icon: Eye,
+  title: "The Expiry Blind Spot",
+  subtitle: "Perishables",
+  stat: "57%",
+  statLabel: "consumers concerned about missing 'best before' dates",
+  quote: '"Received a packet of bread expiring in 1 day, while a regular loaf has 5-7 days. I ended up throwing half of it away."',
+  desc: "Regulations mandate food items have 30% of shelf life remaining, yet online platforms are often perceived as 'dumping yards' for slow stock."
+},
+{
+  icon: Thermometer,
+  title: "Last-Mile Thermal Decay",
+  subtitle: "Beverages",
+  stat: "8-12%",
+  statLabel: "last-mile wastage in temperature-sensitive categories",
+  quote: null,
+  desc: "Indian summers (40°C+) test the limits of two-wheeler deliveries. Standard bags rise by 2-4°C every five minutes. Chilled beverages arrive at room temperature, killing the 'Instant Gratification' value proposition."
+},
+{
+  icon: Snowflake,
+  title: "The Frozen Failure",
+  subtitle: "Ice Cream",
+  stat: "2.7x",
+  statLabel: "higher margin per SKU than dairy staples",
+  quote: '"Ordered ice cream, it arrived completely melted, and the agent said he has nothing to do with it. Cones became weird paper!"',
+  desc: "Frozen goods represent the highest margin per SKU. 68% of users will abandon a platform after receiving melted or spoiled goods."
+}];
+
 
 const personas = [
-  {
-    emoji: "👩‍🍳",
-    name: "Ananya",
-    role: "The 'Morning Anchor' Homemaker",
-    about: "38, Tier-1 city, manages a family of four. Daily transacting user. Places a ₹600+ order at 7 AM for milk, bread, and breakfast staples.",
-    pains: ["Hidden expiry dates on bread and milk", "Bread that expires in 48 hours when she needs it for 4 days", "'Forced wastage' from near-expiry products"],
-    needs: ["Transparency — 'Minimum 5 days life remaining' before adding to cart"],
-  },
-  {
-    emoji: "💼",
-    name: "Rajesh",
-    role: "The 'Evening Peak' Professional",
-    about: "28, IT Professional, high-heat urban hub. Orders during 4 PM – 9 PM window for chilled juices and carbonated drinks.",
-    pains: ["Beverages consistently arrive at room temperature", "'Instant gratification' killed — has to freeze for 20 minutes"],
-    needs: ["Thermal Reliability — 'Verified Chilled' guarantee for items delivered"],
-  },
-  {
-    emoji: "🎓",
-    name: "Priya",
-    role: "The 'Late-Night' Student",
-    about: "21, University student, night-owl (9 PM – 12 AM). High impulse buyer — frequently adds premium frozen desserts to snack basket.",
-    pains: ["Ice cream arrives melted, paper-thin state", "45-minute 'Refund Drama' with chatbots for ₹150"],
-    needs: ["Frictionless Redressal — frozen until doorstep or instant photo-verified refund"],
-  },
-];
+{
+  emoji: "👩‍🍳",
+  name: "Ananya",
+  role: "The 'Morning Anchor' Homemaker",
+  about: "38, Tier-1 city, manages a family of four. Daily transacting user. Places a ₹600+ order at 7 AM for milk, bread, and breakfast staples.",
+  pains: ["Hidden expiry dates on bread and milk", "Bread that expires in 48 hours when she needs it for 4 days", "'Forced wastage' from near-expiry products"],
+  needs: ["Transparency — 'Minimum 5 days life remaining' before adding to cart"]
+},
+{
+  emoji: "💼",
+  name: "Rajesh",
+  role: "The 'Evening Peak' Professional",
+  about: "28, IT Professional, high-heat urban hub. Orders during 4 PM – 9 PM window for chilled juices and carbonated drinks.",
+  pains: ["Beverages consistently arrive at room temperature", "'Instant gratification' killed — has to freeze for 20 minutes"],
+  needs: ["Thermal Reliability — 'Verified Chilled' guarantee for items delivered"]
+},
+{
+  emoji: "🎓",
+  name: "Priya",
+  role: "The 'Late-Night' Student",
+  about: "21, University student, night-owl (9 PM – 12 AM). High impulse buyer — frequently adds premium frozen desserts to snack basket.",
+  pains: ["Ice cream arrives melted, paper-thin state", "45-minute 'Refund Drama' with chatbots for ₹150"],
+  needs: ["Frictionless Redressal — frozen until doorstep or instant photo-verified refund"]
+}];
+
 
 const features = [
-  {
-    num: "01",
-    title: "Freshness Visibility System",
-    subtitle: "Perishables",
-    screen: screenFreshness,
-    items: [
-      { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch." },
-      { label: "Detailed PDP Metadata", desc: "Manufacturing and Best Before dates for the current stock on Product Detail Page." },
-      { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf." },
-    ],
-  },
-  {
-    num: "02",
-    title: "The Thermal Shield",
-    subtitle: "Beverages & Chilled",
-    screen: screenThermal,
-    items: [
-      { label: "Verified Chilled Badge", desc: "Users choose between 'Verified Chilled' (4°C) or 'Room Temperature' at product level." },
-      { label: "IoT Cooler Sync", desc: "Real-time dark store cooler sensor integration. Product card shows 'Last verified at 3.8°C.'" },
-      { label: "Cold-Chain Premium", desc: "Micro-fee option (₹7) for Thermal Bubble-Wrap Foil Sleeve. Free for Zepto Pass users." },
-    ],
-  },
-  {
-    num: "03",
-    title: "Frozen Guardian Infrastructure",
-    subtitle: "Ice Cream & Meds",
-    screen: screenFrozen,
-    items: [
-      { label: "PCM Sub-Compartmentalization", desc: "Rider backpacks with Phase Change Material (PCM) boxes maintaining -18°C for 30 minutes." },
-      { label: "Visual AI 'Melt-Scan' Refunds", desc: "3-second video submission → AI analyzes viscosity/state → instant refund to source." },
-      { label: "Frozen Guarantee Marker", desc: "Trust badge indicating 'Guardian Box' packing — product will arrive intact." },
-    ],
-  },
-];
+{
+  num: "01",
+  title: "Freshness Visibility System",
+  subtitle: "Perishables",
+  screen: screenFreshness,
+  items: [
+  { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch." },
+  { label: "Detailed PDP Metadata", desc: "Manufacturing and Best Before dates for the current stock on Product Detail Page." },
+  { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf." }]
+
+},
+{
+  num: "02",
+  title: "The Thermal Shield",
+  subtitle: "Beverages & Chilled",
+  screen: screenThermal,
+  items: [
+  { label: "Verified Chilled Badge", desc: "Users choose between 'Verified Chilled' (4°C) or 'Room Temperature' at product level." },
+  { label: "IoT Cooler Sync", desc: "Real-time dark store cooler sensor integration. Product card shows 'Last verified at 3.8°C.'" },
+  { label: "Cold-Chain Premium", desc: "Micro-fee option (₹7) for Thermal Bubble-Wrap Foil Sleeve. Free for Zepto Pass users." }]
+
+},
+{
+  num: "03",
+  title: "Frozen Guardian Infrastructure",
+  subtitle: "Ice Cream & Meds",
+  screen: screenFrozen,
+  items: [
+  { label: "PCM Sub-Compartmentalization", desc: "Rider backpacks with Phase Change Material (PCM) boxes maintaining -18°C for 30 minutes." },
+  { label: "Visual AI 'Melt-Scan' Refunds", desc: "3-second video submission → AI analyzes viscosity/state → instant refund to source." },
+  { label: "Frozen Guarantee Marker", desc: "Trust badge indicating 'Guardian Box' packing — product will arrive intact." }]
+
+}];
+
 
 const journeys = [
-  {
-    persona: "Ananya",
-    before: "Orders bread blindly → Receives near-expiry stock → Wastage occurs → Churns back to Kirana.",
-    after: "Filters by 'Longest Shelf Life' → Adds bread with '5 Days Guarantee' → Basket grows to ₹650 → Habit retained; LTV protected.",
-  },
-  {
-    persona: "Rajesh",
-    before: "Orders cold drink → Arrives at room temp → Mood spoiled → Churns back to Kirana.",
-    after: "Tracking shows 'Cold Chain Active' → Drink arrives at 4.2°C → Delight; repeatable high-margin indulgence.",
-  },
-];
+{
+  persona: "Ananya",
+  before: "Orders bread blindly → Receives near-expiry stock → Wastage occurs → Churns back to Kirana.",
+  after: "Filters by 'Longest Shelf Life' → Adds bread with '5 Days Guarantee' → Basket grows to ₹650 → Habit retained; LTV protected."
+},
+{
+  persona: "Rajesh",
+  before: "Orders cold drink → Arrives at room temp → Mood spoiled → Churns back to Kirana.",
+  after: "Tracking shows 'Cold Chain Active' → Drink arrives at 4.2°C → Delight; repeatable high-margin indulgence."
+}];
+
 
 const takeaways = [
-  { title: "Quality is the Real Speed", desc: "In a market where every player delivers in under 15 minutes, the new competitive moat is Sustained Velocity — speed that never compromises product integrity." },
-  { title: "Staples are the Gateway", desc: "Dairy and Bakery are 'Habitual Hooks' that drive app-open frequency. Solving for 'Hidden Expiry' is a defensive strategy to prevent Kirana Reversion." },
-  { title: "Ops as Product Feature", desc: "Product management in quick commerce extends beyond the app interface into the physical warehouse. Bridging digital metadata (WMS) with physical reality (thermal bags)." },
-  { title: "Trust as Economic Multiplier", desc: "Resolving 'Melted Product' and 'Refund Drama' unlocks high-margin categories like frozen desserts (2.7x margin) and pharmaceuticals. Trust is a top-line driver." },
-];
+{ title: "Quality is the Real Speed", desc: "In a market where every player delivers in under 15 minutes, the new competitive moat is Sustained Velocity — speed that never compromises product integrity." },
+{ title: "Staples are the Gateway", desc: "Dairy and Bakery are 'Habitual Hooks' that drive app-open frequency. Solving for 'Hidden Expiry' is a defensive strategy to prevent Kirana Reversion." },
+{ title: "Ops as Product Feature", desc: "Product management in quick commerce extends beyond the app interface into the physical warehouse. Bridging digital metadata (WMS) with physical reality (thermal bags)." },
+{ title: "Trust as Economic Multiplier", desc: "Resolving 'Melted Product' and 'Refund Drama' unlocks high-margin categories like frozen desserts (2.7x margin) and pharmaceuticals. Trust is a top-line driver." }];
+
 
 /* ── Animated stat counter ── */
-const AnimatedStat = ({ val, label, color }: { val: string; label: string; color: string }) => {
+const AnimatedStat = ({ val, label, color }: {val: string;label: string;color: string;}) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const numMatch = val.match(/[\d.]+/);
   const num = numMatch ? parseFloat(numMatch[0]) : 0;
   const prefix = val.slice(0, val.indexOf(numMatch?.[0] ?? ""));
-  const suffix = val.slice((val.indexOf(numMatch?.[0] ?? "") + (numMatch?.[0]?.length ?? 0)));
+  const suffix = val.slice(val.indexOf(numMatch?.[0] ?? "") + (numMatch?.[0]?.length ?? 0));
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
@@ -175,17 +171,17 @@ const AnimatedStat = ({ val, label, color }: { val: string; label: string; color
         style={{ color }}
         initial={{ scale: 0.5, opacity: 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      >
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}>
+        
         {prefix}{Number.isInteger(num) ? Math.round(display) : display.toFixed(num % 1 === 0 ? 0 : 1)}{suffix}
       </motion.div>
       <p className="mt-2 text-xs" style={{ color: "#B0B0B0" }}>{label}</p>
-    </div>
-  );
+    </div>);
+
 };
 
 /* ── Animated SHAP bar ── */
-const AnimatedBar = ({ width, color, delay = 0 }: { width: string; color: string; delay?: number }) => {
+const AnimatedBar = ({ width, color, delay = 0 }: {width: string;color: string;delay?: number;}) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-30px" });
   return (
@@ -195,10 +191,10 @@ const AnimatedBar = ({ width, color, delay = 0 }: { width: string; color: string
         style={{ background: color }}
         initial={{ width: "0%" }}
         animate={inView ? { width } : { width: "0%" }}
-        transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
-      />
-    </div>
-  );
+        transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }} />
+      
+    </div>);
+
 };
 
 const Zepto = () => {
@@ -210,7 +206,7 @@ const Zepto = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {window.scrollTo(0, 0);}, []);
 
   return (
     <main className="pt-16 relative" style={{ background: Z.offWhite, color: Z.charcoal }}>
@@ -234,37 +230,19 @@ const Zepto = () => {
 
           {/* About Zepto Card */}
           <ScrollFadeIn delay={0.2}>
-            <div className="mt-12 max-w-4xl mx-auto rounded-2xl p-8 md:p-10 text-left" style={{ background: Z.purpleLight, border: `1px solid ${Z.purpleBorder}` }}>
-              <h3 className="text-xl font-bold mb-3" style={{ color: Z.purple }}>About Zepto</h3>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: Z.charcoalLight }}>
+            <div className="mt-12 max-w-2xl mx-auto rounded-xl p-6 text-left" style={{ background: Z.purpleLight, border: `1px solid ${Z.purpleBorder}` }}>
+              <h3 className="font-bold mb-2" style={{ color: Z.purple }}>About Zepto</h3>
+              <p className="text-sm mb-4" style={{ color: Z.charcoalLight }}>
                 India's fastest growing quick commerce platform — delivering groceries in 10 minutes. Valued at $7B, operating 900+ dark stores across 70+ cities. A "pure-play" operator optimized for sub-10-minute delivery.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="p-4 rounded-lg" style={{ background: 'rgba(129,140,248,0.12)' }}>
-                  <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: Z.purple }}>Mission</p>
-                  <p className="text-sm" style={{ color: Z.charcoalLight }}>"Save you time — making every second count."</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-3 rounded-lg" style={{ background: Z.purpleLight }}>
+                  <p className="text-xs font-medium" style={{ color: Z.purple }}>Mission</p>
+                  <p className="text-xs" style={{ color: Z.charcoalLight }}>"Save you time — making every second count."</p>
                 </div>
-                <div className="p-4 rounded-lg" style={{ background: 'rgba(129,140,248,0.12)' }}>
-                  <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: Z.purple }}>Vision</p>
-                  <p className="text-sm" style={{ color: Z.charcoalLight }}>"To become the leading online grocery platform, setting new standards for convenience and quality."</p>
-                </div>
-              </div>
-
-              {/* Competitors */}
-              <div className="border-t pt-6" style={{ borderColor: Z.purpleBorder }}>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: Z.purple }}>Key Competitors</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {[
-                    { name: "Blinkit", logo: blinkitLogo },
-                    { name: "Swiggy Instamart", logo: swiggyLogo },
-                    { name: "Dunzo", logo: dunzoLogo },
-                    { name: "BigBasket", logo: bigbasketLogo },
-                  ].map((c) => (
-                    <div key={c.name} className="flex flex-col items-center gap-2 p-4 rounded-xl transition-colors hover:bg-[rgba(129,140,248,0.15)]" style={{ background: 'rgba(129,140,248,0.06)' }}>
-                      <img src={c.logo} alt={c.name} className="h-10 w-10 object-contain rounded-lg" />
-                      <span className="text-xs font-medium text-center" style={{ color: Z.charcoalLight }}>{c.name}</span>
-                    </div>
-                  ))}
+                <div className="p-3 rounded-lg" style={{ background: Z.purpleLight }}>
+                  <p className="text-xs font-medium" style={{ color: Z.purple }}>Vision</p>
+                  <p className="text-xs" style={{ color: Z.charcoalLight }}>"To become the leading online grocery platform, setting new standards for convenience and quality."</p>
                 </div>
               </div>
             </div>
@@ -277,36 +255,32 @@ const Zepto = () => {
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>The Problem</p>
-            <h3 className="text-lg md:text-xl font-semibold mb-4" style={{ color: Z.purple }}>The Trust Crisis</h3>
-            <p className="text-sm md:text-base max-w-4xl leading-relaxed mb-4" style={{ color: Z.charcoalLight }}>
-              Zepto's 10-minute delivery promise successfully attracts users, but hidden product metadata and last-mile infrastructure failures are driving them away. Users receive perishables expiring in 24–72 hours without prior knowledge, beverages arrive at room temperature, and ice cream often reaches the doorstep in a melted state — killing the instant gratification which Zepto aims at providing.
-            </p>
             <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>Why It Matters</h2>
           </ScrollFadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {[
-              { title: "The Kirana Reversion", desc: "When quality fails, users default to local kirana stores for 'Anchor Categories' (Dairy/Bakery), where they can manually inspect products.", icon: AlertTriangle, color: Z.amber },
-              { title: "Habit Disruption", desc: "Dairy and Bakery are destination categories with 55% penetration and 15–20x monthly frequency. Breaking this loop kills cross-sell potential.", icon: BarChart3, color: Z.purple },
-              { title: "Revenue at Risk", desc: "A 10% churn in high-frequency fresh categories puts ₹611 crore in annual revenue at risk based on FY25 projections.", icon: AlertTriangle, color: Z.red },
-            ].map((c, i) => (
-              <ScrollFadeIn key={c.title} delay={i * 0.1}>
+            { title: "The Kirana Reversion", desc: "When quality fails, users default to local kirana stores for 'Anchor Categories' (Dairy/Bakery), where they can manually inspect products.", icon: AlertTriangle, color: Z.amber },
+            { title: "Habit Disruption", desc: "Dairy and Bakery are destination categories with 55% penetration and 15–20x monthly frequency. Breaking this loop kills cross-sell potential.", icon: BarChart3, color: Z.purple },
+            { title: "Revenue at Risk", desc: "A 10% churn in high-frequency fresh categories puts ₹611 crore in annual revenue at risk based on FY25 projections.", icon: AlertTriangle, color: Z.red }].
+            map((c, i) =>
+            <ScrollFadeIn key={c.title} delay={i * 0.1}>
                 <motion.div
-                  className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default"
-                  style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${c.color}` }}
-                  whileHover={{
-                    scale: 1.03,
-                    boxShadow: `0 0 24px ${c.color}33, 0 0 48px ${c.color}15`,
-                    borderColor: c.color,
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
+                className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default"
+                style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${c.color}` }}
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: `0 0 24px ${c.color}33, 0 0 48px ${c.color}15`,
+                  borderColor: c.color
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+                
                   <c.icon size={24} className="mb-3" style={{ color: c.color }} />
                   <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{c.title}</h3>
-                  <p className="text-sm leading-relaxed flex-1" style={{ color: Z.charcoalLight }}>{c.desc}</p>
+                  <p className="leading-relaxed flex-1 text-destructive-foreground text-4xl font-bold font-sans" style={{ color: Z.charcoalLight }}>{c.desc}</p>
                 </motion.div>
               </ScrollFadeIn>
-            ))}
+            )}
           </div>
 
           {/* Business Impact Stats */}
@@ -315,12 +289,12 @@ const Zepto = () => {
               <h3 className="text-center font-bold mb-8" style={{ color: Z.charcoal }}>Current Business Impact</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { val: "68%", label: "of consumers abandon after one spoiled experience", color: Z.red },
-                  { val: "57%", label: "report concerns about missing 'best before' dates", color: Z.amber },
-                  { val: "₹611 Cr", label: "annual revenue at risk from fresh category churn", color: Z.purple },
-                 ].map(s => (
-                  <AnimatedStat key={s.val} val={s.val} label={s.label} color={s.color} />
-                ))}
+                { val: "68%", label: "of consumers abandon after one spoiled experience", color: Z.red },
+                { val: "57%", label: "report concerns about missing 'best before' dates", color: Z.amber },
+                { val: "₹611 Cr", label: "annual revenue at risk from fresh category churn", color: Z.purple }].
+                map((s) =>
+                <AnimatedStat key={s.val} val={s.val} label={s.label} color={s.color} />
+                )}
               </div>
             </div>
           </ScrollFadeIn>
@@ -392,8 +366,8 @@ const Zepto = () => {
             <h3 className="text-xl font-bold mb-8" style={{ color: Z.charcoal }}>The Three Core Friction Points</h3>
           </ScrollFadeIn>
           <div className="space-y-6 mb-12">
-            {frictionPoints.map((fp, i) => (
-              <ScrollFadeIn key={fp.title} delay={i * 0.1}>
+            {frictionPoints.map((fp, i) =>
+            <ScrollFadeIn key={fp.title} delay={i * 0.1}>
                 <motion.div className="rounded-xl p-6 md:p-8 shadow-sm cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
                     <div className="shrink-0">
@@ -406,24 +380,24 @@ const Zepto = () => {
                       </div>
                       <p className="text-sm mb-3 leading-relaxed" style={{ color: Z.charcoalLight }}>{fp.desc}</p>
                       <motion.div className="flex flex-wrap items-center gap-4 mb-3"
-                        initial={{ x: -20, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                      >
+                    initial={{ x: -20, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}>
+                      
                         <span className="font-mono-metric text-2xl font-bold" style={{ color: Z.red }}>{fp.stat}</span>
                         <span className="text-xs" style={{ color: Z.muted }}>{fp.statLabel}</span>
                       </motion.div>
-                      {fp.quote && (
-                        <blockquote className="text-sm italic border-l-2 pl-4" style={{ borderColor: Z.purple, color: Z.muted }}>
+                      {fp.quote &&
+                    <blockquote className="text-sm italic border-l-2 pl-4" style={{ borderColor: Z.purple, color: Z.muted }}>
                           {fp.quote}
                         </blockquote>
-                      )}
+                    }
                     </div>
                   </div>
                 </motion.div>
               </ScrollFadeIn>
-            ))}
+            )}
           </div>
 
           {/* Key Insight Callout */}
@@ -449,8 +423,8 @@ const Zepto = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>Who's Affected</h2>
           </ScrollFadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {personas.map((p, i) => (
-              <ScrollFadeIn key={p.name} delay={i * 0.1}>
+            {personas.map((p, i) =>
+            <ScrollFadeIn key={p.name} delay={i * 0.1}>
                 <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl">{p.emoji}</span>
@@ -462,19 +436,19 @@ const Zepto = () => {
                   <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>{p.about}</p>
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Pain Points</h4>
                   <ul className="space-y-2 mb-4">
-                    {p.pains.map(pain => (
-                      <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
-                    ))}
+                    {p.pains.map((pain) =>
+                  <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
+                  )}
                   </ul>
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
                   <ul className="space-y-2">
-                    {p.needs.map(need => (
-                      <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
-                    ))}
+                    {p.needs.map((need) =>
+                  <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
+                  )}
                   </ul>
                 </motion.div>
               </ScrollFadeIn>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -490,18 +464,18 @@ const Zepto = () => {
             </p>
           </ScrollFadeIn>
 
-          {features.map((f, fi) => (
-            <ScrollFadeIn key={f.num} delay={fi * 0.1}>
+          {features.map((f, fi) =>
+          <ScrollFadeIn key={f.num} delay={fi * 0.1}>
               <motion.div className="rounded-xl p-6 md:p-8 mb-8 shadow-sm cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.02, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                 <div className="flex flex-col md:flex-row gap-8">
                   {/* App Screen */}
                   <div className="shrink-0 flex justify-center">
                     <img
-                      src={f.screen}
-                      alt={f.title}
-                      className="w-48 md:w-56 rounded-2xl shadow-lg object-cover"
-                      style={{ border: `2px solid ${Z.cardBorder}` }}
-                    />
+                    src={f.screen}
+                    alt={f.title}
+                    className="w-48 md:w-56 rounded-2xl shadow-lg object-cover"
+                    style={{ border: `2px solid ${Z.cardBorder}` }} />
+                  
                   </div>
                   {/* Content */}
                   <div className="flex-1">
@@ -511,18 +485,18 @@ const Zepto = () => {
                       <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>{f.subtitle}</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {f.items.map(item => (
-                        <div key={item.label} className="p-4 rounded-lg" style={{ background: Z.lavender }}>
+                      {f.items.map((item) =>
+                    <div key={item.label} className="p-4 rounded-lg" style={{ background: Z.lavender }}>
                           <p className="text-sm font-semibold mb-1" style={{ color: Z.charcoal }}>{item.label}</p>
                           <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{item.desc}</p>
                         </div>
-                      ))}
+                    )}
                     </div>
                   </div>
                 </div>
               </motion.div>
             </ScrollFadeIn>
-          ))}
+          )}
         </div>
       </section>
 
@@ -534,8 +508,8 @@ const Zepto = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>The "Halo Effect" Transformation</h2>
           </ScrollFadeIn>
           <div className="space-y-6">
-            {journeys.map((j, i) => (
-              <ScrollFadeIn key={j.persona} delay={i * 0.1}>
+            {journeys.map((j, i) =>
+            <ScrollFadeIn key={j.persona} delay={i * 0.1}>
                 <div className="rounded-xl overflow-hidden shadow-sm" style={{ border: `1px solid ${Z.cardBorder}` }}>
                   <div className="p-4 font-bold text-sm" style={{ background: Z.purpleLight, color: Z.purple }}>
                     Persona: {j.persona}
@@ -552,7 +526,7 @@ const Zepto = () => {
                   </div>
                 </div>
               </ScrollFadeIn>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -567,18 +541,18 @@ const Zepto = () => {
           <ScrollFadeIn>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { icon: Database, title: "Data Sync Layer", desc: "WMS-to-Storefront API integration. Every inwarding includes Batch ID + Expiry Date scan updating the dark store's digital inventory map.", color: Z.purple },
-                { icon: Cpu, title: "IoT-Enabled Last Mile", desc: "Bluetooth temperature sensors in rider bags. If temperature crosses Critical Melt Threshold (-12°C), automated quality-failure refund triggers before user complains.", color: Z.amber },
-                { icon: Camera, title: "Visual AI Dispute Resolution", desc: "Computer Vision model trained on viscosity patterns for melted liquids to automate refunds without human support intervention.", color: Z.red },
-              ].map((a, i) => (
-                <ScrollFadeIn key={a.title} delay={i * 0.1}>
+              { icon: Database, title: "Data Sync Layer", desc: "WMS-to-Storefront API integration. Every inwarding includes Batch ID + Expiry Date scan updating the dark store's digital inventory map.", color: Z.purple },
+              { icon: Cpu, title: "IoT-Enabled Last Mile", desc: "Bluetooth temperature sensors in rider bags. If temperature crosses Critical Melt Threshold (-12°C), automated quality-failure refund triggers before user complains.", color: Z.amber },
+              { icon: Camera, title: "Visual AI Dispute Resolution", desc: "Computer Vision model trained on viscosity patterns for melted liquids to automate refunds without human support intervention.", color: Z.red }].
+              map((a, i) =>
+              <ScrollFadeIn key={a.title} delay={i * 0.1}>
                   <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${a.color}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${a.color}33, 0 0 48px ${a.color}15`, borderColor: a.color }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                     <a.icon size={28} className="mb-3" style={{ color: a.color }} />
                     <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{a.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{a.desc}</p>
                   </motion.div>
                 </ScrollFadeIn>
-              ))}
+              )}
             </div>
           </ScrollFadeIn>
         </div>
@@ -637,14 +611,14 @@ const Zepto = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>Beyond the Stopwatch</h2>
           </ScrollFadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {takeaways.map((t, i) => (
-              <ScrollFadeIn key={t.title} delay={i * 0.1}>
+            {takeaways.map((t, i) =>
+            <ScrollFadeIn key={t.title} delay={i * 0.1}>
                 <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                   <h3 className="font-bold mb-2" style={{ color: Z.charcoal }}>{t.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: Z.charcoalLight }}>{t.desc}</p>
                 </motion.div>
               </ScrollFadeIn>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -652,24 +626,24 @@ const Zepto = () => {
       <Footer />
 
       {/* Back to Top */}
-      {showTop && (
-        <motion.button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40"
-          style={{ background: Z.purple, color: Z.white }}
-          aria-label="Back to top"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 0 }}
-          whileHover={{ scale: 1.15, y: -4 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
+      {showTop &&
+      <motion.button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-40"
+        style={{ background: Z.purple, color: Z.white }}
+        aria-label="Back to top"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0, opacity: 0 }}
+        whileHover={{ scale: 1.15, y: -4 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+        
           <ArrowUp size={20} />
         </motion.button>
-      )}
-    </main>
-  );
+      }
+    </main>);
+
 };
 
 export default Zepto;
