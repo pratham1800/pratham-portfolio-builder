@@ -14,6 +14,7 @@ import blinkitLogo from "@/assets/blinkit-logo.png";
 import swiggyLogo from "@/assets/swiggy-logo.png";
 import dunzoLogo from "@/assets/dunzo-logo.png";
 import bigbasketLogo from "@/assets/bigbasket-logo.png";
+import thermalShieldImg from "@/assets/zepto-thermal-shield.png";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
@@ -599,50 +600,68 @@ const Zepto = () => {
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                      <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.red}` }}>
-                        <p className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-2" style={{ color: Z.red }}>
-                          <XCircle size={14} /> Before
-                        </p>
-                        <ul className="space-y-1.5">
-                          {pillar.beforePoints.map(p => (
-                            <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
-                              <XCircle size={13} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.green}` }}>
-                        <p className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-2" style={{ color: Z.green }}>
-                          <CheckCircle size={14} /> After
-                        </p>
-                        <ul className="space-y-1.5">
-                          {pillar.afterPoints.map(p => (
-                            <li key={p} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}>
-                              <CheckCircle size={13} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                      {pillar.features && pillar.features.map((feat) => (
+                    {/* Image + Before/After + Features side by side */}
+                    <div className="flex flex-col lg:flex-row gap-6 items-start">
+                      {/* Visual */}
+                      {pillar.num === "02" && (
                         <motion.div
-                          key={feat.label}
-                          className="rounded-xl p-4 cursor-default"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                          whileHover={{ scale: 1.02, boxShadow: `0 0 16px ${pillar.color}33`, borderColor: pillar.color }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                          whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
+                          transition={{ duration: 0.3 }}
                         >
-                          <div className="flex items-start gap-3">
-                            <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
-                            <div>
-                              <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                              <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
-                            </div>
-                          </div>
+                          <img src={thermalShieldImg} alt="Thermal Shield before and after comparison" className="w-full h-full object-contain" />
                         </motion.div>
-                      ))}
+                      )}
+                      <div className="flex-1 space-y-4">
+                        {/* Before / After */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                            <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
+                              <XCircle size={12} /> Before
+                            </p>
+                            <ul className="space-y-1">
+                              {pillar.beforePoints.map(p => (
+                                <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
+                                  <XCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                            <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
+                              <CheckCircle size={12} /> After
+                            </p>
+                            <ul className="space-y-1">
+                              {pillar.afterPoints.map(p => (
+                                <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
+                                  <CheckCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        {/* Feature cards */}
+                        <div className="grid grid-cols-1 gap-2.5">
+                          {pillar.features && pillar.features.map((feat) => (
+                            <motion.div
+                              key={feat.label}
+                              className="rounded-lg px-4 py-3 cursor-default"
+                              style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
+                              whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
+                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                              <div className="flex items-start gap-2.5">
+                                <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                                <div>
+                                  <p className="text-xs font-bold mb-1" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                  <p className="text-[11px] leading-[1.6]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
