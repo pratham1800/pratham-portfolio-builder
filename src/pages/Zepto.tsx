@@ -8,6 +8,10 @@ import screenFreshness from "@/assets/zepto-screen-freshness.png";
 import screenThermal from "@/assets/zepto-screen-thermal.png";
 import screenFrozen from "@/assets/zepto-screen-frozen.png";
 import AmbientCrystals from "@/components/AmbientCrystals";
+import blinkitLogo from "@/assets/blinkit-logo.png";
+import swiggyLogo from "@/assets/swiggy-logo.png";
+import dunzoLogo from "@/assets/dunzo-logo.png";
+import bigbasketLogo from "@/assets/bigbasket-logo.png";
 
 /* ── Zepto palette (matching actual Zepto branding) ── */
 const Z = {
@@ -230,19 +234,37 @@ const Zepto = () => {
 
           {/* About Zepto Card */}
           <ScrollFadeIn delay={0.2}>
-            <div className="mt-12 max-w-2xl mx-auto rounded-xl p-6 text-left" style={{ background: Z.purpleLight, border: `1px solid ${Z.purpleBorder}` }}>
-              <h3 className="font-bold mb-2" style={{ color: Z.purple }}>About Zepto</h3>
-              <p className="text-sm mb-4" style={{ color: Z.charcoalLight }}>
+            <div className="mt-12 max-w-4xl mx-auto rounded-2xl p-8 md:p-10 text-left" style={{ background: Z.purpleLight, border: `1px solid ${Z.purpleBorder}` }}>
+              <h3 className="text-xl font-bold mb-3" style={{ color: Z.purple }}>About Zepto</h3>
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: Z.charcoalLight }}>
                 India's fastest growing quick commerce platform — delivering groceries in 10 minutes. Valued at $7B, operating 900+ dark stores across 70+ cities. A "pure-play" operator optimized for sub-10-minute delivery.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-3 rounded-lg" style={{ background: Z.purpleLight }}>
-                  <p className="text-xs font-medium" style={{ color: Z.purple }}>Mission</p>
-                  <p className="text-xs" style={{ color: Z.charcoalLight }}>"Save you time — making every second count."</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="p-4 rounded-lg" style={{ background: 'rgba(129,140,248,0.12)' }}>
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: Z.purple }}>Mission</p>
+                  <p className="text-sm" style={{ color: Z.charcoalLight }}>"Save you time — making every second count."</p>
                 </div>
-                <div className="p-3 rounded-lg" style={{ background: Z.purpleLight }}>
-                  <p className="text-xs font-medium" style={{ color: Z.purple }}>Vision</p>
-                  <p className="text-xs" style={{ color: Z.charcoalLight }}>"To become the leading online grocery platform, setting new standards for convenience and quality."</p>
+                <div className="p-4 rounded-lg" style={{ background: 'rgba(129,140,248,0.12)' }}>
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: Z.purple }}>Vision</p>
+                  <p className="text-sm" style={{ color: Z.charcoalLight }}>"To become the leading online grocery platform, setting new standards for convenience and quality."</p>
+                </div>
+              </div>
+
+              {/* Competitors */}
+              <div className="border-t pt-6" style={{ borderColor: Z.purpleBorder }}>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: Z.purple }}>Key Competitors</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {[
+                    { name: "Blinkit", logo: blinkitLogo },
+                    { name: "Swiggy Instamart", logo: swiggyLogo },
+                    { name: "Dunzo", logo: dunzoLogo },
+                    { name: "BigBasket", logo: bigbasketLogo },
+                  ].map((c) => (
+                    <div key={c.name} className="flex flex-col items-center gap-2 p-4 rounded-xl transition-colors hover:bg-[rgba(129,140,248,0.15)]" style={{ background: 'rgba(129,140,248,0.06)' }}>
+                      <img src={c.logo} alt={c.name} className="h-10 w-10 object-contain rounded-lg" />
+                      <span className="text-xs font-medium text-center" style={{ color: Z.charcoalLight }}>{c.name}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
