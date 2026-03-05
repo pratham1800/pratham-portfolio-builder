@@ -641,18 +641,18 @@ const Zepto = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     {/* Image + Before/After + Features side by side */}
-                    <div className="flex flex-col lg:flex-row gap-6 items-start">
+                    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
                       {/* Visual */}
                       {(pillar.num === "02" || pillar.num === "03") && (
                         <motion.div
-                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[320px]"
+                          className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px] flex items-center"
                           style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                           whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                           transition={{ duration: 0.3 }}
                         >
-                          <img src={pillar.num === "02" ? thermalShieldImg : frozenGuardianImg} alt={`${pillar.title} before and after comparison`} className="w-full h-full object-contain" />
+                          <img src={pillar.num === "02" ? thermalShieldImg : frozenGuardianImg} alt={`${pillar.title} before and after comparison`} className="w-full object-contain" />
                         </motion.div>
                       )}
                       <div className="flex-1 space-y-4">
