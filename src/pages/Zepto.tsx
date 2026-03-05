@@ -459,7 +459,7 @@ const Zepto = () => {
                       <p className="text-xs" style={{ color: Z.muted }}>{p.role}</p>
                     </div>
                   </div>
-                  <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>{p.about}</p>
+                  <p className="text-sm mb-4 leading-relaxed flex-grow" style={{ color: Z.charcoalLight }}>{p.about}</p>
                   <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Pain Points</h4>
                   <ul className="space-y-2 mb-4">
                     {p.pains.map(pain => (
