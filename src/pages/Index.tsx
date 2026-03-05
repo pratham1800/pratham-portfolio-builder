@@ -10,43 +10,43 @@ import zeptoPreview from "@/assets/zepto-preview.png";
 import HeroScene from "@/components/HeroScene";
 
 const projects = [
-  {
-    title: "GharSeva",
-    subtitle: "A managed marketplace for India's domestic help market.",
-    description: "GharSeva connects urban Indian households with verified domestic workers through a subscription-based model built for long-term reliability.",
-    tags: ["Marketplace", "Trust Infrastructure", "B2C"],
-    to: "/gharseva",
-    imageFirst: true,
-    preview: gharsevaPreview,
-  },
-  {
-    title: "Zepto: Beyond The Stopwatch",
-    subtitle: "Building trust infrastructure beyond the 10-minute promise.",
-    description: "A deep-dive into how hidden product metadata and last-mile thermal failures drive users back to kirana stores.",
-    tags: ["User Research", "Quick-Commerce", "Trust Systems"],
-    to: "/zepto",
-    imageFirst: false,
-    preview: zeptoPreview,
-  },
-];
+{
+  title: "GharSeva",
+  subtitle: "A managed marketplace for India's domestic help market.",
+  description: "GharSeva connects urban Indian households with verified domestic workers through a subscription-based model built for long-term reliability.",
+  tags: ["Marketplace", "Trust Infrastructure", "B2C"],
+  to: "/gharseva",
+  imageFirst: true,
+  preview: gharsevaPreview
+},
+{
+  title: "Zepto: Beyond The Stopwatch",
+  subtitle: "Building trust infrastructure beyond the 10-minute promise.",
+  description: "A deep-dive into how hidden product metadata and last-mile thermal failures drive users back to kirana stores.",
+  tags: ["User Research", "Quick-Commerce", "Trust Systems"],
+  to: "/zepto",
+  imageFirst: false,
+  preview: zeptoPreview
+}];
+
 
 const services = [
-  { icon: Search, title: "User-Centric Discovery", desc: "Deep user research, persona mapping, JTBD frameworks, and pain-point analysis to uncover real needs." },
-  { icon: Layers, title: "Product Strategy", desc: "Roadmap definition, feature prioritization, and cross-functional alignment to ship what matters." },
-  { icon: Cpu, title: "Technical Execution", desc: "System design, API architecture, backend empathy, and hands-on engineering collaboration." },
-  { icon: Target, title: "Growth & GTM", desc: "Market sizing, unit economics, go-to-market strategy, and data-driven growth experiments." },
-  { icon: BarChart3, title: "Analytics & Metrics", desc: "KPI frameworks, funnel analysis, A/B testing, and product analytics instrumentation." },
-  { icon: TrendingUp, title: "Business Impact", desc: "Revenue modeling, competitive analysis, and translating user value into business outcomes." },
-];
+{ icon: Search, title: "User-Centric Discovery", desc: "Deep user research, persona mapping, JTBD frameworks, and pain-point analysis to uncover real needs." },
+{ icon: Layers, title: "Product Strategy", desc: "Roadmap definition, feature prioritization, and cross-functional alignment to ship what matters." },
+{ icon: Cpu, title: "Technical Execution", desc: "System design, API architecture, backend empathy, and hands-on engineering collaboration." },
+{ icon: Target, title: "Growth & GTM", desc: "Market sizing, unit economics, go-to-market strategy, and data-driven growth experiments." },
+{ icon: BarChart3, title: "Analytics & Metrics", desc: "KPI frameworks, funnel analysis, A/B testing, and product analytics instrumentation." },
+{ icon: TrendingUp, title: "Business Impact", desc: "Revenue modeling, competitive analysis, and translating user value into business outcomes." }];
+
 
 const timeline = [
-  { year: "2024", title: "Product Manager — Paragon", desc: "Leading IoT product development for industrial automation.", icon: Briefcase },
-  { year: "2023", title: "Software Engineer — LivLong / IIFL", desc: "Built healthcare fintech features, migrated wallet to microservices.", icon: Cpu },
-  { year: "2022", title: "B.Tech — JIIT Noida", desc: "Computer Science Engineering.", icon: GraduationCap },
-];
+{ year: "2024", title: "Product Manager — Paragon", desc: "Leading IoT product development for industrial automation.", icon: Briefcase },
+{ year: "2023", title: "Software Engineer — LivLong / IIFL", desc: "Built healthcare fintech features, migrated wallet to microservices.", icon: Cpu },
+{ year: "2022", title: "B.Tech — JIIT Noida", desc: "Computer Science Engineering.", icon: GraduationCap }];
 
-const Index = () => (
-  <main className="pt-16">
+
+const Index = () =>
+<main className="pt-16">
     {/* Hero */}
     <section className="min-h-[90vh] flex items-center justify-center px-6 relative overflow-hidden">
       <HeroScene />
@@ -57,16 +57,16 @@ const Index = () => (
             Product Manager
           </div>
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+          className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] mb-6 font-display tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}>
+          
             <motion.span
-              className="inline-block"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
+            className="inline-block"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>
+            
               Hi, I'm Pratham Maheshwari.
             </motion.span>
           </motion.h1>
@@ -79,17 +79,17 @@ const Index = () => (
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="#work"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-all hover:-translate-y-0.5 glow-primary"
-            >
+            href="#work"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-all hover:-translate-y-0.5 glow-primary">
+            
               View My Work <ArrowRight size={16} />
             </a>
             <a
-              href="https://drive.google.com/drive/folders/1azLWGlssduqe8d3DdYwGv4PLru1TsMj7?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-border text-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-secondary transition-all hover:-translate-y-0.5"
-            >
+            href="https://drive.google.com/drive/folders/1azLWGlssduqe8d3DdYwGv4PLru1TsMj7?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 border border-border text-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-secondary transition-all hover:-translate-y-0.5">
+            
               <Download size={16} /> Resume
             </a>
           </div>
@@ -116,18 +116,18 @@ const Index = () => (
     <section id="work" className="px-6 py-24">
       <div className="max-w-6xl mx-auto">
         <ScrollFadeIn>
-          <p className="text-primary font-medium text-xs tracking-widest uppercase mb-3">MY WORK</p>
+          <p className="text-primary tracking-widest uppercase mb-3 text-lg font-extrabold">MY WORK</p>
           <h2 className="text-3xl md:text-5xl font-extrabold mb-16 font-display">Projects & Case Studies</h2>
         </ScrollFadeIn>
 
         <div className="flex flex-col gap-10">
-          {projects.map((p, i) => (
-            <ScrollFadeIn key={p.title} delay={i * 0.1}>
+          {projects.map((p, i) =>
+        <ScrollFadeIn key={p.title} delay={i * 0.1}>
               <Link to={p.to}>
                 <motion.div
-                  whileHover={{ y: -4 }}
-                  className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-2xl hover:shadow-primary/5 cursor-pointer"
-                >
+              whileHover={{ y: -4 }}
+              className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-2xl hover:shadow-primary/5 cursor-pointer">
+              
                   <div className={`w-full aspect-video bg-secondary flex items-center justify-center overflow-hidden ${p.imageFirst ? "md:order-1" : "md:order-2"}`}>
                     <img src={p.preview} alt={`${p.title} preview`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
@@ -136,9 +136,9 @@ const Index = () => (
                     <p className="text-muted-foreground font-medium mb-3 text-sm">{p.subtitle}</p>
                     <p className="text-muted-foreground/70 text-sm leading-relaxed mb-6">{p.description}</p>
                     <div className="flex flex-wrap gap-2 mb-5">
-                      {p.tags.map((t) => (
-                        <span key={t} className="text-xs font-medium bg-secondary text-secondary-foreground px-3 py-1 rounded-full">{t}</span>
-                      ))}
+                      {p.tags.map((t) =>
+                  <span key={t} className="text-xs font-medium bg-secondary text-secondary-foreground px-3 py-1 rounded-full">{t}</span>
+                  )}
                     </div>
                     <div className="flex items-center gap-2 text-primary font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                       View Case Study <ArrowRight size={16} />
@@ -147,7 +147,7 @@ const Index = () => (
                 </motion.div>
               </Link>
             </ScrollFadeIn>
-          ))}
+        )}
         </div>
       </div>
     </section>
@@ -160,8 +160,8 @@ const Index = () => (
           <h2 className="text-3xl md:text-5xl font-extrabold mb-16 text-center font-display">Core Capabilities</h2>
         </ScrollFadeIn>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((s, i) => (
-            <ScrollFadeIn key={s.title} delay={i * 0.05}>
+          {services.map((s, i) =>
+        <ScrollFadeIn key={s.title} delay={i * 0.05}>
               <div className="bg-card rounded-2xl border border-border p-8 hover:border-primary/30 transition-colors group">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                   <s.icon className="text-primary" size={20} />
@@ -170,7 +170,7 @@ const Index = () => (
                 <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
               </div>
             </ScrollFadeIn>
-          ))}
+        )}
         </div>
       </div>
     </section>
@@ -184,8 +184,8 @@ const Index = () => (
         </ScrollFadeIn>
         <div className="relative">
           <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
-          {timeline.map((t, i) => (
-            <ScrollFadeIn key={t.year} delay={i * 0.1}>
+          {timeline.map((t, i) =>
+        <ScrollFadeIn key={t.year} delay={i * 0.1}>
               <div className="flex items-start gap-8 mb-12 pl-12 relative">
                 <div className="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-background" />
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -198,13 +198,13 @@ const Index = () => (
                 </div>
               </div>
             </ScrollFadeIn>
-          ))}
+        )}
         </div>
       </div>
     </section>
 
     <Footer />
-  </main>
-);
+  </main>;
+
 
 export default Index;
