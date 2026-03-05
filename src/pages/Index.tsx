@@ -85,22 +85,24 @@ const Index = () => (
               View My Work <ArrowRight size={16} />
             </a>
             <a
-              href="#"
+              href="https://drive.google.com/drive/folders/1azLWGlssduqe8d3DdYwGv4PLru1TsMj7?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-border text-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-secondary transition-all hover:-translate-y-0.5"
             >
               <Download size={16} /> Resume
             </a>
           </div>
           <div className="flex items-center justify-center gap-5 mt-8">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/pratham-maheshwari-680921217" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="LinkedIn">
               <Linkedin size={18} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="GitHub">
+            <a href="https://github.com/pratham1800" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="GitHub">
               <Github size={18} />
             </a>
-            <a href="mailto:pratham@example.com" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="Email">
-              <Mail size={18} />
-            </a>
+            <span className="text-muted-foreground/50 flex items-center gap-1.5">
+              <Mail size={18} /> <span className="text-sm">prathammaheshwari018@gmail.com</span>
+            </span>
           </div>
         </ScrollFadeIn>
       </div>

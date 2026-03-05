@@ -10,22 +10,19 @@ const Footer = () =>
       <p className="text-muted-foreground mb-10 max-w-md mx-auto">
         Got a product problem worth solving? I'd love to hear about it.
       </p>
-      <a
-      href="mailto:pratham@example.com"
-      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-all glow-primary mb-12">prathammaheshwari018@gmail.com
-
-      <ArrowUpRight size={16} />
-      </a>
+      <span
+      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-semibold text-sm glow-primary mb-12 cursor-default">prathammaheshwari018@gmail.com
+      </span>
       <div className="flex items-center justify-center gap-6 mb-10">
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/pratham-maheshwari-680921217" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="LinkedIn">
           <Linkedin size={20} />
         </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="GitHub">
+        <a href="https://github.com/pratham1800" target="_blank" rel="noopener noreferrer" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="GitHub">
           <Github size={20} />
         </a>
-        <a href="mailto:pratham@example.com" className="text-muted-foreground/50 hover:text-primary transition-colors" aria-label="Email">
+        <span className="text-muted-foreground/50 hover:text-primary transition-colors flex items-center gap-1.5" aria-label="Email">
           <Mail size={20} />
-        </a>
+        </span>
       </div>
       
     </div>
