@@ -722,11 +722,9 @@ const Zepto = () => {
             </ScrollFadeIn>
           ))}
         </div>
-      </section>
 
-      {/* Tech Architecture */}
-      <section className="px-6 pt-10 pb-20" style={{ background: Z.lavender }}>
-        <div className="max-w-6xl mx-auto">
+        {/* Tech Architecture */}
+        <div className="max-w-6xl mx-auto mt-16">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Technical Architecture</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: Z.charcoal }}>The Trust Hub</h2>
