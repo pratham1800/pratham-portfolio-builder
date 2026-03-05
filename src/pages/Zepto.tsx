@@ -1,6 +1,6 @@
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import Footer from "@/components/Footer";
-import { ArrowUp, CheckCircle, XCircle, AlertTriangle, Thermometer, Eye, ShieldCheck, Snowflake, BarChart3, Database, Cpu, Camera } from "lucide-react";
+import { ArrowUp, CheckCircle, XCircle, AlertTriangle, Thermometer, Eye, ShieldCheck, Snowflake, BarChart3, Database, Cpu, Camera, Home, Briefcase, GraduationCap } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import zeptoLogo from "@/assets/zepto-logo.png";
@@ -64,28 +64,34 @@ const frictionPoints = [
 
 const personas = [
   {
-    emoji: "👩‍🍳",
+    icon: Home,
     name: "Ananya",
     role: "The 'Morning Anchor' Homemaker",
     about: "38, Tier-1 city, manages a family of four. Daily transacting user. Places a ₹600+ order at 7 AM for milk, bread, and breakfast staples.",
     pains: ["Hidden expiry dates on bread and milk", "Bread that expires in 48 hours when she needs it for 4 days", "'Forced wastage' from near-expiry products"],
     needs: ["Transparency — 'Minimum 5 days life remaining' before adding to cart"],
+    accent: "#F59E0B",
+    accentBg: "rgba(245,158,11,0.08)",
   },
   {
-    emoji: "💼",
+    icon: Briefcase,
     name: "Rajesh",
     role: "The 'Evening Peak' Professional",
     about: "28, IT Professional, high-heat urban hub. Orders during 4 PM – 9 PM window for chilled juices and carbonated drinks.",
     pains: ["Beverages consistently arrive at room temperature", "'Instant gratification' killed — has to freeze for 20 minutes"],
     needs: ["Thermal Reliability — 'Verified Chilled' guarantee for items delivered"],
+    accent: "#818CF8",
+    accentBg: "rgba(129,140,248,0.08)",
   },
   {
-    emoji: "🎓",
+    icon: GraduationCap,
     name: "Priya",
     role: "The 'Late-Night' Student",
     about: "21, University student, night-owl (9 PM – 12 AM). High impulse buyer — frequently adds premium frozen desserts to snack basket.",
     pains: ["Ice cream arrives melted, paper-thin state", "45-minute 'Refund Drama' with chatbots for ₹150"],
     needs: ["Frictionless Redressal — frozen until doorstep or instant photo-verified refund"],
+    accent: "#EC4899",
+    accentBg: "rgba(236,72,153,0.08)",
   },
 ];
 
@@ -451,28 +457,34 @@ const Zepto = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {personas.map((p, i) => (
               <ScrollFadeIn key={p.name} delay={i * 0.1}>
-                <motion.div className="rounded-xl p-6 shadow-sm h-full flex flex-col cursor-default" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${Z.purple}33, 0 0 48px ${Z.purple}15`, borderColor: Z.purple }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-2xl">{p.emoji}</span>
-                    <div>
-                      <h3 className="font-bold" style={{ color: Z.charcoal }}>{p.name}</h3>
-                      <p className="text-xs" style={{ color: Z.muted }}>{p.role}</p>
+                <motion.div className="rounded-xl shadow-sm h-full flex flex-col cursor-default overflow-hidden" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }} whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${p.accent}33, 0 0 48px ${p.accent}15`, borderColor: p.accent }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+                  {/* Gradient accent bar */}
+                  <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${p.accent}, ${p.accent}44)` }} />
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: p.accentBg, border: `1px solid ${p.accent}33` }}>
+                        <p.icon size={20} style={{ color: p.accent }} />
+                      </div>
+                      <div>
+                        <h3 className="font-bold" style={{ color: Z.charcoal }}>{p.name}</h3>
+                        <p className="text-xs" style={{ color: Z.muted }}>{p.role}</p>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>{p.about}</p>
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Pain Points</h4>
-                  <ul className="space-y-2 mb-4">
-                    {p.pains.map(pain => (
-                      <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto">
-                  <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
-                  <ul className="space-y-2">
-                    {p.needs.map(need => (
-                      <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
-                    ))}
-                  </ul>
+                    <p className="text-sm mb-4 leading-relaxed" style={{ color: Z.charcoalLight }}>{p.about}</p>
+                    <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.red }}>Pain Points</h4>
+                    <ul className="space-y-2 mb-4">
+                      {p.pains.map(pain => (
+                        <li key={pain} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><XCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{pain}</li>
+                      ))}
+                    </ul>
+                    <div className="mt-auto">
+                      <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: Z.green }}>Needs</h4>
+                      <ul className="space-y-2">
+                        {p.needs.map(need => (
+                          <li key={need} className="text-sm flex items-start gap-2" style={{ color: Z.charcoalLight }}><CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{need}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </motion.div>
               </ScrollFadeIn>
