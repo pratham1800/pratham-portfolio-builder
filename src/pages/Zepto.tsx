@@ -536,33 +536,62 @@ const Zepto = () => {
 
                 {/* Subsections layout (for Freshness Visibility with multiple sub-parts) */}
                 {pillar.subsections ? (
-                  <div className="space-y-8">
+                  <div className="space-y-4">
+                    {/* Before / After for Freshness */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="rounded-lg p-3" style={{ background: 'rgba(248,113,113,0.06)', border: `1px solid rgba(248,113,113,0.15)` }}>
+                        <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.red }}>
+                          <XCircle size={12} /> Before
+                        </p>
+                        <ul className="space-y-1">
+                          {pillar.beforePoints.map(p => (
+                            <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
+                              <XCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.red }} />{p}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="rounded-lg p-3" style={{ background: 'rgba(52,211,153,0.06)', border: `1px solid rgba(52,211,153,0.15)` }}>
+                        <p className="text-xs font-bold uppercase tracking-wide mb-1.5 flex items-center gap-1.5" style={{ color: Z.green }}>
+                          <CheckCircle size={12} /> After
+                        </p>
+                        <ul className="space-y-1">
+                          {pillar.afterPoints.map(p => (
+                            <li key={p} className="text-xs flex items-start gap-1.5" style={{ color: Z.charcoalLight }}>
+                              <CheckCircle size={11} className="mt-0.5 shrink-0" style={{ color: Z.green }} />{p}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* All subsections compact */}
                     {pillar.subsections.map((sub, si) => (
                       <div key={si}>
-                        <h4 className="text-xs font-bold uppercase tracking-wide mb-3" style={{ color: pillar.color }}>{sub.heading}</h4>
-                        <div className="flex flex-col lg:flex-row gap-4 items-start">
+                        <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: pillar.color }}>{sub.heading}</h4>
+                        <div className="flex flex-col lg:flex-row gap-3 items-start">
                           <motion.div
-                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[280px]"
+                            className="shrink-0 rounded-xl overflow-hidden shadow-lg lg:w-[260px]"
                             style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
                             whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
                             transition={{ duration: 0.3 }}
                           >
                             <img src={sub.mockup} alt={sub.mockupAlt} className="w-full h-full object-contain" />
                           </motion.div>
-                          <div className="grid grid-cols-1 gap-2.5 flex-1">
+                          <div className="grid grid-cols-1 gap-2 flex-1">
                             {sub.features.map((feat) => (
                               <motion.div
                                 key={feat.label}
-                                className="rounded-lg px-4 py-3 cursor-default"
+                                className="rounded-lg px-3 py-2.5 cursor-default"
                                 style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderLeft: `3px solid ${pillar.color}` }}
                                 whileHover={{ scale: 1.01, boxShadow: `0 0 16px ${pillar.color}33` }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                               >
-                                <div className="flex items-start gap-2.5">
-                                  <feat.icon size={15} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                                <div className="flex items-start gap-2">
+                                  <feat.icon size={14} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
                                   <div>
-                                    <p className="text-xs font-bold mb-1" style={{ color: Z.charcoal }}>{feat.label}</p>
-                                    <p className="text-[11px] leading-[1.6]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
+                                    <p className="text-xs font-bold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                    <p className="text-[11px] leading-[1.5]" style={{ color: Z.charcoalLight }}>{feat.desc}</p>
                                   </div>
                                 </div>
                               </motion.div>
@@ -573,8 +602,8 @@ const Zepto = () => {
                     ))}
 
                     {/* User Journey: The Morning Habit */}
-                    <div className="rounded-xl p-5 mt-2" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
-                      <div className="flex items-center gap-2 mb-3">
+                    <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}>
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="text-lg">👩‍🍳</span>
                         <h4 className="text-sm font-bold" style={{ color: Z.charcoal }}>The Morning Habit</h4>
                         <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: Z.purpleLight, color: Z.purple }}>Persona: Ananya</span>
