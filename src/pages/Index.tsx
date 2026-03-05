@@ -162,7 +162,7 @@ const Index = () =>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s, i) =>
         <ScrollFadeIn key={s.title} delay={i * 0.05}>
-              <div className="bg-card rounded-2xl border border-border p-8 hover:border-primary/30 transition-colors group">
+              <div className="bg-card rounded-2xl border border-border p-8 hover:border-primary/30 transition-colors group h-full">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                   <s.icon className="text-primary" size={20} />
                 </div>
