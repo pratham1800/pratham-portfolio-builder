@@ -96,42 +96,39 @@ const solutionPillars = [
     num: "01",
     title: "Freshness Visibility System",
     subtitle: "Perishables",
-    mockup: mockupFreshness,
-    mockupAlt: "Freshness Visibility before and after comparison",
     color: Z.green,
     summary: "Replacing the 'expiry blind spot' with transparent, real-time freshness data surfaced at every touchpoint — from category listing to checkout.",
-    features: [
-      { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch.", icon: ShieldCheck },
-      { label: "Detailed PDP Metadata", desc: "Manufacturing and Best Before dates for the current stock on Product Detail Page.", icon: Eye },
-      { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf.", icon: BarChart3 },
+    subsections: [
+      {
+        heading: "Listing-Level Freshness",
+        mockup: mockupFreshness,
+        mockupAlt: "Freshness Visibility before and after comparison",
+        features: [
+          { label: "Minimum Shelf-Life Badge", desc: "UI marker on product image (e.g., 'Min. 4 Days Life') pulling real-time metadata from dark store's active batch.", icon: ShieldCheck },
+          { label: "Shelf Life Filtering", desc: "Search filter to sort categories by 'Longest Shelf Life' — digitally pick the freshest loaf.", icon: BarChart3 },
+        ],
+      },
+      {
+        heading: "Detailed Product Page (PDP)",
+        mockup: mockupPdp,
+        mockupAlt: "Product Detail Page before and after comparison",
+        features: [
+          { label: "Freshness Details Card", desc: "Manufacturing date, Best Before date, and computed Minimum Shelf Life displayed in a clean card on every PDP.", icon: Eye },
+          { label: "Freshness Guarantee Badge", desc: "A trust seal confirming the product meets the minimum shelf-life threshold before dispatch.", icon: ShieldCheck },
+          { label: "Shelf Life Badge on Image", desc: "Green overlay badge ('5 Day Shelf Life') on product hero image for instant visual confidence.", icon: CheckCircle },
+        ],
+      },
     ],
     beforePoints: ["User cannot see shelf life", "Risk of receiving near-expiry stock"],
     afterPoints: ["Users see minimum shelf life", "Pick the freshest products possible"],
   },
   {
     num: "02",
-    title: "Product Detail Page (PDP)",
-    subtitle: "Transparency Layer",
-    mockup: mockupPdp,
-    mockupAlt: "Product Detail Page before and after comparison",
-    color: Z.purple,
-    summary: "Transforming the product page from a simple 'price + image' card into a complete freshness passport — manufacturing dates, expiry, and guarantees visible before purchase.",
-    features: [
-      { label: "Freshness Details Card", desc: "Manufacturing date, Best Before date, and computed Minimum Shelf Life displayed in a clean card on every PDP.", icon: Eye },
-      { label: "Freshness Guarantee Badge", desc: "A trust seal confirming the product meets the minimum shelf-life threshold before dispatch.", icon: ShieldCheck },
-      { label: "Shelf Life Badge on Image", desc: "Green overlay badge ('5 Day Shelf Life') on product hero image for instant visual confidence.", icon: CheckCircle },
-    ],
-    beforePoints: ["Can't see manufacturing or expiry dates", "User can't judge freshness"],
-    afterPoints: ["Manufacturing + expiry dates visible", "Users can pick products with confidence"],
-  },
-  {
-    num: "03",
     title: "The Thermal Shield",
     subtitle: "Beverages & Chilled",
-    mockup: null,
-    mockupAlt: "",
     color: Z.amber,
     summary: "An end-to-end cold-chain verification system that guarantees beverages arrive chilled — turning 'thermal decay' into a competitive advantage.",
+    subsections: null,
     features: [
       { label: "Verified Chilled Badge", desc: "Users choose between 'Verified Chilled' (4°C) or 'Room Temperature' at product level.", icon: Thermometer },
       { label: "IoT Cooler Sync", desc: "Real-time dark store cooler sensor integration. Product card shows 'Last verified at 3.8°C.'", icon: Cpu },
@@ -141,13 +138,12 @@ const solutionPillars = [
     afterPoints: ["Drink arrives at verified 4°C", "Delight; repeatable high-margin indulgence"],
   },
   {
-    num: "04",
+    num: "03",
     title: "Frozen Guardian Infrastructure",
     subtitle: "Ice Cream & Meds",
-    mockup: null,
-    mockupAlt: "",
     color: Z.red,
     summary: "Phase-change material packaging and AI-powered dispute resolution ensure frozen goods survive the last mile — unlocking the highest-margin category.",
+    subsections: null,
     features: [
       { label: "PCM Sub-Compartmentalization", desc: "Rider backpacks with Phase Change Material (PCM) boxes maintaining -18°C for 30 minutes.", icon: Snowflake },
       { label: "Visual AI 'Melt-Scan' Refunds", desc: "3-second video submission → AI analyzes viscosity/state → instant refund to source.", icon: Camera },
@@ -536,26 +532,46 @@ const Zepto = () => {
                 </div>
                 <p className="text-sm leading-relaxed mb-6 max-w-3xl" style={{ color: Z.charcoalLight }}>{pillar.summary}</p>
 
-                {/* Layout: Mockup + Features side by side */}
-                <div className={`flex flex-col ${pillar.mockup ? 'lg:flex-row' : ''} gap-6`}>
-                  {/* Mockup - constrained size */}
-                  {pillar.mockup && (
-                    <motion.div
-                      className="shrink-0 rounded-2xl overflow-hidden shadow-lg lg:w-[420px]"
-                      style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                      whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <img
-                        src={pillar.mockup}
-                        alt={pillar.mockupAlt}
-                        className="w-full h-full object-contain"
-                      />
-                    </motion.div>
-                  )}
-
-                  {/* Before/After Points (for solutions without mockups) */}
-                  {!pillar.mockup && (
+                {/* Subsections layout (for Freshness Visibility with multiple sub-parts) */}
+                {pillar.subsections ? (
+                  <div className="space-y-10">
+                    {pillar.subsections.map((sub, si) => (
+                      <div key={si}>
+                        <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: pillar.color }}>{sub.heading}</h4>
+                        <div className="flex flex-col lg:flex-row gap-6">
+                          <motion.div
+                            className="shrink-0 rounded-2xl overflow-hidden shadow-lg lg:w-[400px]"
+                            style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                            whileHover={{ boxShadow: `0 0 30px ${pillar.color}22` }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <img src={sub.mockup} alt={sub.mockupAlt} className="w-full h-full object-contain" />
+                          </motion.div>
+                          <div className="grid grid-cols-1 gap-3 flex-1">
+                            {sub.features.map((feat) => (
+                              <motion.div
+                                key={feat.label}
+                                className="rounded-xl p-4 cursor-default"
+                                style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                                whileHover={{ scale: 1.02, boxShadow: `0 0 16px ${pillar.color}33`, borderColor: pillar.color }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                              >
+                                <div className="flex items-start gap-3">
+                                  <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                                  <div>
+                                    <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                                    <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                       <div className="rounded-xl p-4" style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}`, borderTop: `3px solid ${Z.red}` }}>
                         <p className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-2" style={{ color: Z.red }}>
@@ -582,33 +598,27 @@ const Zepto = () => {
                         </ul>
                       </div>
                     </div>
-                  )}
-
-                  {/* Feature Cards */}
-                  <div className={`grid grid-cols-1 ${pillar.mockup ? 'lg:grid-cols-1' : 'md:grid-cols-3'} gap-3 flex-1`}>
-                    {pillar.features.map((feat) => (
-                      <motion.div
-                        key={feat.label}
-                        className="rounded-xl p-4 cursor-default"
-                        style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
-                        whileHover={{
-                          scale: 1.02,
-                          boxShadow: `0 0 16px ${pillar.color}33`,
-                          borderColor: pillar.color,
-                        }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        <div className="flex items-start gap-3">
-                          <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
-                          <div>
-                            <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
-                            <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {pillar.features && pillar.features.map((feat) => (
+                        <motion.div
+                          key={feat.label}
+                          className="rounded-xl p-4 cursor-default"
+                          style={{ background: Z.cardBg, border: `1px solid ${Z.cardBorder}` }}
+                          whileHover={{ scale: 1.02, boxShadow: `0 0 16px ${pillar.color}33`, borderColor: pillar.color }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <feat.icon size={18} className="mt-0.5 shrink-0" style={{ color: pillar.color }} />
+                            <div>
+                              <p className="text-sm font-semibold mb-0.5" style={{ color: Z.charcoal }}>{feat.label}</p>
+                              <p className="text-xs leading-relaxed" style={{ color: Z.muted }}>{feat.desc}</p>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </ScrollFadeIn>
           ))}
