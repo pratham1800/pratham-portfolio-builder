@@ -725,7 +725,7 @@ const Zepto = () => {
       </section>
 
       {/* Tech Architecture */}
-      <section className="px-6 py-20" style={{ background: Z.lavender }}>
+      <section className="px-6 pt-10 pb-20" style={{ background: Z.lavender }}>
         <div className="max-w-6xl mx-auto">
           <ScrollFadeIn>
             <p className="text-sm font-medium tracking-wide uppercase mb-2" style={{ color: Z.purple }}>Technical Architecture</p>
