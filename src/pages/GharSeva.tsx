@@ -283,7 +283,7 @@ const GharSeva = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, type: "spring" }}>
             
-            <AnimatedPill text="Case Study" color={C.orange} />
+            <AnimatedPill text="Project" color={C.orange} />
           </motion.div>
           <motion.h1
             className="text-4xl sm:text-5xl md:text-8xl font-bold mb-4 text-foreground"
